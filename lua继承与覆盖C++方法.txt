@@ -1,0 +1,43 @@
+cocos2dx开发中的lua继承与覆盖C++方法
+
+之前使用metatable来调用C++方法的时候出现了点问题就以为不能使用metatable的方式调用，~~后面再次测试后发现是可以正常使用的~~。
+相对于先保存引用的方式，通过metatable调用的方式更简单些。
+
+经过再次研究代码后发现通过metatable调用C++类成员函数有限制，因为只有在lua绑定(pkg文件)的时候明确定义了的成员函数才会直接出现
+在metatable中，而C++的基类里的成员函数在其metatable的metatable中，继承关系越深，需要查找的metatable越多。
+示例代码如下：
+
+-- 获取基类的某个方法
+-- table C++类或者lua table
+-- methodName 函数名，也可以是成员变量名
+-- return 基类的函数或成员变量值（如果methodName为变量名）
+--          nil 表示找不到
+local function getSuperMethod(table, methodName)
+    local mt = getmetatable(table)
+    local method = nil
+    while mt and not method do
+        method = mt[methodName]
+        if not method then
+            local index = mt.__index
+            if index and type(index) == "function" then
+                method = index(mt, methodName)
+            elseif index and type(index) == "table" then
+                method = index[methodName]
+            end
+        end
+        mt = getmetatable(mt)
+    end
+    return method
+end
+
+
+local MyLayer = class("MyLayer", function()
+    return CCLayer:create()
+end)
+-- override CCLayer::setVisible
+function MyLayer:setVisible(visible)
+    -- invoke CCLayer::setVisible
+    getSuperMethod(self, "setVisible")(self, visible)
+    -- to do something.
+end
+return MyLayer

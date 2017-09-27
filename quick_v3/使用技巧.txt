@@ -1,0 +1,16 @@
+
+1. removeAllChildrenWithCleanup() 绑定的时候名字改为 removeAllChildren()
+
+2. import是quick框架提供的接口,相比require, 这个接口使用的是相对路径。
+
+3. WIN32 下打开模拟器后，在菜单view 下可修改分辨率，和横屏竖屏 (在welcom界面无法修改，必须进入游戏后才可修改)
+
+4. cc.uiloader:seekNodeByName() 该方法实现有错误，应将里面的 parent.name 改为 parent:getName() 即可正确解析。
+
+	用ccs编辑好场景UI后导入到quick3.3使用时，通过cc.uiloader:seekNodeByTag(self,75)可以获取对象，但是通过cc.uiloader.seekNodeByName 或 seekNodeByNameFast都来nil;
+	这是因为用最新的ccs导出的是.csb二进制格式的文件，csb文件uiloader最后调的是ccs的接口来解析的,所以要用ccs的接口来取 如：getChildeByName、getChildByTag
+	
+	像button的事件侦听用addTouchEventListener来侦听按钮事件
+	所有Widget类型的节点都支持addTouchEventListener和addClickEventListener这两个接口
+
+	如果导入的是json的文件可以用cc.uiloader获取，事件可以用addNodeListener，ui.button可以用onButtonClicked等侦听

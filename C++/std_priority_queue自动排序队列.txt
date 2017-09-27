@@ -1,0 +1,62 @@
+
+队列自动按某个字段排序,如下按时间戳排序
+
+struct Telegram
+{
+    int m_sender;
+    int m_receiver;
+    int m_msgId;
+    std::chrono::steady_clock::time_point m_dispatchTime;
+    void* m_extraInfo;
+
+
+    Telegram(float delay,
+           int sender,
+           int receiver,
+           int msg,
+           void* info = NULL): m_sender(sender),
+                                         m_receiver(receiver),
+                                         m_msgId(msg),
+                                         m_extraInfo(info)
+    {
+        if (delay >= 0.0)
+        {
+            m_dispatchTime = std::chrono::steady_clock::now() + std::chrono::milliseconds((int)(delay*1000));
+        }
+    }
+
+    //这里为 priority_queue 重载比较函数 -----(1)
+    friend bool operator<(const Telegram &a,const Telegram &b)
+    {
+        return a.m_dispatchTime > b.m_dispatchTime;  
+    }    
+}
+
+
+使用：
+std::priority_queue<Telegram>msgQ;
+for (int j=0; j<10; j++)
+{
+	Telegram msg(j, 0, 0, 0, NULL);
+	AILOG("@@%d", std::chrono::duration_cast<std::chrono::seconds>(msg.m_dispatchTime.time_since_epoch()).count());
+	msgQ.push(msg);
+}
+
+int len = msgQ.size();
+for (int i = 0; i<len; i++)
+{
+	auto iter = msgQ.top();
+	AILOG("==%d", std::chrono::duration_cast<std::chrono::seconds>(iter.m_dispatchTime.time_since_epoch()).count());
+	msgQ.pop();
+}
+
+上面的(1)也可以放在外部来声明,如
+inline bool operator<(const Telegram& t1, const Telegram& t2)
+{
+    return t1.m_dispatchTime > t2.m_dispatchTime;
+}
+
+
+
+
+

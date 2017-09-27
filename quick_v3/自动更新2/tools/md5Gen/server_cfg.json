@@ -1,0 +1,28 @@
+{
+	"user_platform_host" : "http://u.m543.com",
+	
+	"payment_notifiy_host" : "http://pay.m543.com",
+	
+	"login_host_android" : "http://android.login.sanguomobile2.com",
+	"login_host_ios" : "http://ios.login.sanguomobile2.com",
+	
+	"notice_host_android" : "http://android.notice.sanguomobile2.com/notice/notice",
+	"notice_host_ios" : "http://ios.notice.sanguomobile2.com/notice/notice",
+	
+	"game_version_server" : "2",
+	
+	
+	"updateUrl" : {
+				"url_android":{
+					"checkUrl":"http://101.231.186.12:8081/",
+					"cdnUrl":"http://101.231.186.12:8081/",
+					"cdnUrl2":"http://101.231.186.12:8081/"					
+				},
+				"url_ios":{
+					"checkUrl":"http://ios.update.sanguomobile2.com/", 
+					"cdnUrl":"http://ios.cdn.sanguomobile2.com/",
+					"cdnUrl2":"http://ios.rescdn.sanguomobile2.com/"
+				}
+			},
+	"updateEnabled" : "true"
+}

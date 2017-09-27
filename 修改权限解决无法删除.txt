@@ -1,0 +1,12 @@
+
+比如对目录test进行(删除)操作时提示失败，缺少权限时：
+
+
+1. 以管理员身份执行cmd.exe 
+2. cd 到test目录下
+3. 分别执行如下命令:
+	takeown /f * /a /r   回车输入Y
+	
+	icacls * /t /grant:r everyone:f
+
+4. 然后就可以对该目录或文件进行操作了。

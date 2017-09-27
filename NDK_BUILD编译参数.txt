@@ -1,0 +1,55 @@
+1、ndk-build的用法
+Android NDKr4引入了一个新的、小巧的shell脚本ndk-build，来简化源码编译。
+
+该文件位于NDK根目录，进入你的工程根目录或子目录之后，在命令行下调用即可。例如：
+
+    cd $PROJECT
+
+    $NDK/ndk-build
+
+NDK指向你的NDK的安装目录，PROJECT指向你的Android工程目录。建议将ndk-build所在目录加入PATH环境变量或设置alias。
+
+2、ndk-build的选项
+所有给ndk-build的选项都会直接传给GNU Make，由make运行NDK的编译脚本。几个常见调用方式如下：
+
+ndk-build                   编译
+
+ndk-build clean          清掉二进制文件
+
+ndk-build NDK_DEBUG=1     编译为可调试版的二进制文件
+
+ndk-build NDK_DEBUG=0     编译为release版
+
+ndk-build V=1                       执行ndk-build且打印出它所执行的详细编译命令。
+
+ndk-build -B                          强制重新编译
+
+ndk-build -B V=1                   -B 和 V=1 的组合
+
+ndk-build NDK_LOG=1          打印出内部的NDK日志信息（用于调试NDK自己）
+
+ndk-build NDK_APP_APPLICATION_MK=<文件路径>      用这里指定的路径寻找Application.mk文件
+
+ndk-build -C <project路径>  先cd进入<project路径>，然后执行ndk-build。
+
+3、Debug版本 Vs Release版本
+在NDKr5中，ndk-build做了一些改进，使得在release和debug之间切换更容易了。即通过 NDK_DEBUG 变量：
+
+ndk-build NDK_DEBUG=1    编译出的共享库带调试信息，是debug版本
+
+ndk-build NDK_DEBUG=0    编译出的共享库不带调试信息，是release版本
+
+
+如果没有指定NDK_DEBUG，则会从 AndroidManifest.xml中获取（查看 <application> 元素是否有 android:debuggable="true"）。
+
+注意：如果你的SDK是SDKr8或更高，完全不需要修改AndroidManifest.xml。因为如果你想编译出debug版安装包（在命令行下执行 ant debug或用ADT），
+SDK的工具会自动选择用NDK_DEBUG=1编译出的共享库。NDK编译出的debug版和release版的object文件存放在不同的目录（例如 obj/local/<abi>/objs 和
+ obj/local/<abi>/objs-debug），避免了在release和debug之间切换而重新编译所有文件。
+
+4、ndk-build的使用条件
+总体来说，必须安装GNU Make 3.81 以上版本的make才能正常使用ndk-build和NDK。
+
+
+5、ndk-build的实质
+ndk-build 其实就是对GNU Make的封装，它的目的是调用正确的NDK编译脚本，它等价于 make -f $NDK/build/core/build-local.mk [参数]
+

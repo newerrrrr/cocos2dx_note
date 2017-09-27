@@ -1,0 +1,69 @@
+
+1. 安装android环境：JDK, Python2.7.7, 其中ADT、NDK、ANT解压即可， 其中NDK必须使用r9d以上版本， Python必须使用2.7.6以上版本。
+
+1)其中JDK安装后需要设置下环境变量：
+
+新建 JAVA_HOME ， 其值为 
+	C:\Program Files\Java\jdk1.7.0_67
+
+在path变量后面添加： 
+	%JAVA_HOME%\bin;%JAVA_HOME%\jre\bin
+
+新建 CLASSPATH 其值为  
+	.;%JAVA_HOME%\lib;%JAVA_HOME%\lib\tools.jar
+
+测试是否安装成功：cmd下输入 java -version
+
+2)Python安装好后也要加入到path环境变量中, 否则创建(quick)工程时无法成功。
+	C:\Python27
+	
+ 测试是否安装成功：cmd下输入 python
+
+	
+	
+2. 配置cocos
+   cmd 下执行cocos目录下的 setup.py , 一般会自动匹配 NDK, SDK, ANT路径，如果提示找不到，则依次输入即可，如
+	NDK_ROOT路径： D:\tools\android-ndk-r9
+	SDK_ROOT路径： D:\tools\android-sdks
+	ANT_ROOT路径： D:\tools\apache-ant-1.9.3\bin
+	
+3. 打开 build目录下的 cocos2d-win32.vc2012.sln ，直接编译即可查看ccp_test 或lua_test
+
+4. 创建工程:
+	cmd下cd到cocos目录下，
+	
+	如果要创建的工程需要包含C++源码,以方便调试, 可以修改根目录下的 templates\下对应的模板文件，如
+	lua-template-default\cocos-project-template.json 
+	Line126:
+	
+        "append_x_engine": {
+            "from": "../../",    ---->>>原来是  "from": "." ,这里改为"from": "../../", 指向源码所在的根目录
+            "to": "frameworks/cocos2d-x"
+        },
+	即可将源码拷贝到新创建的项目目录下frameworks\cocos2d-x
+	
+	
+	1) 创建工程 也可以 cmd 进入目录 tools\cocos2d-console\bin 执行命令：
+		cocos.bat new hlblua -p com.hlb.hlblua -l lua -d D:\hlb
+		注意用 cygwin 和 cmd 创建的工程是有区别的！使用cygwin创建的项目在编译时会提示某些目录的权限问题, lua-bindings下Android.mk存放路径也不一样....
+		所以， windows平台最好用 cmd 调用 cocos.bat来创建。
+		
+	2)  创建CPP 项目：
+		cocos new hlbgame -p com.hlb.hlbgame -l cpp -d D:\hlb 
+	即可在D:\hlb\下创建一个新的cpp项目， 进入新项目的目录下可以看到对应不同平台android, win32 ios的工程，打开即可编译
+	
+	3) 创建 Lua 项目：
+		cocos new hlblua -p com.hlb.hlblua -l lua -d D:\hlb
+	即可在D:\hlb\下创建一个新的lua项目, 与CPP项目不同，新项目的目录下看不到win32, android 或ios的工程. 
+	lua 项目是通过 命令行来编译和运行的。比如希望在win32下执行新项目，则cd到新项目路径下，运行如下命令：
+		cocos run -p win32
+	编译成功即可看到模拟器的运行. 
+	同时在目录frameworks\runtime-src\下生成 proj.win32 工程， 直接用VS打开即可运行.
+	
+
+	
+	4) quick 一般使用 quick player界面来创建
+	
+	
+注：用vs2012编译时会提示很多头文件找不到，包括标准库中的头文件；可以尝试将VS2012更新下：vs 菜单工具/扩展和更新/更新....
+

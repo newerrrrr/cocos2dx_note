@@ -1,0 +1,109 @@
+
+一.注册账号，新建仓库 
+	1)使用firefox浏览器登录www.github.com注册一个账号, 我的账号为 chenhlb8055@gmail.com, 密码 hlb11612360
+
+	2)然后点击右上角个人头像，点击”profile”，进入界面后。点击”Repositories”进入，仓库界面，点击右方的”New”即可新建一个新仓库了。
+
+二.下载Git 
+	地址：https://git-scm.com/downloads 
+	然后默认安装即可。
+
+三、配置git
+	1)创建本地的ssh key。双击Git Bash(即安装好的git客户端命令窗口自),出现命令行界面。
+	输入 ssh -keygen -t rsa -C chenhlb8055@gmail.com
+	然后一路回车，采用默认路径和空密码。接着会在默认路径下生成.ssh的文件夹，用编辑器打开id_rsa.pub复制里面的密钥。该文件一般
+	存放在 C:\Users\huanglibo\.ssh\目录下
+	
+	2)网页上进入github，点击头像上的”Setting”，左侧有个SSH Keys，点击它，进入页面。
+	点击右侧的”Add SSH key”，自己输入一个标题，然后把密钥赋值进去即可。
+
+	3)测试一下是否成功，进入Git Bash，输入 ssh -T git@github.com,第一次会提示，是否continue，yes后就会看到：
+	You’ve successfully authenticated, but GitHub does not provide shell access。这就说明成功了。
+	
+	4)设置用户名和邮箱。输入如下两行命令
+	git config --global user.name hlb8055
+	git config --global user.email chenhlb8055@gmail.com
+	
+	
+	
+四、仓库的初始化
+	1)选择你代码所在的文件夹，鼠标右键，“Git Bash Here”，进入。然后输入命令：git init，创建本地git
+	
+	2)注意确保在浏览器里创建一个仓库名,如 hlbSale
+	
+	3)然后给仓库添加远程地址，输入命令： 
+		git remote add origin git@github.com:yourName/yourRepo.git
+		
+		yourName是你的用户名，yourRepo是你的仓库名。例如我的就是hlb8055/hlbSale.git
+	
+	3)接着输入命令：git pull --rebase origin master 将github上仓库的文件和本地文件同步。第一次可能会提示
+		Couldn't find remote ref master, 忽略
+	
+五、上传代码
+	1)输入命令：git add test.cpp可以选择需要上传的单文件，或者git add -A，将当前目录下的所有文件上传。
+	  或者目录某一个文件夹: git add "XXX", 其中XXX表示目录路径 如 frameworks/runtime-src/Classes
+	  可以同时添加多个目录git add "XXX1" "XXX2"
+	  
+	2)第一步之后，git commit -m "XXX" 上传文件，双引号内为文件的一些描述，多文件会统一使用这个描述。
+	
+	3)最后，输入命令：git push -u origin master即可将文件将文件同步到github上了。
+	  这一步可能会报错找不到远程仓库,那么在
+	
+	之后想要上传、更新，重复第五步即可。
+	
+	工程太大的时候，最好是分开来重复第五步来上传.(因为规定单个文件大小不能超过50MB,而编译产生的map文件有可能超了，如win32目录下)
+	
+六、下载代码
+	在网页github上，查看某个项目时，点fork标签，可以看到 clone and download 按钮，点击可以看到项目的url:
+	https://github.com/hlb8055/hlbSale.git , 复制该url；
+	
+	在本地上右键鼠标 选择 Git Bash Here, 随机打开 Git Bash命令窗口,输入命令：
+	git clone https://github.com/hlb8055/hlbSale.git
+	即可下载到本地上
+
+	
+	
+	
+七、IOS git使用
+	1)MAC上最好的GIT免费GUI工具是SourceTree, 下载安装 https://www.sourcetreeapp.com
+	2)注册账号与git账号相同 chenhlb8055@gmail.com
+	3)打开Source Tree，按提示填入相关信息；
+	4）界面上 显示的远端 github项目，当点克隆时，可能会提示 这是一个无效的URL，可如下修改：SourceTree菜单/偏好设置，
+	弹出的界面，选中账户，双击该账户，修改授权类型为 基础，协议 为 https， 用户名：hlb8055，密码与账号密码一致。
+
+	
+	
+	
+注意:
+	1)当执行push操作时报错，提示其他上传者已经做了修改，需要先pull一下;
+	  而当执行 pull --rebase 时也会报错，error: Cannot pull with rebase: You have unstaged changes. 
+	  因为你本地也做了修改，所以可先备份一下本地，再上传，再恢复本地修改:
+	  git stash   		#暂存当前正在进行的工作
+	  git pull –rebase
+	  git stash pop  	#从Git栈中读取最近一次保存的内容
+	  
+	  之后就可以push上传了
+	  
+	2)修改文件名,无法识别出大小，可执行命令: git config core.ignorecase false 
+	  之后就可以识别了，但上传后发现原先的文件并未被删除,我的做法比较懒,先将整个目录删除，再重新上传吧，呵呵
+	  删除src目录的命令为 (git rm -r src)
+	
+	
+	  
+	3)常用命令
+		[1]git status 
+		[2]git add 
+			git add <path> 把<path>添加到索引库中，<path>可以是文件也可以是目录。
+						   git不仅能判断出<path>中，修改（不包括已删除）的文件，还能判断出新添的文件，
+						   并把它们的信息添加到索引库中。		
+			
+			git add -u [<path>]: 把<path>中所有tracked文件中被修改过或已删除文件的信息添加到索引库。
+								 它不会处理untracted的文件。省略<path>表示.,即当前目录。
+								 
+		git commit
+		git push
+	
+	
+
+	
+	

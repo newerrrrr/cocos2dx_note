@@ -1,0 +1,15 @@
+在lua环境下退出:
+
+  cc.Director:getInstance():endToLua()
+  local target = cc.Application:getInstance():getTargetPlatform()
+  if target == cc.PLATFORM_OS_IPHONE or target == cc.PLATFORM_OS_IPAD then
+    os.exit(0)
+  end
+  
+
+在C++环境下退出:  
+#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+	exit(0);
+#else 
+	Director::getInstance()->end();
+#endif

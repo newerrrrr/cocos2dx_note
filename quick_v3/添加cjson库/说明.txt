@@ -1,0 +1,19 @@
+
+1.必须使用这里对应的cjson库文件，因为已经修改了很多语法和编译问题
+
+2. win32项目工程 属性 -> C/C++ -> 高级  , 右边列表中值:  编译为 --> C++代码(/TP)
+
+3. appdelegate.cpp :
+	#include "cjson/lua_cjson.h"
+	
+	bool AppDelegate::applicationDidFinishLaunching()
+	{
+		...
+		luaopen_cjson(L);
+	}
+	
+
+	编译成功即可在lua使用了，如：
+		local str = "{\"aaa\":\"bbb\"}"
+		local tt = cjson.decode(str)
+		

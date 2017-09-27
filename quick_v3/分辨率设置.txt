@@ -1,0 +1,66 @@
+cocos2dx v3.x 
+1.目录src/的config.lua
+CC_DESIGN_RESOLUTION = {
+    width = 768, <----
+    height = 1024, <----
+    autoscale = "FIXED_HEIGHT", <----
+    callback = function(framesize)
+        local ratio = framesize.width / framesize.height
+        if ratio <= 1.34 then
+            -- iPad 768*1024(1536*2048) is 4:3 screen
+            return {autoscale = "FIXED_WIDTH"}
+        end
+    end
+}
+可以修改设计尺寸和缩放类型autoscale 
+
+2.win32屏幕大小在项目根目录下的config.json 修改
+    "init_cfg":{
+       "isLandscape": true,
+       "isWindowTop": false,
+       "name": "hlb_AI",
+       "width": 1280,  <----
+       "height": 720,  <----
+       "entry": "src/main.lua",
+       "consolePort": 6050,
+       "uploadPort": 6060
+    },
+
+
+	
+
+
+quick：
+1. 项目下的 config.lua 设置 如下3个参数
+
+	-- screen orientation
+	CONFIG_SCREEN_ORIENTATION = "portrait"
+
+	-- design resolution
+	CONFIG_SCREEN_WIDTH  = 640
+	CONFIG_SCREEN_HEIGHT = 960
+
+	-- auto scale mode
+	CONFIG_SCREEN_AUTOSCALE = "FIXED_WIDTH"
+	
+2. quick源码 ProjectConfig.cpp 在其构造 函数
+
+	ProjectConfig::ProjectConfig()
+		: _isWelcome(false)
+		, _scriptFile("$(PROJDIR)/src/main.lua")
+		, _writablePath("")
+		, _packagePath("")
+		, _frameSize(640, 960) --修改你想要的分辨率 
+	
+	
+
+	这样， 每次打开player的时候，就默认为指定的分辨率了 ！！
+
+
+3. 分辨率自适应
+	以宽为基准, 等比例缩放, 直到显示已达到屏幕宽度或高度的最大值:
+    auto size = glview->getFrameSize();
+    glview->setDesignResolutionSize(1136, size.height*1136/size.width, ResolutionPolicy::SHOW_ALL);	
+
+
+

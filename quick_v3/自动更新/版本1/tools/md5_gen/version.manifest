@@ -1,0 +1,10 @@
+{
+	"packageUrl" : "http://118.143.212.91:82/",
+	"packageUrl2" : "http://118.143.212.91:82/",
+	"remoteVersionUrl" : "/version.manifest", 
+	"remoteManifestUrl" : "/project.manifest.zip",
+	"engineVersion" : "3.0 beta",
+	"version" : "0.3.0.3",
+    "searchPaths" : [
+    ]	
+}

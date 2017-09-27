@@ -1,0 +1,80 @@
+
+先下载所需资源：
+	https://github.com/cloudwu/pbc 下载pbc源码包： pbc-master.zip 
+
+	CSDN下载 protoc-2.4.1-win32.zip ： 里面包含一个可执行文件 protoc.exe ，用来将proto文件生成pb二进制文件.
+
+
+	
+1) pb文件生成脚本编写
+   在存放proto文件的位置编写生成pb的脚本，本例使用win脚本 pbcreate.bat, 放在res\下，内容如下:
+   
+@echo off
+set DIR=%~dp0
+set DIR=%DIR%pbs\
+cd /d "%DIR%"
+
+echo "start to build proto to pb..."
+
+setlocal enabledelayedexpansion
+for /r %%i in (*.proto) do ( 
+	set pbname=%%i 
+	set pbname=!pbname:~0,-5!b
+	..\..\tools\protoc-generator\protoc -I %DIR% --descriptor_set_out !pbname! %%i 
+)
+echo "finished"
+pause
+
+
+	其中tools\protoc-generator\ 存放protoc.exe 
+
+2) 将 pbc-master.zip解压后放到 src\app\class\下, 并修改 pbc-lua.c ,在里面加入头文件 #include "pbc-lua.h" .
+
+
+
+3) 集成到 Win32 VS： 
+	frameworks\runtime-src\proj.win32\打开 sln工程,  在左边 右键解决方案-->添加-->现有项目， 选择pbc项目下 pbc.vcxproj 文件；
+	
+	导入的pbc.vcxproj 项目后，要保证pbc.vcxproj 中将pb-lua.h 包含进来
+	
+	接下来修改启动工程的项目属性： 
+	右键 lianliankan 工程项目>>属性>>通用属性>>添加新引用>>选择刚导入的pbc项目>>确定
+	
+	修改 AppDelegate.cpp ，导入pbc的lua接口:
+		#include "pbc-lua.h"
+		...
+		
+		static void custom_module_register(lua_State *L)
+		{
+			lua_getglobal(L, "_G");
+			if (lua_istable(L, -1))//stack:...,_G,
+			{
+				luaopen_protobuf_c(L); //protobuf
+				....
+			}
+			lua_pop(L, 1);
+		}
+	
+	编译整个工程, 如果是路径问题, 则在属性里C++属性里添加头文件路径即可.
+	
+	
+4) 使用：
+   将pbc项目的pbc-master\binding\lua\protobuf.lua复制到自己项目的lua目录下。
+   
+   这里新建立个lua文件封装了下接口: pb.load(pb_file) , pb.encode(pattern,data), pb.decode(pattern,data) 
+   
+   先 pb.load() 注册后, 才能  pb.encode() 和  pb.decode()
+   
+   上面到参数格式： pattern = [pkg_name] msg_name 
+   
+   具体使用可参考  PbRegister.lua 
+   
+   
+
+   注：pbc模块注册函数 luaopen_protobuf_c()下面会调用 luaL_newlib() ---> #define luaL_newlib(L ,reg) luaL_register(L,"protobuf.c",reg)
+	   这里注册库的同时定义了库的别名 protobuf.c , 所以在protobuf.lua 文件中就可以加载这个库 local c = require "protobuf.c"
+	   
+	   
+
+	
+	

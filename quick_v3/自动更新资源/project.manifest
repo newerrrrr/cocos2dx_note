@@ -1,0 +1,20 @@
+{
+	"packageUrl" : "http://10.103.252.67:8081/hlb_test",
+	"remoteManifestUrl" : "http://10.103.252.67:8081/hlb_test/project.manifest",
+	"version" : "1.0.1",
+	"engineVersion" : "3.0 beta",
+
+	"assets" : {
+		"img/item_source.png" : {
+			"md5" : "123456780"
+		},
+		
+        "common.zip" : {
+            "md5" : "9876543210",
+            "compressed" : true
+        }
+	},
+    
+    "searchPaths" : [
+    ]
+}

@@ -1,0 +1,31 @@
+语音聊天:支持录制与播放语音
+
+
+
+1. android 使用3gp/amr录音 AndroidManifest.xml需要添加录音权限:	<uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+	ios 录制成wav后通过第三方库 opencore 来转换成amr格式, 注意ios录制参数必须是 采样率8000, 单通道, 并且是PCM ,这样录制的才是wav数据.
+
+	录制名必须带后缀名 .wav, 否则会自动编码成acf格式 而不是我们期望的wav格式.
+	
+2. 调试过程中出现的问题及解决方法
+
+	android端使用 MediaRecorder来录制,查看amr文件,发现是默认是3gp封装的数据, 所以在ios端收到android端的语音数据的时候，
+	使用opencore解析一直失败，原因是 opencore 把它当成amr来解析了.
+	解决办法：重新找一份opencore, 支持 3gp-> amr ->wav
+
+
+3. ios 加入库步骤
+	在xcode工程中,
+	Build Phases —>Link Binary With Libraries 下添加opencore库 
+	Build Settings —>Search Paths —>Library Search Paths 下添加库文件的搜索目录
+
+	该opencore库编译的时候不支持bitcode,所以如果要支持的话需要重新自行下载opencore并编译成静态库;
+	工程中可从 Build Settings —>Build Options —>Enable Bitcode 设置 支持/禁止 bitcode选项
+	
+	
+	
+	
+	
+
+

@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      package="com.sanguomobile2.app.android.tw"
+      android:versionCode="8"
+      android:versionName="8.0"
+      android:installLocation="auto">
+
+    <uses-sdk android:minSdkVersion="9"
+        android:targetSdkVersion="22"/>
+    <uses-feature android:glEsVersion="0x00020000" />
+    
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="getui.permission.GetuiService.com.sanguomobile2.app.android.tw" />
+    <permission
+        android:name="getui.permission.GetuiService.com.sanguomobile2.app.android.tw"
+        android:protectionLevel="normal" >
+    </permission>
+    
+	<!-- 网络权限 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- google wallet支持 -->
+    <uses-permission android:name="com.android.vending.BILLING" />
+    <!-- 访问手机状态需要的权限 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 判断手机当前是否接入网络需要的权限 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 访问wifi的权限 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 退出系统使用 -->
+    <uses-permission android:name="android.permission.RESTART_PACKAGES" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
+    <!-- sdk的访问权限 -->
+    <!-- 防止手机睡眠，保持手机活动状态 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- 蓝牙权限 -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <!-- 手机震动权限 -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <!-- G+ -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+
+    <!-- read/write sdcard permission -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+    
+    <!-- Required to access Android Market Licensing -->
+    <uses-permission android:name="com.android.vending.CHECK_LICENSE" />
+    <!-- Get google account -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+	
+	<!-- alipay permission -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+    
+    <!-- mycard permission -->
+    <uses-permission android:name="android.permission.CAMERA" />
+	<uses-feature android:name="android.hardware.camera" />
+	<uses-feature android:name="android.hardware.camera.autofocus" />
+	<uses-permission android:name="android.permission.FLASHLIGHT" />
+	<uses-permission android:name="android.permission.READ_LOGS" />
+	
+    <application android:name="tw.com.mycard.sdk.libs.PSDKApplication"
+        		 android:label="@string/app_name"
+                 android:icon="@drawable/icon">
+					 
+        <!-- Tell Cocos2dxActivity the name of our .so -->
+        <meta-data android:name="android.app.lib_name"
+                  android:value="cocos2dlua" />
+		
+		<!-- 非googleplay分包请用这个 start-->
+        <activity android:name="com.sanguomobile2.app.android.tw.MainActivity"
+                  android:label="@string/app_name"
+                  android:screenOrientation="landscape"
+                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+                  android:configChanges="screenSize|keyboardHidden|orientation"
+                  android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+		<!-- 非googleplay分包请用这个 end -->
+		
+		<!-- Google play 分包start -->
+		<!-- 请务必把client_params.json 里的download_channel的值指定为 googleplay 
+        <activity
+            android:name="com.sanguomobile2.app.android.tw.LoadResourceActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter> 
+        </activity>
+		
+        <service android:name="com.sanguomobile2.app.android.tw.GameDownloaderService" />
+        <receiver android:name="com.sanguomobile2.app.android.tw.GameAlarmReceiver" />
+		
+
+		<activity android:name="com.sanguomobile2.app.android.tw.MainActivity"
+				  android:alwaysRetainTaskState="true"
+				  android:configChanges="keyboardHidden|orientation|screenSize"
+				  android:label="@string/app_name"
+				  android:screenOrientation="landscape"
+				  android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+		 Google play 分包end -->
+
+        <!-- FB START -->
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!-- FB　end -->
+		
+		<!-- alipay sdk begin -->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind" >
+        </activity>
+        <activity
+            android:name="com.alipay.sdk.auth.AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind" >
+        </activity>
+        <!-- alipay sdk end -->
+
+		<!-- mycard sdk begin -->
+		<activity
+		android:name="soft_world.mycard.paymentapp.ui.SplashActivity"
+		android:screenOrientation="portrait" >
+		</activity>
+		<activity
+		android:name="soft_world.mycard.paymentapp.ui.MainActivity"
+		android:screenOrientation="portrait"
+		android:windowSoftInputMode="adjustPan" >
+		</activity>
+		<activity
+		android:name="soft_world.mycard.paymentapp.ui.TrainActivity"
+		android:screenOrientation="portrait" >
+		</activity>
+		<activity
+		android:name="com.google.zxing.CaptureActivity"
+		android:screenOrientation="portrait" >
+		</activity>
+		<activity
+		android:name="tw.com.mycard.paymentsdk.PSDKActivity"
+		android:screenOrientation="portrait" >
+		</activity>
+		<activity
+		android:name="soft_world.mycard.paymentapp.ui.billing.BillingWebViewActivity"
+		android:screenOrientation="portrait"
+		android:theme="@android:style/Theme.Dialog" >
+		</activity>
+		<!-- 異康 -->
+		<activity
+		android:name="soft_world.mycard.paymentapp.Ecom.ATMMenuActivity"
+		android:screenOrientation="portrait" >
+		</activity>
+		<activity
+		android:name="com.xmobilepay.xpaymentlibs.XCardTypeForm"
+		android:screenOrientation="portrait" >
+		</activity>
+		<activity
+		android:name="com.xmobilepay.xpaymentlibs.XPayCardPassWordForm"
+		android:screenOrientation="portrait" >
+		</activity>
+		<activity
+		android:name="com.xmobilepay.xpaymentlibs.XSmallPayCardPassWordForm"
+		android:screenOrientation="portrait" >
+		</activity>
+		<activity
+		android:name="com.xmobilepay.xpaymentlibs.PaymentResultForm"
+		android:screenOrientation="portrait" >
+		</activity>
+		<activity
+		android:name="com.xmobilepay.xpaymentlibs.PaymentErrResultForm"
+		android:screenOrientation="portrait" >
+		</activity>
+		<!-- 遠傳電信 -->
+		<activity
+		android:name="com.fet.iap.activity.FetLoginActivity"
+		android:configChanges="keyboardHidden|orientation|screenSize"
+		android:theme="@android:style/Theme.Translucent.NoTitleBar"
+		android:windowSoftInputMode="adjustPan" >
+		</activity>
+		<!-- 中華電信 -->
+		<activity android:name="com.cht.iap.api.ChtRegMainActivity" />
+		<activity android:name="com.cht.iap.api.ChtPhoneNumPayConfirmActivity" />
+		<activity android:name="com.cht.iap.api.ChtRegEInvoiceInfo" />
+		<activity android:name="com.cht.iap.api.ChtRegVerifyOTP" />
+		<activity android:name="com.cht.iap.api.ChtRegHNDataTabActivity" />
+		<activity android:name="com.cht.iap.api.ChtRegHNAccountActivity" />
+		<activity android:name="com.cht.iap.api.ChtRegMobileAuth" />
+		<activity android:name="com.cht.iap.api.ChtRegMobileHNData" />
+		<activity android:name="com.cht.iap.api.ChtTransactionAuth" />
+		<activity android:name="com.cht.iap.api.ChtRegVerifyMessage" />
+		<!-- 中國信託 -->
+		<activity
+		android:name="com.softmobile.ui.PayPageActivity"
+		android:configChanges="orientation"
+		android:screenOrientation="portrait" />
+		<!-- 首信易 -->
+		<activity
+		android:name="com.payeasenet.token.lib.ui.TokenPayTypeCheckUI"
+		android:screenOrientation="portrait"
+		android:theme="@android:style/Theme.Light.NoTitleBar" />
+		<activity
+		android:name="com.payeasenet.token.lib.ui.CardTypeCheckUI"
+		android:screenOrientation="portrait"
+		android:theme="@android:style/Theme.Light.NoTitleBar" />
+		<activity
+		android:name="com.payeasenet.token.lib.ui.TokenCreateUI"
+		android:screenOrientation="portrait"
+		android:theme="@android:style/Theme.Light.NoTitleBar" >
+		</activity>
+		<activity
+		android:name="com.payeasenet.token.lib.ui.TokenCreateResultUI"
+		android:screenOrientation="portrait"
+		android:theme="@android:style/Theme.Light.NoTitleBar" />
+		<activity
+		android:name="com.payeasenet.token.lib.ui.TokenPayUI"
+		android:screenOrientation="portrait"
+		android:theme="@android:style/Theme.Light.NoTitleBar" />
+		<activity
+		android:name="com.payeasenet.token.lib.ui.PEPayRelUI"
+		android:screenOrientation="portrait"
+		android:theme="@android:style/Theme.Light.NoTitleBar" />
+		<activity
+		android:name="com.payeasenet.token.lib.ui.TokenIntroductionUI"
+		android:screenOrientation="portrait"
+		android:theme="@android:style/Theme.Light.NoTitleBar" >
+		</activity>
+		<activity
+		android:name="com.payeasenet.token.lib.ui.TokenUnBindedUI"
+		android:screenOrientation="portrait"
+		android:theme="@android:style/Theme.Light.NoTitleBar" >
+		</activity>
+		<activity
+		android:name="com.payeasenet.token.lib.ui.MoreAboutUI"
+		android:screenOrientation="portrait"
+		android:theme="@android:style/Theme.Light.NoTitleBar" />
+		<activity
+		android:name="com.payeasenet.token.lib.ui.PEUpopInfoUI"
+		android:screenOrientation="portrait"
+		android:theme="@android:style/Theme.Light.NoTitleBar" />
+		<activity
+		android:name="com.payeasenet.token.lib.ui.PEUpopPayUI"
+		android:screenOrientation="portrait"
+		android:theme="@android:style/Theme.Light.NoTitleBar" />
+		<activity
+		android:name="com.payeasenet.token.lib.ui.PEIvrPayUI"
+		android:screenOrientation="portrait"
+		android:theme="@android:style/Theme.Light.NoTitleBar" />
+		<activity
+		android:name="com.payeasenet.token.lib.ui.PEQuickPayUI"
+		android:screenOrientation="portrait"
+		android:theme="@android:style/Theme.Light.NoTitleBar" />
+		<activity
+		android:name="com.payeasenet.token.lib.ui.PEUpmpPayUI"
+		android:screenOrientation="portrait"
+		android:theme="@android:style/Theme.Light.NoTitleBar" />
+		<activity
+		android:name="com.payeasenet.token.lib.ui.PEVisaPayUI"
+		android:screenOrientation="portrait"
+		android:theme="@android:style/Theme.Light.NoTitleBar" />
+		<activity
+		android:name="com.payeasenet.token.lib.ui.PEVisaInfoUI"
+		android:screenOrientation="portrait"
+		android:theme="@android:style/Theme.Light.NoTitleBar" />
+		<activity
+		android:name="com.payeasenet.token.lib.ui.PEVisaBillInfoUI"
+		android:screenOrientation="portrait"
+		android:theme="@android:style/Theme.Light.NoTitleBar" />
+		<activity
+		android:name="com.payeasenet.token.lib.ui.PEDebitBillInfoUI"
+		android:screenOrientation="portrait"
+		android:theme="@android:style/Theme.Light.NoTitleBar" />
+		<activity
+		android:name="com.payeasenet.token.lib.ui.PEQuickInfoUI"
+		android:screenOrientation="portrait"
+		android:theme="@android:style/Theme.Light.NoTitleBar" />
+		<activity
+		android:name="com.payeasenet.token.lib.ui.PEUpmpInfoUI"
+		android:screenOrientation="portrait"
+		android:theme="@android:style/Theme.Light.NoTitleBar" />
+		<!-- mycard sdk end -->
+		
+		<!-- push notification start -->
+        <meta-data
+            android:name="PUSH_APPID"
+            android:value="Ea4rIcKhBzAwEXOlqVEwO4" />
+        <meta-data
+            android:name="PUSH_APPKEY"
+            android:value="IYx9guFyT98xZFUCbSAxv1" />
+        <meta-data
+            android:name="PUSH_APPSECRET"
+            android:value="EnRYVMokEaAdpXFzTWULq9" />
+        <service
+            android:name="com.igexin.sdk.PushService"
+            android:exported="true"
+            android:label="NotificationCenter"
+            android:process=":pushservice" >
+            <intent-filter>
+                <action android:name="com.igexin.sdk.action.service.message" />
+            </intent-filter>
+        </service>
+        <service
+            android:name="com.igexin.sdk.PushServiceUser"
+            android:exported="true"
+            android:label="NotificationCenterUser" />
+			
+		<!--The AppsFlyer Install Receiver is first and will broadcast to all receivers placed below it -->
+		<receiver android:name="com.appsflyer.MultipleInstallBroadcastReceiver" android:exported="true">
+		  <intent-filter>
+			 <action android:name="com.android.vending.INSTALL_REFERRER" />
+		  </intent-filter>
+		</receiver>
+
+        <receiver android:name="com.igexin.sdk.PushReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="com.igexin.sdk.action.refreshls" />
+                <!-- 以下三项为可选的action声明，可⼤⼤提⾼service存活率和消息到达速度 -->
+                <action android:name="android.intent.action.MEDIA_MOUNTED" />
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.igexin.sdk.PushManagerReceiver"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.igexin.sdk.action.pushmanager" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name="com.igexin.sdk.PushActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:process=":pushservice"
+            android:taskAffinity="com.igexin.sdk.PushActivityTask"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name="com.igexin.sdk.GActivity"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:process=":pushservice"
+            android:taskAffinity="com.igexin.sdk.PushActivityTask"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <service
+            android:name="com.igexin.download.DownloadService"
+            android:process=":pushservice" />
+
+        <receiver android:name="com.igexin.download.DownloadReceiver" >
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+        <provider
+            android:name="com.igexin.download.DownloadProvider"
+            android:authorities="downloads.com.sanguomobile2.app.android.tw"
+            android:exported="true"
+            android:process=":pushservice" /> 
+			
+        <!-- push notification end -->
+		
+		<provider android:authorities="com.facebook.app.FacebookContentProvider1059981130760071"
+          android:name="com.facebook.FacebookContentProvider"
+          android:exported="true"/>
+		
+		<meta-data android:name="com.google.android.gms.version"
+			android:value="@integer/google_play_services_version" />
+			
+    </application>
+
+    <supports-screens android:anyDensity="true"
+                      android:smallScreens="true"
+                      android:normalScreens="true"
+                      android:largeScreens="true"
+                      android:xlargeScreens="true"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>  
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>  
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>  
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>  
+    
+  	<uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+ 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+	<uses-permission android:name="android.permission.RECORD_AUDIO" />
+</manifest> 

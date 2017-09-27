@@ -1,0 +1,190 @@
+
+目前 3.x 版本，在C++中调用lua回调函数, 使用tolua无法自动生成, 所以需要手动添加代码，cocos2dx 统一使用 ScriptHandlerMgr 来管理lua回调。
+
+举例：在lua中注册回调函数，供C++调用。
+
+1. 在中间协议文件 lua_AStarPath_manual.cpp 中添加注册/反注册 转换函数:
+
+	//注册
+	static int lua_AStarPath_AStarPath_registerScriptHandler(lua_State* tolua_S)
+	{
+		if (NULL == tolua_S)
+			return 0;
+		
+		int argc = 0;
+		AStarPath* self = nullptr;
+		
+	#if COCOS2D_DEBUG >= 1
+		tolua_Error tolua_err;
+		if (!tolua_isusertype(tolua_S,1,"cc.AStarPath",0,&tolua_err)) goto tolua_lerror;	//注册对象必须是 cc.AStarPath
+	#endif
+		
+		self = static_cast<AStarPath *>(tolua_tousertype(tolua_S,1,0));
+	#if COCOS2D_DEBUG >= 1
+		if (nullptr == self) {
+			tolua_error(tolua_S,"invalid 'self' in function 'tolua_cocos2d_Node_registerScriptHandler'\n", NULL);
+			return 0;
+		}
+	#endif
+		
+		argc = lua_gettop(tolua_S) - 1;
+		
+		if (argc == 1)	//只有1个参数时, 传入的即是 回调函数
+		{
+	#if COCOS2D_DEBUG >= 1
+			if(!toluafix_isfunction(tolua_S,2,"LUA_FUNCTION",0,&tolua_err))
+				goto tolua_lerror;
+	#endif
+			
+			LUA_FUNCTION handler = toluafix_ref_function(tolua_S,2,0);	//转成lua函数句柄
+			ScriptHandlerMgr::getInstance()->addObjectHandler((void*)self, handler, ScriptHandlerMgr::HandlerType::CALLFUNC); 
+
+			return 0;
+		}
+		
+		luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d\n", "cc.AStarPath:registerScriptHandler",argc, 1);
+		return 0;
+
+	#if COCOS2D_DEBUG >= 1
+	tolua_lerror:
+		tolua_error(tolua_S,"#ferror in function 'lua_AStarPath_AStarPath_registerScriptHandler'.",&tolua_err);
+		return 0;
+	#endif
+	}
+
+	//反注册
+	static int lua_AStarPath_AStarPath_unregisterScriptHandler(lua_State* tolua_S)
+	{
+		if (NULL == tolua_S)
+			return 0;
+		
+		int argc = 0;
+		AStarPath* self = nullptr;
+		
+	#if COCOS2D_DEBUG >= 1
+		tolua_Error tolua_err;
+		if (!tolua_isusertype(tolua_S,1,"cc.AStarPath",0,&tolua_err)) goto tolua_lerror;
+	#endif
+		
+		self = static_cast<AStarPath *>(tolua_tousertype(tolua_S,1,0));
+	#if COCOS2D_DEBUG >= 1
+		if (nullptr == self) {
+			tolua_error(tolua_S,"invalid 'self' in function 'lua_AStarPath_AStarPath_unregisterScriptHandler'\n", NULL);
+			return 0;
+		}
+	#endif
+		
+		argc = lua_gettop(tolua_S) - 1;
+		
+		if (argc == 0)
+		{
+			ScriptHandlerMgr::getInstance()->removeObjectHandler((void*)self, ScriptHandlerMgr::HandlerType::CALLFUNC);
+			return 0;
+		}
+		
+		luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d\n", "cc.AStarPath:unregisterScriptHandler", argc, 0);
+		return 0;
+		
+	#if COCOS2D_DEBUG >= 1
+	tolua_lerror:
+		tolua_error(tolua_S,"#ferror in function 'lua_AStarPath_AStarPath_unregisterScriptHandler'.",&tolua_err);
+		return 0;
+	#endif
+	}	
+	
+
+2. 在lua中使用：
+
+    self.astarObj = cc.AStarPath:create(8, 8, 60, false)
+    local function testFunc()
+        print("############### testFunc")
+        return 2
+    end 
+    self.astarObj:registerScriptHandler(testFunc)
+	
+    self.astarObj:unregisterScriptHandler()
+	
+3. 在C++中使用:
+
+	AStarPath.cpp中使用：
+	
+	//#include "cocos2d/LuaScriptHandlerMgr.h"
+	//#include "CCLuaEngine.h"
+	
+bool AStarPath::isWalkable(int grid_x, int grid_y)
+{
+    int result = 0;
+    int handler = ScriptHandlerMgr::getInstance()->getObjectHandler((void*)this, ScriptHandlerMgr::HandlerType::CALLFUNC);
+    if (0 != handler)
+    {        
+        LuaStack* stack = LuaEngine::getInstance()->getLuaStack();
+        lua_State* L = stack->getLuaState();
+        
+        lua_newtable(L);
+        tolua_pushnumber(L, (lua_Number)grid_x); 	//将2个坐标作为参数传给lua
+        tolua_pushnumber(L, (lua_Number)grid_y);
+        result = stack->executeFunctionByHandler(handler, 2);
+        stack->clean();
+    }
+
+    return result > 0;
+}
+
+	
+	至此编译后即可.
+	
+	
+	
+	
+	
+	附录：
+	
+	这里举例注册与反注册函数中参数只有 1 个，即 lua 传入的回调函数， 可以根据需要修改代码。
+	
+	可参考 tolua_cocos2d_Layer_registerScriptTouchHandler() 
+    argc = lua_gettop(tolua_S) - 1;
+    
+    if (argc >=1 && argc <= 4) {
+#if COCOS2D_DEBUG >= 1
+        if (!toluafix_isfunction(tolua_S,2,"LUA_FUNCTION",0,&tolua_err)) {
+            goto tolua_lerror;
+        }
+#endif
+        LUA_FUNCTION handler = toluafix_ref_function(tolua_S,2,0);
+        bool isMultiTouches  = false;
+        int  priority        = 0;
+        bool swallowTouches  = true;
+        
+        if (argc >= 2) {
+#if COCOS2D_DEBUG >= 1
+            if (!tolua_isboolean(tolua_S,3,0,&tolua_err)) {
+                goto tolua_lerror;
+            }
+#endif
+            isMultiTouches = (bool)tolua_toboolean(tolua_S,3,false);
+        }
+        
+        if (argc >= 3) {
+#if COCOS2D_DEBUG >= 1
+            if (!tolua_isnumber(tolua_S,4,0,&tolua_err)) {
+                goto tolua_lerror;
+            }
+#endif
+            priority = (int)tolua_tonumber(tolua_S,4,0);
+        }
+        
+        if (argc == 4) {
+#if COCOS2D_DEBUG >= 1
+            if (!tolua_isboolean(tolua_S,5,0,&tolua_err)) {
+                goto tolua_lerror;
+            }
+#endif
+            swallowTouches = (bool)tolua_toboolean(tolua_S,5,true);
+        }	
+	
+	
+	
+	
+	
+	
+

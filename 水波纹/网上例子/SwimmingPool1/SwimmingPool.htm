@@ -1,0 +1,72 @@
+<html>
+
+<head>
+<title>OpenGL</title>
+<META NAME="keywords" CONTENT="OpenGL, tutorial, game, programming, CodeColony, Philipp Crocoll, camera, links, intro, simple, programming, development, 3d, RedBook">
+<META NAME="description" CONTENT="Here you can find a lot of sample code and tutorials for game programming and OpenGL using GLUT.">
+</head>
+
+<body stylesrc="http://buggy/codecolony/home.htm" bgcolor="#000000" text="#FF0000" link="#ABABAB" vlink="#D6B001" alink="#FFFF00">
+
+<h1>Water simulation</h1>
+<b>by Philipp Crocoll</b>
+<br>
+<br>
+<b>Keys to use:</b><br>
+<li>w,a,s,d:&nbsp;&nbsp; forward, left, back, right</li>
+<li>y,x:&nbsp;&nbsp; look down, look up</li>
+<li>r,f:&nbsp;&nbsp; move up, move down</li>
+<li>c,v:&nbsp;&nbsp; strafe left, strafe right</li>
+<li>1:&nbsp;&nbsp; turn on/off rain simulation</li>
+<li>2:&nbsp;&nbsp; turn on/off solid mode</li>
+<li>3:&nbsp;&nbsp; turn on/off lighting</li>
+<br>
+<br>
+
+<b>General about the simulation</b><br>
+The water surface consists of a certain number of "oscillators". These oscillators can move up and down. Each oscillator is represented by a vertex, which is part of a vertex array (see my Vertex-Array-Tutorial).<br>
+Before we render a new frame, we have to update each oscillator. This is done by having a look on the four direct neighbors: If they are higher than the current oscillator, it is accelerated upwards. Then they are moved by their current velocity.<br>
+<br>
+<br>
+<b>The exciters</b><br>
+Exciters are oscillators which are controlled by an "outside force". They cause the waves, by bringing movement into the surface. The "outside force" forces them to move up and down as a sine function. This could be changed, but it creates good looking waves.<br>
+The exciters are stopped after a certain time (g_fExcitingTime), because they would bring more and more energy into the system, which would cause higher and higher waves.<br>
+Because of the simulation technique, each oscillator may be an exciter with it's own frequency and amplitude. See end of CreatePool() how to create exciters.<br>
+<br>
+<br>
+<b>Reflexions</b><br>
+The reflexions at the edge of the "pool" are simulated as reflexions at fix ends. You could add the lines for free ends: The calculation of AvgDifference (the average y-distance of the neighbor oscillators) must be change, the rest remains.<br>
+<br>
+<br>
+<b>Normal vector calculation</b><br>
+After the oscillators' y-values have been updated, also the normal vectors must be recalculated. This is only required for lighting (but I do not switch it off if lighting is off).<br>
+<br>
+<br>
+<b>Number and distance of oscillators</b><br>
+These values can be easily changed at the head of main.cpp. Note that many oscillators require much cpu power!<br>
+<br>
+<br>
+<b>Oscillator weight</b><br>
+In order to simulate the waves, oscillators have an inertia which only exists, if the oscillators have a weight (I'm sorry if my expressions are not 100% correct - I am not a native english writer!). This weight can be set (but do not set it two low!). It is a constant and valid for all oscillators (you might get interesting waves, if you have different values within the "pool").<br>
+<br>
+<br>
+<b>The rain simulation</b><br>
+It is not a very good simulation but looks funny: If you randomly set an oscillator's y-value down (smaller than 0), it also creates little wave. <br>
+<br>
+<br>
+
+
+
+
+
+
+
+
+<p><big>**************************************************************************</big></p>
+<p><big>Any comments? Conact me!</big></p>
+<p><big><a href="mailto:philipp.crocoll@web.de">philipp.crocoll@web.de</a></big></p>
+<p><big><a href="http://www.codecolony.de">www.codecolony.de</a></big></p>
+
+
+</body>
+</html>

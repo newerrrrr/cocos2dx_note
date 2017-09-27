@@ -1,0 +1,84 @@
+<html>
+
+<head>
+<title>Fountain + Water</title>
+</head>
+
+<body bgcolor="#000000" text="#FF0000" link="#ABABAB" vlink="#D6B001" alink="#FFFF00">
+<font FACE="Times New Roman" SIZE="2">
+
+<p></font><font FACE="Times New Roman" size="6"><strong>The Fountain + Simulated Water Sample</strong></font><font FACE="Times New Roman" size="3"></p>
+
+<strong>Keys to use</strong>
+<br>
+<br>
+<table border=0>
+<tr>
+<td width=80>1-7</td> <td>Re-initialize scene with another shape of the fountain</td>
+</tr>
+<tr>
+<td>w,s</td> <td>move camera forward/backward</td>
+</tr>
+<tr>
+<td>a,d</td> <td>turn camera right/left</td>
+</tr>
+<tr>
+<td>r,f</td>  <td>move camera up/down</td>
+</tr>
+<tr>
+<td>x,y</td> <td>turn camera up/down  </td>
+</tr>
+<tr>
+<td>c,v</td> <td>strafe left/right </td>
+</tr>
+<tr>
+<td>Esc </td> <td>Exit</td>
+</tr>
+</table>
+<br>
+<br>
+
+<strong>How does it work?</strong>
+<br>
+<br>
+The classes CCamera and COGLTexture are described in tutorials on
+  <a href="http://www.codecolony.de/OpenGL/">www.codecolony.de/OpenGL</a><br>
+  <br>
+The files vectors.h/.cpp provide help with vector maths.
+<br>
+<br>
+The class CPool was made from my SwimmingPool example (also on CodeColony).
+<br>
+<br>
+The class CAirFountain was made from my Fountain Tutorial (online, too).
+<br>
+<br>
+Changes in those classes:<br>
+ <li> Fountain gets a "Pool Pointer". Each time a drop falls into the water
+    (y &lt; 0) I search for the pool's oscillator which is closest to the
+        drops position. This oscillator is put down a bit (y-value is decreased).
+ </li>
+ <li>        When a fountain has many drops, a whole pool area is often put so strongly
+    down that it is below the bowl and becomes invisible! This is unrealistic
+        anyway, so the "AffectOscillator" method does not allow to put an oscillator
+        too deep. The corresponding line of code should be replaced when using
+        the pool for other purposes.
+    </li>
+ <li> The pool has a kind of damping (which is not physically correct). Otherwise
+    the waves would become too strong after a while.
+ </li>
+
+The method "RenderBowl" is not very interesting - it simply renders a bowl!<p><a href="../opengl.htm#FountainWater">Here</a> you can find the downloads to this document.</font></p>
+
+</font>
+<p><font size="3"><a href="../opengl.htm">Back</a></font></p>
+
+<p><big>**************************************************************************</big></p>
+
+<p><big>Any comments? Conact me!</big></p>
+
+<p><big><a href="mailto:philipp.crocoll@web.de">philipp.crocoll@web.de</a></big></p>
+
+<p><big><a href="http://www.codecolony.de">www.codecolony.de</a></big></p>
+</body>
+</html>

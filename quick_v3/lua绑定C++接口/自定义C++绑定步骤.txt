@@ -1,0 +1,93 @@
+
+1. 创建自定义类， （这里之列出了h文件内容， 省略了cpp内容）
+#ifndef __CUSTOM__CLASS
+#define __CUSTOM__CLASS
+ 
+#include "cocos2d.h"
+ 
+namespace cocos2d {
+class testClass : public cocos2d::Ref
+{
+public:
+ 
+    testClass();
+
+    ~testClass();
+ 
+    static testClass* create();
+    void ignorFunction();
+};
+
+} //namespace cocos2d
+ 
+#endif // __CUSTOM__CLASS
+
+注意：自定义类必须继承cocos2d::Ref类，因为如果继承该类的Ref，那么它的析构函数将处理这些脏东西的释放。
+
+2. 在frameworks\cocos2d-x\tools\tolua\创建文件 testClass.ini 
+	文件部分内容解释如下：
+	
+	[testClass]  --要配置将被gengindings.py脚本使用的称号。一般来说，标题可以是文件名。 
+	
+	target_namespace = cc 	--要配置在脚本层模块的名字。在这里，我们使用cc作为模块名，当你想使用脚本层REF的名称，您必须有前缀名，CC在名称的前面。例如，cc.testClass
+	
+	headers = %(projdir)s/src/app/class/testClass.h  --要配置所有需要解析的头文件, %(cocosdir)s是的Cocos2d-x的引擎的根路径。%(projdir)s为我在gengindings.py里添加的项目根目录
+	
+	classes = testClass.* --要配置所有绑定所需的类，它支持正则表达式。因此，我们可以设置testClass.*
+	
+3. 由于自定义的h/cpp文件在特定的目录下，如上一步的 headers = %(projdir)s/src/app/class/testClass.h ，所以为了正确解析，需要在gengindings.py里加入当前工程的根目录， 
+
+	genbindings.py line 107 加入
+		config.set('DEFAULT', 'projdir', os.path.abspath(os.path.join(project_root, '..', '..')))
+	那么当执行gengindings.py脚本时，会在当前目录下生成 userconf.ini , 里面可以看到如下路径配置信息：
+		projdir = D:\hlb\lianliankan
+		androidndkdir = D:\tools\android-ndk-r9
+		clangllvmdir = D:\tools\android-ndk-r9\toolchains\llvm-3.3\prebuilt\windows-x86_64
+		cocosdir = D:\hlb\lianliankan\frameworks\cocos2d-x
+		cxxgeneratordir = D:\hlb\lianliankan\frameworks\cocos2d-x\tools\bindings-generator
+		extra_flags = -D__WCHAR_MAX__=0x7fffffff -U__MINGW32__		
+		
+	编译各个模块的时候，将会使用如上的路径信息.
+
+4. 在 genbindings.py 找到 cmd_args 选项 并添加新的一行:
+	'testClass.ini' : ('testClass', 'lua_testClass_auto'), \ 
+	
+5. 运行脚本前，请确保当前环境OK， 具体可参考 "修改原生C++绑定步骤.txt" 的步骤。当环境OK (即 test.bat 运行成功)后，再执行 genbindings.py , 
+	编译失败时,有可能碰到提示 ”dos2unix 不是内部或外部命令... ... “, 这是因为创建新项目拷贝源码时, 该exe文件并没有拷贝到新工程中去,
+	所以到引擎源码中拷贝 \tools\bindings-generator\tools\win32\dos2unix.exe 到新项目的对应目录即可.
+	
+	那么编译成功后， 在 frameworks\cocos2d-x\cocos\scripting\lua-bindings\auto 下会生成两个新文件： lua_testClass_auto.cpp/hpp 
+	
+5. 注册绑定 
+	打开头文件 lua_testClass_auto.hpp 会发现如下接口：
+	int register_all_testClass(lua_State* tolua_S);
+	
+	通常是我们在AppDelegate.cpp文件中调用这个函数进行注册。调用此方法后，您将能够使用所有导出的Lua函数。
+	还有一件事，当你调用register方法​​，你应该确定，Lua的栈顶元素是_G 
+
+6. 将4个文件(testClass.h/cpp, lua_testClass_auto.hpp/cpp)加入到VS/Android/IOS工程编译即可在lua使用，如 cc.testClass:create()
+
+
+相关文件已放到目录 example\
+
+
+	注意！！！有时使用工具自动转换的函数未必能满足自己的要求，比如要求返回 point array 到lua中， C++中函数声明为 std::vector<Vec2>* AStarPath::findPath(const Vec2 &from, const Vec2 &to)；
+	那么到了lua中却无法得到所期望的所有 point 的table数据。因此可以手动修改 lua_AStarPath_auto.cpp 的转换接口：
+
+	    std::vector<cocos2d::Vec2, std::allocator<cocos2d::Vec2> >* ret = cobj->findPath(arg0, arg1);
+        object_to_luaval<std::vector<cocos2d::Vec2, std::allocator<cocos2d::Vec2> >>(tolua_S, "std::vector<cocos2d::Vec2, std::allocator<cocos2d::Vec2> >*",(std::vector<cocos2d::Vec2, std::allocator<cocos2d::Vec2> >*)ret);
+
+	修改为：
+		std::vector<cocos2d::Vec2, std::allocator<cocos2d::Vec2> >* ret = cobj->findPath(arg0, arg1);
+		
+		lua_newtable(tolua_S);
+		for (int i=0; i< ret->size();i++)
+		{
+			lua_pushnumber(tolua_S, i+1);
+			vec2_to_luaval(tolua_S, ret->at(i));
+			lua_rawset(tolua_S, -3);
+		}	
+
+		
+		
+		

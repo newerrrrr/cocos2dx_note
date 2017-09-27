@@ -1,0 +1,56 @@
+
+1. 自动更新使用系统自带的 AssetsManagerEx , 它是AssetsManager的增强版本，和AssetsManager相比，AssetsManagerEx有如下优点：
+
+	1).使用一个配置文件，使得可以支持更复杂的升级操作；
+	2).使用多线程下载；
+	3).支持断点续传；
+	
+	
+2. 测试例子：
+	服务器环境: 
+		1)使用xftp上传到服务器, 创建会话窗口时,一般可以使用默认的端口21/22 ,输入用户名和密码; 选项界面->启动文件夹->远程文件夹, 用
+			来映射直接访问服务器目录下的某个文件夹, 下次访问时直接跳转到该文件夹目录下;
+
+			2)客户端使用http来访问,所以需要服务器提供一个访问端口,如8081
+	
+	
+	
+	一般的，manifest配置文件包含project.manifest， version.manifest ,他们都应包含如下头信息, 
+	"packageUrl" : "http://10.103.252.67:8081/hlb_test",
+	"remoteManifestUrl" : "http://10.103.252.67:8081/hlb_test/project.manifest",
+	"remoteVersionUrl" : "http://10.103.252.67:8081/hlb_test/version.manifest",   //可以省略该项， 直接使用 project.manifest 里的version版本号进行比较即可.
+	"version" : "1.0.1",
+	"engineVersion" : "3.0 beta",
+	
+	
+	如果 project.manifest 文件列表不是很大，则只使用一个project.manifest配置文件即可，不需要version.manifest，这时配置文件头信息里
+	应去掉 "remoteVersionUrl" : "http://10.103.252.67:8081/hlb_test/version.manifest" 这一行,
+	
+	系统会自动识别，如果配置文件里面没有 "remoteVersionUrl" 这一项，则更新会自动跳过下载vertion文件，转而直接下载 remoteManifestUrl 所指定的配置文件 project.manifest；	
+	
+	然后将它与本地manifest进行比较，生成差异列表供下载.
+	
+	
+	manifest 格式请参考例子里的 project.manifest 文件；
+	common.zip 和 img目录,连同project.manifest文件一并放到资源服务器(使用xftp工具)指定目录下 "http://10.103.252.67:8081/hlb_test"
+	
+	
+3.  函数说明:
+	1) 创建函数 AssetsManagerEx::create(const std::string& manifestUrl, const std::string& storagePath)
+		参数 manifestUrl 为本地apk包里的 manifest配置文件的路径(为相对路径), 用来与之后下载下来的配置文件进行版本比较用；
+		参数 storagePath 为下载到本机的绝对路径， 用来存储下载后的所有文件, 如
+				std::string storagePath = FileUtils::getInstance()->getWritablePath() + "hlb_asset";
+	
+	2) 更新 update() 自动下载配置文件，如果有更新则自动进行下载资源直到整个更新结束;
+	3) 检查更新 checkUpdate() 只下载配置文件检查是否需要更新，返回消息 EventCode::NEW_VERSION_FOUND / EventCode::ALREADY_UP_TO_DATE ；
+		由用户决定是否需要继续更新,如果是, 则调用函数 update() 继续下载资源即可。
+	
+	4)使用事件侦听器来接收和处理更新过程的各种事件;
+	
+	
+	
+	
+	
+	
+	
+	

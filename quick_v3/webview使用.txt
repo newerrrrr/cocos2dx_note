@@ -1,0 +1,36 @@
+1. 例子
+  self.container:removeAllChildren()
+  if cc.Application:getInstance():getTargetPlatform() ~= cc.PLATFORM_OS_WINDOWS then 
+    local size = self.container:getContentSize()
+    local webView = ccexp.WebView:create()
+    webView:setPosition(cc.p(size.width/2, size.height/2))
+    webView:setContentSize(size)
+    webView:loadURL(g_noticeURL)
+    webView:setScalesPageToFit(true)
+    self.container:addChild(webView)
+  end 
+  
+  
+2. android平台上setScalesPageToFit(true)没有效果！,修改java代码：
+	Cocos2dxWebView.java :
+	
+    public void setScalesPageToFit(boolean scalesPageToFit) {
+        this.getSettings().setSupportZoom(scalesPageToFit);
+        //add by hlb 20160721
+        this.getSettings().setUseWideViewPort(true); 
+        this.getSettings().setLoadWithOverviewMode(true);        
+    }	
+	
+3. android和IOS webview背景色改为透明色:
+	1)android:
+    public Cocos2dxWebView(Context context, int viewTag) {
+        super(context);
+        this.mViewTag = viewTag;
+        this.mJSScheme = "";
+
+        this.setFocusable(true);
+        this.setFocusableInTouchMode(true);
+		
+		this.setBackgroundColor(0);	//设置为透明色
+		
+	2)ios , 修改UIWebViewImpl-ios.mm

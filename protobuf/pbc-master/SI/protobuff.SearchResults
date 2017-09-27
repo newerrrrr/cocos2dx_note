@@ -1,0 +1,3 @@
+---- luaopen_protobuf_c Matches (2 in 2 files) ----
+Pbc-lua.c (e:\hlb\cocos2dx±Ê¼Ç\protobuf\pbc-master\binding\lua):luaopen_protobuf_c(lua_State *L) {
+Pbc-lua53.c (e:\hlb\cocos2dx±Ê¼Ç\protobuf\pbc-master\binding\lua53):luaopen_protobuf_c(lua_State *L) {

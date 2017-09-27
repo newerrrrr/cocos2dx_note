@@ -1,0 +1,15 @@
+
+1. 制作更新包:
+	修改 version.manifest 文件以下内容
+
+	packageUrl : 资源服务器url
+	packageUrl2: 备份资源服务器url
+	version	   : 版本号
+	
+
+3. 执行 manifest_export.py , 自动将项目根目录下的 src/ 和 res/ 目录下所有文件生成MD5列表 project.manifest, 
+	并存放在项目根目录下。
+
+4. 将 Resource/ 所有文件放到资源服务器上.
+
+注:文件名不能包含中文字符

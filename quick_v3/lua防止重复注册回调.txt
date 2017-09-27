@@ -1,0 +1,13 @@
+
+为了防止在目标上重复注册回调, 这里添加了log信息
+LuaScriptHandlerMgr.cpp line258
+
+#if defined(COCOS2D_DEBUG) && COCOS2D_DEBUG > 0
+    CCLOG("@@@@@@ handlerType = %d", handlerType);
+    if (handlerType > HandlerType::EVENT_CUSTOM_BEGAN + 20)
+    {
+    	CCLOG("WARINIG BEGIN\n\n\n\n\n");
+    	CCLOG("WARINIG : repeate add andler:  %d", handlerType);
+    	CCLOG("\n\n\n\n\nWARINIG ENG");
+    }
+#endif

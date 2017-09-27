@@ -1,0 +1,13 @@
+
+1. 先按照 《_cocos2dx_3.2使用说明.txt》， 安装配置好 cocos2dx3.3， 确保其创建工程成功运行。
+
+2. cmd 进入quick目录下，执行文件 setup_win.bat ，确保无错误；
+
+3. 创建项目：
+	1)直接打开工程目录下的 player3.exe ，在显示的界面创建.
+
+	2)使用命令行来创建项目：cmd 进入 quick\bin 目录下，执行命令：
+		create_project -p com.hlb.test -o \tmp\hlbtest
+	
+	即可在当前硬盘根目录如 E:\tmp\hlbtest创建了一个新的工程。
+	用VS2012打开 frameworks\runtime-src\proj.win32\hlblua.sln 编译项目即可。

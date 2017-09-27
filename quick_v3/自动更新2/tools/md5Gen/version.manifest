@@ -1,0 +1,9 @@
+{	
+	"serverCfgUrl" : {
+					"url_android" : "http://101.231.186.12:8081/",
+					"url_ios" : "http://101.231.186.12:8081/"},
+	"version" : "0.0.0.2",
+	"engineVersion" : "3.0 beta",	
+    "searchPaths" : [
+    ]	
+}

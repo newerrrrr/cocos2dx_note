@@ -1,0 +1,140 @@
+
+1. 根据 <_cocos2dx_3.3使用说明.txt> 配置环境并创建新的cocos2dx工程；
+	有时需要的环境变量会有差异，如 quick_3.3 中的 build_native.sh 中使用的环境变量如下：
+		echo "  ANDROID_NDK_ROOT    = $ANDROID_NDK_ROOT"
+		echo "  COCOS2DX_ROOT       = $COCOS2DX_ROOT"
+		echo "  APP_ROOT            = $APP_ROOT"
+		echo "  APP_ANDROID_ROOT    = $APP_ANDROID_ROOT"
+	其中的 ANDROID_NDK_ROOT 环境变量对应于之前设置的 NDK_ROOT ， 所以也要在系统环境变量中加入 ANDROID_NDK_ROOT 
+	
+	
+2. 修改 proj.android/jni/Android.mk 
+	1) 	加入 LOCAL_SRC_FILES 和 LOCAL_C_INCLUDES 文件路径；
+	
+	2) 	如果第三方提供的是源码模块, 该模块有单独的Android.mk， 比如 项目lianliankan\src\app\class\Net\SimpleSocket, 该网络库
+		有单独的Android.mk文件供打包成 静态库 供cocos2dx引用, 该模块 mk 文件内容里的 LOCAL_MODULE := clsockets_static 
+		即为外部引用的模块名；
+
+		所以，在proj.android/jni/Android.mk 应添加如下代码：
+		LOCAL_WHOLE_STATIC_LIBRARIES += clsockets_static
+		$(call import-module,src/app/class/Net/SimpleSocket)
+
+		注意这里的 call import-module 使用相对路径， 它是与 NDK_MODULE_PATH中的路径相匹配的；
+		NDK_MODULE_PATH 是一个环境变量，不是android.mk中设置的变量;
+
+		a)可以在 build_native.sh 定义环境变量 NDK_MODULE_PATH。
+		它的格式为 NDK_MODULE_PATH=路径1:路径2:路径3 
+	   
+		ANDROID_NDK_ROOT"/ndk-build $ANDROID_NDK_BUILD_FLAGS NDK_DEBUG=$NDK_DEBUG $NDK_BUILD_FLAGS -C "$APP_ANDROID_ROOT" $* \
+		"NDK_MODULE_PATH=${APP_ANDROID_ROOT}:${COCOS2DX_ROOT}:${COCOS2DX_ROOT}/cocos:${COCOS2DX_ROOT}/external:${COCOS2DX_ROOT}/cocos/scripting:${APP_ANDROID_ROOT}/../Classes:${APP_ROOT}"
+
+		b)也可以在 android.mk 中追加 NDK_MODULE_PATH 模块路径：
+			$(call import-add-path,$(LOCAL_PATH)/../../)
+		注意必须放在 $(call import-module 之前
+		
+	3)  如果第三方提供的是现成的.so动态库/.a静态库， 如 libshare1.so, 如libshare2.so, 如libshare3.a , 那么在jni目录下新建一个文件夹myLibs, 
+		将这3个库放进去， 修改proj.android/jni/Android.
+		
+		在 Android.mk 最前面添加如下代码：
+		include $(CLEAR_VARS)
+		LOCAL_MODULE := share1
+		LOCAL_SRC_FILES := myLibs/libshare1.so
+		include $(PREBUILT_SHARED_LIBRARY)
+
+		include $(CLEAR_VARS)
+		LOCAL_MODULE := share2
+		LOCAL_SRC_FILES := myLibs/libshare2.so
+		include $(PREBUILT_SHARED_LIBRARY)
+
+		include $(CLEAR_VARS)
+		LOCAL_MODULE := share3
+		LOCAL_SRC_FILES := myLibs/libshare3.a
+		include $(PREBUILT_STATIC_LIBRARY)		
+		
+		...
+		
+		在后面相应位置添加：
+		LOCAL_SHARED_LIBRARIES := libshare1
+		LOCAL_SHARED_LIBRARIES += libshare2
+		
+		LOCAL_WHOLE_STATIC_LIBRARIES += libshare3
+		
+		那么在编译过程中 myLibs目录下的so库会自动复制到 libs\armeabi\下， 有时拷贝过程中会报错，提示无访问权限， 可以用cygwin进入
+		指定目录执行 chmod 777 ./*
+		
+3.  使用 cygwin 进入 proj.android/目录下执行： 
+	./build_native.sh
+	编译成功则会生成 so库 (默认是是DEBUG版本，如果要编译release， 请执行 build_native_release.sh)
+	
+4. 使用eclipse导入 android 工程，
+   1) 一般 src 目录会报错， 需要将 cocos2dx 引擎目录下的src 目录下对应的目录如 frameworks\runtime-src\proj.android\src\org\cocos2dx\lib ，org\cocos2dx\utils 拷贝到新项目相应目录下；
+   	
+		a)	对clipping node的支持, 否则平台引擎和用户使用到clippingnode的地方会显示不出来, 比如 scrollview 等等
+			在 AppActivity.java 添加如下方法:
+			public Cocos2dxGLSurfaceView onCreateView() 
+			{    
+				Cocos2dxGLSurfaceView glSurfaceView = new Cocos2dxGLSurfaceView(this);    
+				glSurfaceView.setEGLConfigChooser(5, 6, 5, 0, 16, 8); // this line is required for clipping    
+
+				return glSurfaceView;  
+			}
+			
+		b)	添加游戏返回键退出游戏:
+			在Cocos2dxGLSurfaceView.java 中的 onKeyDown() 不处理KEYCODE_BACK事件，直接return false
+			public boolean onKeyDown(final int pKeyCode, final KeyEvent pKeyEvent) {
+			switch (pKeyCode) {
+			case KeyEvent.KEYCODE_BACK:
+				return false; //by hlb
+				...
+				
+		
+			在 AppActivity.java 中重写onKeyDown()方法，弹出对话框提示是否退出:
+			@Override
+			public boolean onKeyDown(int keyCode, KeyEvent event) {
+				Log.d("", "onKeyDown++++++++++++++++++");
+				if (keyCode == KeyEvent.KEYCODE_BACK) {
+					new AlertDialog.Builder(this)
+							.setTitle("提示")
+							.setMessage("是否退出游戏?")
+							.setNegativeButton("取消",
+									new DialogInterface.OnClickListener() {
+										@Override
+										public void onClick(DialogInterface dialog,
+												int which) {
+										}
+									})
+							.setPositiveButton("确定",
+									new DialogInterface.OnClickListener() {
+										public void onClick(DialogInterface dialog,
+												int whichButton) {
+											finish();
+											System.exit(0);
+										}
+									}).show();
+
+					return true;
+				} else {
+					return super.onKeyDown(keyCode, event);
+				}
+			}
+	}   
+   
+   
+   
+   
+   2) 打包apk过程中有可能出现  “Unable to add "XXX" Zip add failed...” ， 可以修改 build_native.sh ：
+	   
+	   将 cp -rf 命令修改为 cp -rfp 
+	   
+		cp -rfp "$APP_ROOT"/src "$APP_ANDROID_ROOT"/assets/
+		echo "- copy resources"
+		cp -rfp "$APP_ROOT"/res "$APP_ANDROID_ROOT"/assets/
+		echo "- copy config"
+		cp -rfp "$APP_ROOT"/config.json "$APP_ANDROID_ROOT"/assets/   
+	
+	3)  确保 assets 目录下没有任何包含中文字符的文件；
+
+   编译成功则生成apk;
+   
+
+   

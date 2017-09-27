@@ -1,0 +1,15 @@
+---- CPool Matches (14 in 6 files) ----
+AirFountain.cpp (e:\hlb\cocos2dx笔记\水波纹\网上例子\喷泉\fountain):void CDrop::GetNewPosition(SF3dVector * PositionVertex, float dtime, CPool * pPool, CAirFountain * pAirFountain)
+AirFountain.cpp (e:\hlb\cocos2dx笔记\水波纹\网上例子\喷泉\fountain):void CAirFountain::Update(float dtime, CPool * pPool)
+AirFountain.h (e:\hlb\cocos2dx笔记\水波纹\网上例子\喷泉\fountain):	void GetNewPosition(SF3dVector * PositionVertex, float dtime, CPool * pPool, CAirFountain * pAirFountain); 
+AirFountain.h (e:\hlb\cocos2dx笔记\水波纹\网上例子\喷泉\fountain):	void Update(float dtime, CPool * pPool);
+FountainWater.htm (e:\hlb\cocos2dx笔记\水波纹\网上例子\喷泉\fountain):The class CPool was made from my SwimmingPool example (also on CodeColony).
+Main.cpp (e:\hlb\cocos2dx笔记\水波纹\网上例子\喷泉\fountain):The class CPool was made from my SwimmingPool example (also on CodeColony).
+Main.cpp (e:\hlb\cocos2dx笔记\水波纹\网上例子\喷泉\fountain):CPool Pool;
+Pool.cpp (e:\hlb\cocos2dx笔记\水波纹\网上例子\喷泉\fountain):void CPool::Initialize(int xSize, int zSize,  float OscillatorDistance, float OscillatorWeight, float Damping, float TextureStretchX, float TextureStretchZ)
+Pool.cpp (e:\hlb\cocos2dx笔记\水波纹\网上例子\喷泉\fountain):void CPool::Reset()
+Pool.cpp (e:\hlb\cocos2dx笔记\水波纹\网上例子\喷泉\fountain):void CPool::AffectOscillator(int xPos, int zPos, float deltaY)
+Pool.cpp (e:\hlb\cocos2dx笔记\水波纹\网上例子\喷泉\fountain):void CPool::Update(float deltaTime)
+Pool.cpp (e:\hlb\cocos2dx笔记\水波纹\网上例子\喷泉\fountain):void CPool::Render()
+Pool.cpp (e:\hlb\cocos2dx笔记\水波纹\网上例子\喷泉\fountain):float CPool::GetOscillatorDistance()
+Pool.h (e:\hlb\cocos2dx笔记\水波纹\网上例子\喷泉\fountain):class CPool

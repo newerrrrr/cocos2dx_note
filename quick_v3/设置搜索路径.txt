@@ -1,0 +1,27 @@
+
+假设我的工程目录为：E:\tmp\lianliankan\
+
+好像使用了IDE/VS调试后, 在lua里调用方法 cc.FileUtils:getInstance():addSearchPath() 时会在项目根目录下自动添加 "debugruntime/"
+所以 cc.FileUtils:getInstance():addSearchPath("res/") 添加的实际路径为 "E:/tmp/lianliankan/debugruntime/res/" , 而不是所期望的
+"E:/tmp/lianliankan/res/" 
+
+
+解决方法：在C++层面添加：在 AppDelegate.cpp 文件里的函数 void StartupCall::startup() 里设置资源路径：
+
+	string writablePath = project.getProjectDir();
+    while ((pos = writablePath.find_first_of("\\")) != std::string::npos)
+    {
+        writablePath.replace(pos, 1, "/");
+    }
+	writablePath += "res/";
+	FileUtils::getInstance()->addSearchPath(writablePath);
+
+这样程序运行后就不会因为资源路径找不到而崩溃了。
+
+
+当然，为了保险起见，在 main.lua 里也设置下搜索路径：
+	cc.FileUtils:getInstance():addSearchPath("res/")
+	cc.FileUtils:getInstance():addSearchPath("src/")
+	
+
+

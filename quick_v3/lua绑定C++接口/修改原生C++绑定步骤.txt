@@ -1,0 +1,51 @@
+
+比如在 UIHelper.cpp 中添加两个方法: Node* Helper::seekNodeByTag(Node* root, int tag) 和 Node* Helper::seekNodeByName(Node* root, const std::string& name) 
+记得在 UIHelper.h 中也要声明下为静态方法.
+
+
+说明：
+frameworks\cocos2d-x\tools\bindings-generator 是 cocos2d-x 3.x 提供的一套导出自定义C++类的工具。
+
+Quick 能够直接使用bindings-generator工具，且使用方式和在cocos2d-x下使用的方式完全一样。
+
+在使用之前，我们需要按照 tools/bindings-generator 目录下的 README.md 文件里的说明，配置好运行时需要的环境。
+
+如果配置成功，运行 tools/tolua 目录下的 genbindings.py 将能够成功的重新生成 cocos/scripting/lua-bindings/auto 目录下的所有文件。
+
+
+
+环境配置:(WIN32)
+
+1)安装android-ndk-r9b(必须是r9b， 如果是r9d会报错)安装好以后要添加环境变量NDK_ROOT，这个目录的上级目录中不能有空格存在, 比如说, 如果是放在program files目录下面, 后面生成.h & .cpp文件的时候会出错, 
+	我的是：D:\tools\android-ndk-r9 , 安装好ndk后, 系统环境变量里设置 NDK_ROOT 
+  
+2)安装python2.7.3 (我的是2.7.7)
+	安装好python后, 系统环境变量里设置 PYTHON_ROOT 
+	
+
+3)下载并安装PyYAML
+	http://pyyaml.org/download/pyyaml/PyYAML-3.10.win32-py2.7.exe
+	
+4)下载pyCheetah ，并解压到\Python27\Lib\site-packages目录下
+	https://raw.github.com/dumganhar/my_old_cocos2d-x_backup/download/downloads/Cheetah.zip, 
+	
+5) 以上准备好后，测试下:
+	bindings-generator\test目录下, 修改test.bat 文件开头的路径：
+		set PYTHON_ROOT=C:/Python27
+		set NDK_ROOT=D:\tools\android-ndk-r9	
+	
+	执行 test.bat , 则会生成目录 simple_test_bindings , 其包含2个文件1个目录, 并且cmd终端提示成功。
+	
+6) 以上步骤都OK之后，则可以进行导出C++接口到lua了：
+	cmd到目录 frameworks\cocos2d-x\tools\tolua\ , 执行 genbindings.py 
+	
+	成功后可看到 lua_cocos2dx_ui_auto.cpp 里已经做了lua绑定.
+	
+7)  编译工程 
+	用VS 打开 frameworks\runtime-src\proj.win32\xxx.sln 编译成功后，则可以在lua直接使用该接口了：如 local bn = ccui.Helper:seekNodeByName(node, "bn_start")
+	
+	
+	
+	
+	
+	

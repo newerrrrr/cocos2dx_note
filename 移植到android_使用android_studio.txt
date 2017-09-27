@@ -1,0 +1,37 @@
+
+1. https://developer.android.com/studio/index.html 下载安装android studio
+
+2. 根据提示安装 android sdk ,ndk,默认目录是C盘，体积超过15GB啊！！所以这里按如下方法将SDK放到其他目录：
+	1)点击菜单 File-->Project Structure , 左边选中SDK Location， 右边填写 sdk和ndk的路径
+	
+	2)Android Studio安装好以后会在系统盘用户目录下(C:\Users\huanglibo)下生成3个文件夹:
+		.android 这个文件夹是Android SDK生成的AVD（Android Virtual Device Manager）即模拟器存放路径
+		.AndroidStudio 这个文件夹是Android Studio的配置文件夹，主要存放一些AndroidStudio设置和插件和项目的缓存信息
+		.gradle 这个文件夹是构建工具 Gradle的配置文件夹，也会存储一些项目的构建缓存信息	
+	如果也要讲他们移动到别的地方，参考 http://www.jianshu.com/p/7a58c5f154c5 来修改
+	
+3. 环境变量中如果之前已经有SDK, NDK 和 adb 的环境变量，一定要删除干净！！否则运行模拟器时一直卡死在这里：
+	waiting for device to come online 
+	清理干净之后, 为adb.exe添加环境变量（在SDK目录下的 platform-tools/)
+	创建模拟器时,如果其中的一些库文件是基于NDK编译，则模拟器必须使用ARM架构,反之用x86模拟器；
+	否则安装APK时会出现 INSTALL_FAILED_NO_MATCHING_ABIS 错误
+	
+4. 修改了NDK路径后，如果之前编译过文件项目, 需要删除项目工程 proj.android-studio\app\build\intermediates\ndkBuild\debug\obj
+   目录下的所有文件,并重新编译,否则会编译时使用旧的NDK路径,编译出错. 
+   
+5. 模拟器如果启动不了, 打开 Android Studio菜单Tools->Android->AVD Manager 
+	手动打开模拟器，如果此时仍启动不了,而 adb 是好的情况下(cmd 里输入 adb vision 看是否正常),
+	可通过重新创建模拟器,一般就能正常启动。
+
+6.  模拟器打开的情况下运行项目，可能会提示模拟器已经启动，请删除AVD目录下的 *.lock文件,
+	这种情况下只需在cmd下执行 adb kill-server 和 adb start-server 即可.
+	
+7. C++文件直接加到app\jni\Android.mk里即可自动编译了。编译成功后会在目录生成 pp/build/outputs/apk/
+
+
+
+总之，最好还是用真机来调试吧，快！！！！！
+
+
+注: 使用Android Studio来生成APK 太卡了! 可通过命令终端来生成, 详细见<命令行打包APK.txt>
+

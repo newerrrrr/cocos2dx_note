@@ -1,0 +1,15 @@
+{
+	"url_android" : {	"checkUrl" : "http://android.update.sanguomobile2.com/", 
+						"cdnUrl" : "http://android.cdn.sanguomobile2.com/",
+						"cdnUrl2" : "http://android.rescdn.sanguomobile2.com/"},
+					
+	"url_ios" : 	{	"checkUrl" : "http://ios.update.sanguomobile2.com/", 
+						"cdnUrl" : "http://ios.cdn.sanguomobile2.com/",
+						"cdnUrl2" : "http://ios.rescdn.sanguomobile2.com/"},
+
+	"version" : "0.0.0.2",
+	"platform" : "",
+	"engineVersion" : "3.0 beta",	
+    "searchPaths" : [
+    ]	
+}

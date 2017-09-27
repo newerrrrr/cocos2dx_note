@@ -1,0 +1,29 @@
+
+1. 将WinRAR的目录("C:\Program Files\WinRAR\")添加到系统环境变量Path中,否则无法识别rar命令. 
+
+2. 使用 os.system()命令来执行压缩.
+
+举例：test.py文件内容如下：
+
+import os
+import os.path
+import sys
+
+
+
+
+#压缩目录/文件
+def zip_files(target_path, source_path, bDeleteAfterZip):
+	#注意：rar命令打包的zip在cocos2dx无法解析！！！ 
+	#zip_command = "rar a -ep1 -r -ad %s %s" %(target_path, ''.join(source_path))
+	zip_command = "WinRAR a -ep1 -r -y {0} {1}".format(target_path, source_path)
+	if bDeleteAfterZip:
+		#zip_command = "rar a -ep1 -r -ad -dw %s %s" %(target_path, ''.join(source_path)) 
+		zip_command = "WinRAR a -ep1 -r -dw -y {0} {1}".format(target_path, source_path)
+	
+	assert os.system(zip_command)==0
+	
+
+		
+		
+		

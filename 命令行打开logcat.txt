@@ -1,0 +1,6 @@
+
+不用打开 Android Studio来查看logcat,直接在 cmd下输入命令：
+	adb logcat 即可查看所有log， 如果想要过滤查看，如只查看包含 cocos 字串的log，可执行命令:
+	adb logcat|find "cocos"
+	
+	

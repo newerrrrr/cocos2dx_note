@@ -1,0 +1,22 @@
+
+1)
+NodeReader.cpp 
+#include "ui/UIWidget.h" //hlb
+Node* NodeReader::createNodeWithFlatBuffers(const flatbuffers::Table *nodeOptions)
+{
+	//Node* node = Node::create(); //使用widget
+
+	//hlb
+	ui::Widget* node = ui::Widget::create();
+}
+
+
+2)SingleNodeReader.cpp	
+#include "ui/UIWidget.h" //hlb
+Node* SingleNodeReader::createNodeWithFlatBuffers(const flatbuffers::Table *singleNodeOptions)
+{
+	//Node* node = Node::create();//使用widget
+
+	//hlb, can be use clone()
+	ui::Widget* node = ui::Widget::create();
+}

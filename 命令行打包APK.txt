@@ -1,0 +1,62 @@
+
+
+1. jdk版本需要升级到8以上, 否则会报错 "Unsupported major.minor version 52.0"
+	安装好之后需要更新环境变量 JAVA_HOME ,指向最新的安装目录, 如 
+	C:\Program Files\Java\jdk1.8.0_144
+	在cmd上输入 java -version 可以查看当前jdk版本,如果不对, 需要确认
+	path环境变量中  %JAVA_HOME%/jre/bin/指向的jre目录是否存在
+	
+2. 添加环境变量  ANDROID_HOME ，其值为 sdk 路径，如 D:\tools\Sdk 
+
+3. 将 gradle 添加环境变量, 如 GRADLE_HOME, 其值为 D:\Program Files\Android\Android Studio\gradle
+   如果一会使用 gradle 编译时提示版本不匹配就到 http://services.gradle.org/distributions/ 这里下载,
+   在更新环境变量； 同时查看下
+   proj.android-studio\gradle\wrapper\gradle-wrapper.properties文件里的 distributionUrl执行的版本是否一致,这是用来在编译时
+   用来下载更新依赖的
+		distributionUrl=https\://services.gradle.org/distributions/gradle-3.3-all.zip
+
+   查看版本命令:
+	gradle -v 
+	
+4. cocos2dx项目的 \frameworks\runtime-src\proj.android-studio\ 
+	1)打开文件 build.gradle, 可以看到如下内容：
+		dependencies {
+			classpath 'com.android.tools.build:gradle:2.3.0' 
+			
+		其意思是 Android Studio仓库下的gradle版本(不是外部下载的 gradle版本哦), 仓库目录在Android Studio安装目录下的
+		D:\Program Files\Android\Android Studio\gradle\m2repository\com\android\tools\build\gradle\
+		可以看到 多个 gradle 版本目录；
+		
+		如果 build.gradle 里指定的版本不存在那么就修改为仓库下的一个版本,如 改成
+			classpath 'com.android.tools.build:gradle:2.3.3' 
+	
+	2) gradlew和gradlew.bat:
+		这分别是linux下的shell脚本和windows下的批处理文件，它们的作用是根据gradle-wrapper.properties文件中的distributionUrl
+		下载对应的gradle版本。这样就能够保证在不同的环境下构建时都是使用的统一版本的gradle，即便该环境没有安装gradle也能够，
+		由于gradle wrapper会自动下载对应的gradle版本。
+		gradlew的用法跟gradle一模一样，比如构建 gradle build 命令，你也可以用gradlew build。
+		gradlew即gradle wrapper的缩写。
+		
+
+5. 下面开始编译项目了：
+	cmd下执行先执行 gradlew.bat , 在执行如下命令
+	
+	gradle -p D:\hlb\hlb_sale\frameworks\runtime-src\proj.android-studio //指定项目
+	
+	gradle clean  //此命令的主要作用是去下载一些gradle的下载包
+	
+	gradle build //默认会生成 debug和 release版本, 
+	
+	如果只想单独生成apk,可执行命令：gradlew assembleDebug 和 gradlew assembleRelease
+	
+	单独生成apk并安装： gradlew installDebug 和 gradlew installRelease
+
+	
+	编译成功后可在项目下的 proj.android-studio\app\build\outputs\apk 生成对应的apk
+	
+	
+	
+	
+	
+	
+	
