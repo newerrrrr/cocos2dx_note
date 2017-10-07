@@ -1,4 +1,4 @@
-
+﻿
 一.注册账号，新建仓库 
 	1)使用firefox浏览器登录www.github.com注册一个账号, 我的账号为 chenhlb8055@gmail.com, 密码 hlb11612360
 
@@ -10,7 +10,7 @@
 
 三、配置git
 	1)创建本地的ssh key。双击Git Bash(即安装好的git客户端命令窗口自),出现命令行界面。
-	输入 ssh -keygen -t rsa -C chenhlb8055@gmail.com
+	输入 ssh-keygen -t rsa -C chenhlb8055@gmail.com
 	然后一路回车，采用默认路径和空密码。接着会在默认路径下生成.ssh的文件夹，用编辑器打开id_rsa.pub复制里面的密钥。该文件一般
 	存放在 C:\Users\huanglibo\.ssh\目录下
 	
