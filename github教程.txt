@@ -46,7 +46,7 @@
 	  
 	2)第一步之后，git commit -m "XXX" 上传文件，双引号内为文件的一些描述，多文件会统一使用这个描述。
 	
-	3)最后，输入命令：git push -u origin master即可将文件将文件同步到github上了。
+	3)最后，输入命令：git push -u origin master 即可将文件将文件同步到github上了。
 	  这一步可能会报错找不到远程仓库,那么在
 	
 	之后想要上传、更新，重复第五步即可。
@@ -100,8 +100,8 @@
 			git add -u [<path>]: 把<path>中所有tracked文件中被修改过或已删除文件的信息添加到索引库。
 								 它不会处理untracted的文件。省略<path>表示.,即当前目录。
 								 
-		git commit
-		git push
+		git commit -m "XXX"
+		git push -u origin master
 	
 	
 
