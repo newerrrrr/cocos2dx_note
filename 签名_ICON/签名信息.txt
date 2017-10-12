@@ -1,0 +1,15 @@
+
+alias: android.keystore
+
+密码(包括 keyPassword和storePassword): 11612380
+
+md5 为:40b82a474b57d7b3a3c9c9ed80dc069f
+
+
+
+注:md5生成可记住第三方工具,或者按如下方式获得:
+cygwin环境下， 切换到 签名文件如android.keystore的目录下,执行如下命令:
+	keytool -exportcert -alias android.keystore -keypass 11612380 -keystore ./android.keystore -storepass 11612380 | md5sum
+ 
+	输出结果为 40b82a474b57d7b3a3c9c9ed80dc069f
+	

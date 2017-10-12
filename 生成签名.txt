@@ -1,0 +1,15 @@
+
+1)apk:
+
+	使用jdk目录 C:\Program Files\Java\jdk1.8.0_144\bin 下的keytool工具来生成:
+
+	keytool -genkey -alias android.keystore -keyalg RSA -validity 20000 -keystore d:/android.keystore
+	
+	注：
+		-genkey 生成文件
+		-alias 别名
+		-keyalg 加密算法
+		-validity 有效期
+		-keystore 文件路径名
+		
+	然后根据提示输入密码等信息,要记住密码哦
