@@ -28,7 +28,10 @@
 	
 7. C++文件直接加到app\jni\Android.mk里即可自动编译了。编译成功后会在目录生成 pp/build/outputs/apk/
 
-
+8. SDK/NDK路径自动配置在 proj.android-studio/local.properties文件里：
+	ndk.dir=D\:\\tools\\Sdk\\ndk-bundle
+	sdk.dir=D\:\\tools\\Sdk
+	要是报错就该这个路径吧
 
 总之，最好还是用真机来调试吧，快！！！！！
 

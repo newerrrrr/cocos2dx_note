@@ -72,7 +72,14 @@
 	弹出的界面，选中账户，双击该账户，修改授权类型为 基础，协议 为 https， 用户名：hlb8055，密码与账号密码一致。
 
 	
-	
+八、强制覆盖本地文件, 使用此命令一定要谨慎！！特别是项目的一些环境配置有可能被覆盖哦!
+	git fetch --all 
+	git reset --hard origin/master		#同步到远端origin仓库的master分支
+	git pull
+九、	
+	.gitignore只能忽略那些原来没有被track的文件，如果某些文件已经被纳入了版本管理中，则修改.gitignore是无效的。
+	正确的做法是在每个clone下来的仓库中手动设置不要检查特定文件的更改情况。
+	 git update-index --assume-unchanged PATH    在PATH处输入要忽略的文件。	
 	
 注意:
 	1)当执行push操作时报错，提示其他上传者已经做了修改，需要先pull一下;

@@ -54,8 +54,11 @@
 	
 	编译成功后可在项目下的 proj.android-studio\app\build\outputs\apk 生成对应的apk
 	
-	
-	
+	 
+6. SDK/NDK路径自动配置在 proj.android-studio/local.properties文件里：
+	ndk.dir=D\:\\tools\\Sdk\\ndk-bundle
+	sdk.dir=D\:\\tools\\Sdk
+	要是报错就该这个路径吧
 	
 	
 	
