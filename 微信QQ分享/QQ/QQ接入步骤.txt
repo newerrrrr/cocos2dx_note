@@ -1,0 +1,117 @@
+
+1. open_sdk_r5886_lite.jar 放到libs目录
+
+2. 配置 AndroidManifest.xml 
+	1)在<application>节点内增加以下配置:
+	
+		<!--TAG_QQ_SDK_Start-->		
+		<activity
+			android:name="com.tencent.tauth.AuthActivity"
+			android:launchMode="singleTask"
+			android:noHistory="true" >
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				<data android:scheme="tencentXXXXXX" />
+			</intent-filter>
+		</activity>
+		<activity
+			android:name="com.tencent.connect.common.AssistActivity"
+			android:configChanges="orientation|keyboardHidden|screenSize"
+			android:theme="@android:style/Theme.Translucent.NoTitleBar" />	
+		<!--TAG_QQ_SDK_END-->	
+
+	注：tencentXXXXXX中的XXXXXX填写对应的APP_ID,我的APP_ID为 1106382333 (具体可登录
+	http://op.open.qq.com 查看我的应用基本信息可看到 APP ID 和 APP KEY信息)
+
+	2)在<application>节点内添加相关权限,因为权限为通用,已包含，所以此处不再额外添加
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	
+3. 
+	/** 分享回调实现类*/
+    IUiListener qqShareListener = new IUiListener() {
+        @Override
+        public void onError(UiError e)
+        {
+            Log.d("hlb", "分享异常"+e.errorMessage + "\n" +e.errorDetail);
+            Toast.makeText(getApplicationContext(), "分享异常", Toast.LENGTH_SHORT).show();
+        }
+        @Override
+        public void onComplete(Object response)
+        {
+            Log.d("space", "分享成功" + response.toString());
+            Toast.makeText(getApplicationContext(), "分享异常", Toast.LENGTH_SHORT).show();
+        }
+        @Override
+        public void onCancel()
+        {
+            Log.d("space", "取消了分享");
+        }
+    };	
+
+4. 定义分享静态函数
+    /**function:shareAppToQQ
+	 * 分享应用到QQ空间
+	 * @param title 分享的标题(必填)
+	 * @param msg 分享的摘要,最长40个字符
+	 * @param imgUrl 分享图片的URL或者本地路径
+	 * @param backName 手Q客户端顶部，替换“返回”按钮文字，如果为空，用返回代替
+	 */
+	public static void shareAppToQQ(String title,String msg, String imgUrl, String backName)
+	{
+		if(mTencent == null){
+			return;
+		}
+		final Bundle params = new Bundle();
+		//分享的类型(必填)
+		params.putInt(QQShare.SHARE_TO_QQ_KEY_TYPE, QQShare.SHARE_TO_QQ_TYPE_APP);
+		//分享的标题(必填)
+		params.putString(QQShare.SHARE_TO_QQ_TITLE, title);
+		//分享的摘要,最长40个字符
+		params.putString(QQShare.SHARE_TO_QQ_SUMMARY, msg);
+		if(! "".equals(imgUrl)){
+			//分享图片的URL或者本地路径
+			params.putString(QQShare.SHARE_TO_QQ_IMAGE_URL, imgUrl);
+		}
+		//手Q客户端顶部，替换“返回”按钮文字，如果为空，用返回代替
+		if (null != backName && (! "".equals(backName))) {
+			params.putString(QQShare.SHARE_TO_QQ_APP_NAME, backName);
+		}
+		//分享额外选项
+		params.putInt(QQShare.SHARE_TO_QQ_EXT_INT, QQShare.SHARE_TO_QQ_FLAG_QZONE_AUTO_OPEN);
+		mTencent.shareToQQ(mActivity, params, qqShareListener);
+	}	
+	
+4. onActivityResult()方法中添加如下代码
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == Constants.REQUEST_QQ_SHARE || requestCode == Constants.REQUEST_QZONE_SHARE)
+        {
+            Tencent.onActivityResultData(requestCode, resultCode, data, qqShareListener);
+        }	
+
+5. lua 调用分享
+	function LoginView:onQQShare()
+	  print("LoginView:onQQShare")
+
+	  local className="org/cocos2dx/lua/AppActivity"
+	  local funcName = "shareAppToQQ"
+	  local function onResult(data) 
+		if data == "true" then 
+		  local luaj = require "cocos.cocos2d.luaj"
+		  local arg="(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V" --中间不能有空格,否则调用失败
+		  local params = {"mytitle", "mydesc", "", ""}
+		  luaj.callStaticMethod(className, funcName, params, arg) 
+		else 
+		  print("function "..funcName .."not exist !!!")
+		end 
+	  end 
+	  g_gameTool.execJavaFunc(className, funcName, onResult)
+	end 
+
+  
+  
+  
+  

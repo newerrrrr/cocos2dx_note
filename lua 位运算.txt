@@ -1,0 +1,15 @@
+
+
+1.bit.band(0x1253, 255) 此函数需要一个或多个无符号整数作为参数，返回所有参数执行按位“与”运算后的结果。
+	print (bit.band (15, 7, 3)) --> 3
+2. bit.rshift(0x123456, 3) 第一个参数是被移位的数，第二个参数是向右移动的位数。
+	
+3. bit.bor()  此函数需要一个或多个无符号整数作为参数，返回所有参数执行按位“或”运算后的结果。
+	如 print bit.bor (1, 2, 8)) --> 11 
+
+4. bit.bnot(6) 
+
+举例：
+	local R = bit.band(bit.rshift(color, 16), 255)
+	local G = bit.band(bit.rshift(color, 8), 255)
+	local B = bit.band(color, 255)

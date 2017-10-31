@@ -1,0 +1,26 @@
+collectgarbage (opt [, arg]) 
+This function is a generic interface to the garbage collector. 
+It performs different functions according to its first argument, opt: 
+
+
+"stop": stops the garbage collector.  禁用垃圾收集器 
+
+"restart": restarts the garbage collector. 重启垃圾收集器
+
+"collect": performs a full garbage-collection cycle. 完全垃圾收集
+
+"count": returns the total memory in use by Lua (in Kbytes). 查询内存占用(Kb)
+
+"step": performs a garbage-collection step. 
+
+The step "size" is controlled by arg 
+(larger values mean more steps) in a non-specified way. 
+If you want to control the step size you 
+must experimentally tune the value of arg. 
+Returns true if the step finished a collection cycle. 
+
+"setpause": sets arg/100 as the new value for the pause of the collector.  垃圾收集中断量
+
+"setstepmul": sets arg/100 as the new value for the step multiplier of the collector. 垃圾收集工作量
+
+

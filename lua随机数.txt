@@ -1,0 +1,51 @@
+Lua 生成随机数需要用到两个函数：
+math.randomseed(xx)， math.random([n [, m]])
+
+1. math.randomseed(n) 接收一个整数 n 作为随机序列种子。
+2. math.random([n [, m]]) 有三种用法： 无参调用， 产生 （0,1） 之间的浮点随机数； 只有参数 n， 产生 1-n 之间的整数； 有两个参数 n， m， 产生 n-m 之间的随机整数
+
+对于相同的随机种子， 生成的随即序列一定是相同的。所以程序每次运行， 赋予不同的种子很重要。很自然想到使用系统时间作为随机种子，即：
+
+[plain] view plaincopy
+math.randomseed(os.time())  
+----然后不断产生随机数  
+for i=1, 5 do  
+ print(math.random())  
+end  
+
+但是问题出来了， 如果程序运行时间， 你又在很短的时间内多次运行这个程序，那么你得到的随机序列会是几乎不变的。 像这样：
+>lua -e "io.stdout:setvbuf 'no'" "test.lua" 
+0.71141697439497
+0.060121463667714
+0.067506942960906
+0.8607745597705
+0.60652485732597
+>Exit code: 0
+>lua -e "io.stdout:setvbuf 'no'" "test.lua" 
+0.71141697439497
+0.060121463667714
+0.067506942960906
+0.8607745597705
+0.60652485732597
+>Exit code: 0
+>lua -e "io.stdout:setvbuf 'no'" "test.lua" 
+0.7115085299234
+0.38813440351573
+0.6127201147496
+0.59511093478195
+0.9212927640614
+>Exit code: 0
+
+可以看到前两次运行的随机数都是一样的。究其原因，就是 os.time() 返回的时间是秒级的， 不够精确， 而 random() 还有个毛病就是如果 seed 很小或者seed 变化很小，产生的随机序列仍然很相似。比如：
+[plain] view plaincopy
+math.randomseed(100)  
+print(math.random(1000))  
+math.randomseed(102)  
+print(math.random(1000))  
+
+两次赋予的 seed 分别是 100， 102 但是random 生成的第一个随机数却是一样的。因此“短时间内多次运行程序” 这样的需求下 os.time 还真不大好。可是又没有比 time 函数更方便的种子生成器， 怎么办呢？
+可以这样：
+[plain] view plaincopy
+math.randomseed(tostring(os.time()):reverse():sub(1, 6))  
+
+就是把 time返回的数值字串倒过来（低位变高位）， 再取高位6位。 这样， 即使 time变化很小， 但是因为低位变了高位， 种子数值变化却很大，就可以使伪随机序列生成的更好一些
