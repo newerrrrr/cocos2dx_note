@@ -1,0 +1,59 @@
+
+可以参考流程 http://www.jianshu.com/p/9df7d8930a3e
+
+
+
+1. 首先你得有一个苹果开发者账号
+	在菜单 Xcode/Preferences/添加
+	
+2. Certificate（证书）就是app在打包的时候必须签名，苹果iOS系统在安装app之前会验证Certificate，否则不会通过安装。
+   Provisioning Profile简单来说就是包含Apple ID，证书，和设备ID等各种信息的集合体。
+   一般来说，在打包ipa的时候，必须配置Provisioning Profile。
+
+	打包需要p12证书和 描述文件(.mobileprovision)
+	自己本地测试使用 development的证书和描述文件
+	当发布测试时 需要使用 adhoc.mobileprovision;
+	当发布正式版本时，需要使用distribution证书和描述文件；
+
+    导入方法：
+	直接双击p12, 根据提示输入密码，
+	直接双击 mobileprovision 描述文件, 在 xcode 的Genel->Signing下 取消勾选 "Automatically manage signing",
+	然后在debug和release下手动选择刚才导入的 profile文件即可.
+	
+	如果不用证书打包测试，则需要勾选 "Automatically manage signing",同时使用apple id账号来打包。
+	
+	
+3. 接入第三方SDK时引用静态库, 他们的推荐是在  Target->Buid Settings->Linking 下 Other Linker Flags 项添加 -ObjC ，
+   但有时link时可能会报错：
+   Undefined symbols for architecture arm64:
+   "_OBJC_CLASS_$_GCController" , referenced from:
+   ...
+   ld:symbol(s) not found for architecture arm64
+   
+   解决的方法：
+   使用-force_load 来连接指定具体的静态库路径， 如：
+   -force_load $(PROJECT_DIR)/Lib/TrackingIO/TrackingIO.a
+   
+4. 打包成IPA
+	1) sdk版本选择 8.0以上
+	2)设备里选择 Generic IOS Device
+    3)菜单 Product -> Edit Scheme 下右边选择 release(或者debug)
+	  菜单 Product -> Archive->Export 的时候 ,导出方法
+	  第一种是导出到app store
+	  第二种是保存到本地，在账号添加的可使用设备上使用（具体为在开发者账户下添加可用设备的udid），该app包是发布证书编译的
+	  第三种是这种主要针对企业级账户下 准备本地服务器分发的app，也可直接发给你的客户或测试人员安装，无需在帐号中添加设备的udid。注意：此证书为299$的企业证书
+	  第四种是针对内部测试使用，主要给开发者的设备(具体也为在开发者账户下添加可用设备的udid)。该app包是开发证书编译的
+
+	  这里我用第二种
+	4)之后提示选择 开发团队,这里选择 Use local signing assets
+	5)之后在summary界面取消勾选下面的 include manifest for over-the-air installation
+	
+
+	6)导出ipa安装包后，可以在xcode安装：菜单Windows->Devices 在右边界面最下面，点选 + 号，选择ipa即可安装。
+	
+	这里遇到几个问题:
+	1)证书 和描述文件都已经导入，并且编译时 描述文件选择正确，包名(bundle identifier)也填写正确,但安装ipa的时候提示描述文件与当前设备udid不匹配，
+	  发现是第三方给我们提供描述文件时，udid是后期才添加的，应该是先添加udid再导出描述文件！
+	  
+	
+	

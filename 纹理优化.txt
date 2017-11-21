@@ -1,0 +1,10 @@
+
+查看纹理占用内存信息可通过如下接口：print(cc.Director:getInstance():getTextureCache():getCachedTextureInfo())
+
+
+1)默认纹理格式为RGBA8888，可通过如下设置纹理格式为16位的RGB565,则占用内存小一半;
+	cc.Texture2D:setDefaultAlphaPixelFormat(cc.TEXTURE2_D_PIXEL_FORMAT_RG_B565)
+
+2)默认RGBA8888时, 使用pvr.ccz 占用内存减少一半.
+
+3)

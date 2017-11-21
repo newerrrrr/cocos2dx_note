@@ -1,0 +1,8 @@
+lua的内存泄露
+     有时在游戏中需要重新登录，这时比较常用的处理方式是把CCLuaEngine::defaultEngine()指针指向的部分删除，
+	 但是，这种粗暴的方式可能会造成一些内存泄露，需要在前面加入如下代码
+	[cpp] 
+	pEngine->getLuaStack()->clean();  
+	lua_State *tolua_s = pEngine->getLuaStack()->getLuaState();  
+	lua_close(tolua_s);  
+	tolua_s = NULL;  

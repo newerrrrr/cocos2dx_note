@@ -1,0 +1,7 @@
+
+正式版修改如下地方:
+
+1. AppController.mm 中 initHW() 修改 is_test 值
+
+2.versionConfig.lua 中修改 g_paymentNotifiyHost ，登录二次确认访问的服务器
+
