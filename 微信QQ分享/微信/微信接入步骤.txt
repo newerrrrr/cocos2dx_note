@@ -1,5 +1,13 @@
 
-1. 在微信开放平台 https://open.weixin.qq.com/ 注册好账号后，申请appid 
+1. 在微信开放平台 https://open.weixin.qq.com/ 注册好账号后，申请appid ,我的微信开放平台账号密码 chenhlb@163.com , 11612380 
+	其中创建的一个应用信息如下：
+
+	微信appid： 
+	游戏包名： com.hlb.tcard
+	md5: 40b82a474b57d7b3a3c9c9ed80dc069f
+
+	AppID：wx708e74f728e0e612
+	AppSecret：20cd63bf9dc2068c7023c9e35ce96067
 
 2. 打开微信开放平台官网， 查看一下注册你的应用程序。如果没有则需要创建应用,
    在官网 管理中心 中 ，点 创建移动应用, 按步骤来填写提交。

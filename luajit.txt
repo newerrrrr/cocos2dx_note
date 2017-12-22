@@ -1,0 +1,51 @@
+1. 在 http://luajit.org/download.html 下载luajit源代码，确保与cocos2dx工程的luajit版本一致。
+
+   不过为了保险起见，最好使用 cocos2dx 平台自带的luajit源码进行编译。
+
+2. 使用VS的命令行(不是windows的 cmd)来编译：
+   电脑程序--> VS -->Visual Studio Tools --> Visual Studio命令提示 
+   使用方法与cmd 一样， cd到源码的src目录，执行编译命令： msvcbuild.bat
+
+   会发现在当前目录下生成 lua51.dll 、 lua51.lib 和 luajit.exe
+
+3. 编译完成后，要注意luajit.exe和源代码src/jit文件夹要同时并且匹配使用。否则运行时会出现  
+    "unknown luaJIT command or jit.* modules not installed"的错误。
+
+4. 编译成字节码的命令如下: luajit -b 原始文件 输出文件，写了个批处理文件 build.bat 内容如下：
+
+@echo off 
+	
+
+
+setlocal enabledelayedexpansion
+
+printf "start to delete file...\n"
+rm -rf ..\..\DstRes 
+
+if ERRORLEVEL 1 goto ERROR
+
+
+printf "start to copy file...\n"
+xcopy /s/e/i/q/y ..\..\Resources ..\..\DstRes
+
+if ERRORLEVEL 1 goto ERROR
+
+printf "\n start to build luajit file...\n "
+for /r ..\..\DstRes\ %%i in (*.lua) do luajit.exe -b %%i %%i
+
+if ERRORLEVEL 1 goto ERROR
+
+printf "\n ==== build success ===== \n"
+pause&exit
+
+
+
+:ERROR
+printf "\n ====  ERROR  ===== \n"
+pause
+
+
+该文件放在cocos2dx工程Tools目录下，执行脚本后会将 Resources目录下所有文件拷贝到同级目录DstRes目录，并将lua文件
+编译为字节码.
+
+

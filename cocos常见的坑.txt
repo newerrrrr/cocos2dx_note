@@ -1,0 +1,21 @@
+
+
+1. loadTexture 后图片变形
+	对在cocos studio定义的ImageView组件，使用loadTexture方法后,图片的长宽没有自适应，导致变形.
+	需要添加如下方法：
+	setUnifySizeEnabled(false) 			//enable True to use unify size, false otherwise.
+	ignoreContentAdaptWithSize(true) 	//Set true will ignore user defined content size
+	
+2. ListView 
+	1)插入后jump无效
+		解决方法：需要延时jump
+		
+		self.RoundListVw:insertCustomItem(item, idx) 
+		self:performWithDelay(function() 
+			self.RoundListVw:jumpToItem(idx-1, cc.p(0, 0.6), cc.p(0, 1))
+		end, 0) 
+	
+	2)在点击事件中删除该项失败,也需要延时到下一帧删除
+		if eventType == ccui.ListViewEventType.ONSELECTEDITEM_END then
+			self:performWithDelay(function() sender:removeItem(idx+1) end, 0.1)
+		end

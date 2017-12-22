@@ -1,0 +1,5 @@
+下载 TortoiseSVN Password Decrypter :
+
+ http://www.leapbeyond.com/ric/TSvnPD/
+
+ 下载后直接执行即可显示当前电脑上的SVN用户名和密码

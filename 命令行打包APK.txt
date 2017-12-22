@@ -39,13 +39,13 @@
 		
 
 5. 下面开始编译项目了：
-	cmd下执行先执行 gradlew.bat , 在执行如下命令
+	cmd下执行先执行 gradlew.bat , 再执行如下命令
 	
-	gradle -p D:\hlb\hlb_sale\frameworks\runtime-src\proj.android-studio //指定项目
+	gradlew -p D:\hlb\hlb_sale\frameworks\runtime-src\proj.android-studio //指定项目
 	
-	gradle clean  //此命令的主要作用是去下载一些gradle的下载包
+	gradlew clean  //此命令的主要作用是去下载一些gradle的下载包
 	
-	gradle build //默认会生成 debug和 release版本, 
+	gradlew build //默认会生成 debug和 release版本, 
 	
 	如果只想单独生成apk,可执行命令：gradlew assembleDebug 和 gradlew assembleRelease
 	
@@ -54,7 +54,7 @@
 	
 	编译成功后可在项目下的 proj.android-studio\app\build\outputs\apk 生成对应的apk
 	
-	 
+	
 6. SDK/NDK路径自动配置在 proj.android-studio/local.properties文件里：
 	ndk.dir=D\:\\tools\\Sdk\\ndk-bundle
 	sdk.dir=D\:\\tools\\Sdk
