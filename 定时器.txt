@@ -1,0 +1,2 @@
+
+1. node对象的方法： scheduleUpdateWithPriorityLua()

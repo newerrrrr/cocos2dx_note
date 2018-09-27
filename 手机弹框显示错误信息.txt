@@ -1,0 +1,29 @@
+
+1)在报错时加入回调函数
+
+cocos/init.lua文件:
+
+__G__TRACKBACK__ = function(msg)
+    local msg = debug.traceback(msg, 3)
+    print(msg)
+	--发生错误时弹框
+    require("src.app.DebugMsgBox"):showErrorInfo(msg) --by hlb
+	
+    return msg
+end
+
+2)调用真机上的 msg box
+src/app/DebugMsgBox.lua内容：
+local M = {}
+function M:showErrorInfo(msg)
+    local gt = cc.exports.gt
+    if gt.debugMode then 
+        if cc.Application:getInstance():getTargetPlatform() == cc.PLATFORM_OS_ANDROID then 
+            local luaj = require "cocos.cocos2d.luaj"
+            luaj.callStaticMethod("org/cocos2dx/lib/Cocos2dxHelper", "showDialog", {"Error", msg}) 
+        end 
+    end
+end 
+
+return M 
+

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      package="com.happy9.pyqps"
+      android:versionCode="2"
+      android:versionName="1.0.3"
+      android:installLocation="auto">
+
+    <uses-sdk android:minSdkVersion="9"/>
+    <uses-feature android:glEsVersion="0x00020000" />
+
+    <application android:label="@string/app_name"
+                 android:icon="@drawable/icon" android:name="org.game.FApplication">
+					 
+        <!-- Tell Cocos2dxActivity the name of our .so -->
+        <meta-data android:name="android.app.lib_name"
+                  android:value="cocos2dlua" />
+					  
+        <activity android:name="org.game.AppActivity"
+                  android:label="@string/app_name"
+                  android:screenOrientation="sensorPortrait"
+                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+                  android:configChanges="orientation|keyboardHidden|screenSize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>  
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />  
+                <category android:name="android.intent.category.BROWSABLE" />  
+                <data android:scheme="pyqps" android:host="pyqps.com" />
+            </intent-filter>
+        </activity>
+
+        <!-- weixin sdk begin -->       
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:exported="true"
+            android:label="@string/app_name" >
+        </activity>
+
+        <!-- meta-data 定义 -->
+        <meta-data
+            android:name="WX_APPID"
+            android:value="wx9414dec2b7f66ebc" />
+        <!-- weixin sdk end -->
+        <!-- alipay sdk begin -->
+
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+        </activity>
+
+        <service android:name="com.yunva.im.sdk.lib.service.VioceService" />
+
+        <!-- alipay sdk end -->
+        
+		<!-- 高德sdk -->
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="47bac3e7c617732ae3b7d58980f47953" />
+		<service android:name="com.amap.api.location.APSService"></service>
+		
+        <receiver android:name="org.game.PhoneStatReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.PHONE_STATE" />
+                <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
+            </intent-filter>
+        </receiver>
+        <!-- umeng sdk by fengjingfeng-->
+        <meta-data android:value="59fab98ca40fa30e16000224" android:name="UMENG_APPKEY"/>
+        <meta-data android:value="aozhanzhongyuanqipai" android:name="UMENG_CHANNEL"/>
+    </application>
+
+    <supports-screens android:anyDensity="true"
+                      android:smallScreens="true"
+                      android:normalScreens="true"
+                      android:largeScreens="true"
+                      android:xlargeScreens="true"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>  
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>  
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>  
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>  
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+	<uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- 微信需要权限 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- yy需要权限 -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    
+    <!-- GPS定位权限 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
+    <!-- 屏幕翻转 -->
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION"/>
+</manifest> 

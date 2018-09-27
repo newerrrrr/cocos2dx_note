@@ -1,0 +1,43 @@
+
+
+1. 字符串替换
+	set str0=D:\test\a\test.txt
+	set str1=D:\test\a
+	set str2=D:\test\b
+	set result=!str0:%str1%=%str2%!
+	echo !result!
+
+2. 遍历所有文件
+
+SET CUR_PATH=%~dp0.
+SET SOURCE_DIR=%CUR_PATH:~0,-1%res
+SET TARGET_DIR=%CUR_PATH:~0,-1%test  //因为CUR_PATH包含一个空格,所以最后一个字符丢掉
+FOR /R %TARGET_DIR% %%I IN (*.mp3) DO ( //遍历所有mp3文件
+
+	对变量 %%I进行扩展功能:
+　　%%~fI - 将 %%I 扩充到一个完全合格的路径名
+　　%%~dI - 仅将 %%I 扩充到一个驱动器号
+　　%%~pI - 仅将 %%I 扩充到一个路径
+　　%%~nI - 仅将 %%I 扩充到一个文件名
+　　%%~xI - 仅将 %%I 扩充到一个文件扩展名
+　　%%~sI - 扩充的路径只含有短名
+　　%%~aI - 将 %%I 扩充到文件的文件属性
+　　%%~tI - 将 %%I 扩充到文件的日期/时间
+　　%%~zI - 将 %%I 扩充到文件的大小
+
+	组合扩展:
+	%%~dpnI 全路径但不包含扩展名
+)
+
+3.判断文件是否存在
+	if exist "e:\mybooks\text.txt" (echo ok ) else (echo err)
+	
+4.整体拷贝:
+	//如果存在则先删除,如果目录不存在则创建目录
+	if exist %TARGET_DIR% rd /s /Q %TARGET_DIR%
+	md %TARGET_DIR%
+	xcopy %SOURCE_DIR% %TARGET_DIR% /s /e
+	
+5.判断字符串中是否包含指定内容
+	Echo ttthlb | findstr "hldb" && echo yes || echo no
+	

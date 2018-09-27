@@ -1,0 +1,55 @@
+
+1)lua部分
+
+--camera:基于哪个摄像机
+--location:基于屏幕坐标系(非opengl坐标系)的点击坐标
+--sprite: 3D精灵
+function M:isIntersects(camera, location, sprite)
+    local nearP = cc.vec3(location.x, location.y, 0.0)
+    local farP  = cc.vec3(location.x, location.y, 1.0)
+    local size = cc.Director:getInstance():getWinSize()
+    nearP = camera:unproject(size, nearP, nearP)
+    farP  = camera:unproject(size, farP, farP)
+    local dir = cc.vec3sub(farP, nearP)
+    dir = cc.vec3normalize(dir)
+    
+    local ray = cc.Ray:new()
+    ray._origin    = nearP
+    ray._direction = dir
+
+    return ray:intersects(cc.OBB:new(sprite:getAABB()))
+end 
+
+举例:
+	local function onTouchBegan(touch, event) 
+        local viewPoint = touch:getLocationInView() 
+		local sprite = node:getChildByName("card"..i)
+		local result = Helper3D:isIntersects(self.handCamera, viewPoint, sprite) 
+		
+		return result
+	end 
+	
+	
+2) CPP部分
+	//x, y: touch location in OpenGL coordinates
+	//camera: 基于哪个camera
+	bool RayCheck::isTouchOnSprite(float x, float y, cocos2d::Camera *camera, cocos2d::Sprite3D *obj)
+	{
+		auto winSize = Director::getInstance()->getWinSize();
+		auto nearP = Vec3(x, y, 0.0f);//近平面
+		auto farP = Vec3(x, y, 1.0f);//远平面
+		 
+		camera->unprojectGL(winSize, &nearP, &nearP);//反投影
+		camera->unprojectGL(winSize, &farP, &farP);	
+			
+		auto dir = farP - nearP;//得到射线方向
+		dir.normalize();//归一化向量
+		auto ray = Ray(nearP, dir);//从近平面射出的一条射线
+
+		auto aabb = obj->getAABB();//获取3D物体的AABB碰撞盒
+		if(ray.intersects(aabb)){//射线是否命中该包围盒
+			return true;
+		}
+		
+		return false;
+	}

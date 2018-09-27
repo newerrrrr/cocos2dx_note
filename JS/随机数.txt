@@ -1,0 +1,13 @@
+
+1. Math.random() 返回 [0, 1)之间的伪随机数
+
+2. 给定范围的随机数
+	function getRandomFloat(min, max) {
+		return Math.random() * (max - min) + min;
+	}
+	
+3. 返回给定范围内的随机整数
+	function getRandomInt(min, max) {
+		return Math.floor(Math.random() * (max - min + 1)) + min;
+	}
+	

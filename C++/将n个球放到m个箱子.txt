@@ -1,0 +1,50 @@
+
+
+
+//将 n 个球放到 m 个箱子里, 可允许某个箱子为空, 输出所有的排列组合
+int result[20] = {0};
+static void printResult(int count)
+{
+	std::string tmp;
+	for (int i = 0; i < count; i++)
+	{
+		char str[10];
+		itoa(result[i], str, 10);
+
+		tmp += std::string(str);
+		tmp += ",	";
+	}
+	CCLOG(tmp.c_str());
+}
+
+static void genCMN(int index, int leftBalls, int leftBoxs, int totalBoxNum)
+{
+	if (leftBalls == 0 )
+	{
+		result[index] = 0;
+		if (index == totalBoxNum-1)
+		{
+			printResult(totalBoxNum);
+		}
+		else 
+		{
+			genCMN(index+1, 0, leftBoxs-1, totalBoxNum);
+		}
+	}
+	else if (leftBalls > 0 && leftBoxs > 0)
+	{
+		if (leftBoxs == 1)
+		{
+			result[index] = leftBalls;
+			printResult(totalBoxNum);	
+		}
+		else 
+		{
+			for (int j = 0; j <= leftBalls; j++)
+			{
+				result[index] = j;
+				genCMN(index+1, leftBalls-j, leftBoxs-1, totalBoxNum);
+			}
+		}
+	}
+}

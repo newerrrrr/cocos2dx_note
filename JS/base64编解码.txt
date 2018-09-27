@@ -1,0 +1,11 @@
+
+1. 编码:
+	function b64Encode( str ) {
+		return window.btoa(unescape(encodeURIComponent( str )));
+	}	
+
+2. 解码
+	function b64Decode( str ) {
+		return decodeURIComponent(escape(window.atob( str )));
+	}
+	

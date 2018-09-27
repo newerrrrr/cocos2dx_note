@@ -1,0 +1,11 @@
+
+按钮(UIButton) 点击响应的优先级为 0;
+
+而layer层注册触摸事件时, addEventListenerWithSceneGraphPriority()其优先级也为 0；
+
+那么当 layer 盖在按钮上面,如果想优先响应按钮,后响应 layer 触摸事件, 可通过加大按钮的 Global Zorder 来实现.
+
+一般UI元素的z-order为0, 所以可以设置button的zorder 为 > 0 的值:
+	btn:setGlobalZOrder(1)
+
+	

@@ -1,0 +1,16 @@
+
+	用 tolua.isnull() 检查 Lua 值中的 C++ 对象是否已经被删除
+	
+	if not tolua.isnull(obj) then 
+		...
+	end 
+	
+
+	一般用于如下场合:
+	1)调用 removeFromParent 之前
+	
+	2)异步回调函数中判断对象是否存在；
+	
+	3)stopAction前
+	
+	

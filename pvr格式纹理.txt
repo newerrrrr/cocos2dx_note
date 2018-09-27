@@ -1,0 +1,25 @@
+
+1. 使用 texturepacker 试用版可以7天免费试用打包 pvr格式的图片
+
+2. 一般转换成 RGB565格式的 pvr.czz 后再代码加载:
+	1)  local img = cc.Sprite:create("res/fff.pvr.ccz")
+		img:setPosition(gt.winCenter)
+		self:addChild(img)
+		
+	2)  单个图片pvr格式
+		image:loadTexture("res/fff.pvr.ccz")
+		image:setUnifySizeEnabled(false) 		//enable True to use unify size, false otherwise.
+		image:ignoreContentAdaptWithSize(true) 	//Set true will ignore user defined content size	
+	
+	3) 当 pvr.czz 为合图的时候
+		cc.SpriteFrameCache:getInstance():addSpriteFrames("res/fff.plist") 
+		image:loadTexture("table_green.png", ccui.TextureResType.plistType)
+	
+	4)加载pvr的时候纹理格式设置成 RGB565格式可以省一半内存,加载完后再恢复
+		local format = cc.Texture2D:getDefaultAlphaPixelFormat()
+		cc.Texture2D:setDefaultAlphaPixelFormat(cc.TEXTURE2_D_PIXEL_FORMAT_RG_B565)
+		img:loadTexture(pvrName)
+		cc.Texture2D:setDefaultAlphaPixelFormat(format) 	
+	
+	5)
+	

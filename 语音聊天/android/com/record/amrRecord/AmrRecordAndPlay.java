@@ -1,6 +1,6 @@
 
+// by huanglibo 2017
 package com.record.amrRecord;
-
 
 import java.io.File;
 import java.io.IOException;
@@ -30,13 +30,13 @@ public class AmrRecordAndPlay {
 		//stop record and play ...
 		mInstance.stopAll();
 		
-		mFilepath = fullpath; //Environment.getExternalStorageDirectory()+"/record/hlb.amr";
+		mFilepath = fullpath; //Environment.getExternalStorageDirectory()+"/hlb.amr";
 		mLuaRecordResultFuncId = luaRecordResultFuncId;				
 		mInstance.initRecorder();
 
     	try {
     		mInstance.mRecorder.prepare();
-    		mInstance.mRecorder.start();
+    		mInstance.mRecorder.start(); 
 		} 			
     	catch (IOException e) {
 			e.printStackTrace();
@@ -52,11 +52,19 @@ public class AmrRecordAndPlay {
 		mLuaRecordResultFuncId = luaRecordResultFuncId;		
     	if(mInstance.mRecorder != null)
     	{
-    		mInstance.mRecorder.stop();
-    		mInstance.mRecorder.release();// 释放资源
-    		mInstance.mRecorder = null;
-    		
-    		mInstance.handleRecordResult("success");
+    		try {
+	    		mInstance.mRecorder.stop();
+	    		mInstance.mRecorder.release();// 释放资源
+	    		mInstance.mRecorder = null;
+	    		
+	    		mInstance.handleRecordResult("success");
+	    	}
+            catch(Exception e){
+                Log.d("AmrRecord", " has error in stopRecord...");
+                e.printStackTrace();
+                mInstance.mRecorder.release();
+                mInstance.mRecorder = null; 
+            } 
     	} 
 	} 	
 	
@@ -152,6 +160,7 @@ public class AmrRecordAndPlay {
 	{
     	if(mRecorder != null){
     		mRecorder.stop();
+    		mRecorder.reset();
     		mRecorder.release();// 释放资源
     		mRecorder = null;
     	} 
@@ -170,16 +179,44 @@ public class AmrRecordAndPlay {
     {
     	if (mInstance != null)
     	{
-    		mRecorder = new MediaRecorder();
-    		mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-    		mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-    		mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-	    	
-	    	File mFile = new File(mFilepath); 
-	         if (mFile.exists()) {   
-	        	 mFile.delete();   
-	         }  	    	
-	         mRecorder.setOutputFile(mFilepath);
+    		
+    		Log.d("AmrRecord", "initRecorder");
+
+	        File file = new File(mFilepath);
+	        if(file.exists()) {
+	            if(file.delete()){
+	                try {
+	                    file.createNewFile();
+	                }
+	                catch(IOException e) {
+	                    e.printStackTrace();
+	                }
+	            }
+	            else {
+	                try {
+	                    file.createNewFile();
+	                }
+	                catch(IOException e) {
+	                    e.printStackTrace();
+	                }
+	            }
+	        }
+
+	        try{
+	            mInstance.mRecorder = new MediaRecorder();
+	            mInstance.mRecorder.reset();
+	            mInstance.mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+	            mInstance.mRecorder.setOutputFormat(MediaRecorder.OutputFormat.AMR_NB);
+	            mInstance.mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+	            mInstance.mRecorder.setOutputFile(mFilepath);
+	            //如下两个设置很重要!否则即使录制2秒钟,某些机器录制出来的音频文件会非常大!!
+	            mInstance.mRecorder.setMaxDuration(20000); 
+	            mInstance.mRecorder.setMaxFileSize(100*1024); 
+	        }
+	        catch(Exception e){                
+	            Log.d("AmrRecord", "has error in initRecorder...");
+	            e.printStackTrace();
+	        } 
     	}
     } 
 

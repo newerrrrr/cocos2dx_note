@@ -57,10 +57,21 @@ quick：
 	这样， 每次打开player的时候，就默认为指定的分辨率了 ！！
 
 
-3. 分辨率自适应
-	以宽为基准, 等比例缩放, 直到显示已达到屏幕宽度或高度的最大值:
-    auto size = glview->getFrameSize();
-    glview->setDesignResolutionSize(1136, size.height*1136/size.width, ResolutionPolicy::SHOW_ALL);	
+3. 分辨率自适应:支持全面屏
+
+    local director = cc.Director:getInstance()
+    local view = director:getOpenGLView() 
+    view:setDesignResolutionSize(CC_DESIGN_RESOLUTION.width, CC_DESIGN_RESOLUTION.height, cc.ResolutionPolicy.NO_BORDER) 
+
+    local visibleSize = director:getVisibleSize() 
+    local ratio_visible = visibleSize.width / visibleSize.height 
+    if ratio_visible < 1.78 then --16:9 
+        display.scale  = visibleSize.width / display.width 
+    else --18:9 以上的则以高度为准
+        display.scale  = visibleSize.height / display.height
+    end 
+
+	
 
 
 

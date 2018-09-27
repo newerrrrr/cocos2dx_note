@@ -1,8 +1,57 @@
 lua的内存泄露
-     有时在游戏中需要重新登录，这时比较常用的处理方式是把CCLuaEngine::defaultEngine()指针指向的部分删除，
-	 但是，这种粗暴的方式可能会造成一些内存泄露，需要在前面加入如下代码
-	[cpp] 
+
+一、CPP部分
+    有时在游戏中需要重新登录，这时比较常用的处理方式是把CCLuaEngine::defaultEngine()指针指向的部分删除，
+	但是，这种粗暴的方式可能会造成一些内存泄露，需要在前面加入如下代码
 	pEngine->getLuaStack()->clean();  
 	lua_State *tolua_s = pEngine->getLuaStack()->getLuaState();  
 	lua_close(tolua_s);  
 	tolua_s = NULL;  
+	
+二、Lua部分
+	回收垃圾函数:
+		local function collectLuaMemory()
+			local preMem = collectgarbage("count")
+			-- 调用lua垃圾回收器
+			for i = 1, 3 do
+				collectgarbage("collect")
+			end
+			local curMem = collectgarbage("count")
+			print(string.format("Collect lua memory:[%d], current memory:[%d]", (curMem - preMem), curMem)) 
+		end 	
+	
+	1)	一般很多常规做法都是起个定时器,定期的调用上述方法来进行垃圾回收,但是有时会造成游戏卡顿，影响体验;
+		所以建议在某个模块或界面时，禁止自动回收，改用手动回收。
+		在模块进入/退出或者其他地方手动调用 collectLuaMemory方法回收垃圾;
+	
+	2)	检测内存泄漏可以在模块，代码段调用 print("lua mem =", collectgarbage("count")) 来查看内存的增减,
+		判断内存是否存在泄漏
+	  
+	3)	当文件 require 某个lua文件时, 即便当前文件释放, 但是require的文件仍可能未释放, 解决的方法就是
+		手动将 require 的lua文件变量赋值为nil
+		比如 MjLogic.lua文件，头部引用了 TableManager.lua这个文件:
+		local TableManager = require("app.KLMJ.mode.TableManager") 
+		编写销毁函数，去掉对 TableManager.lua的引用计数
+		function MjLogic:destroy()
+			TableManager = nil 
+		end 
+	  
+	4)退出模块的时候,unload相关模块的lua文件;
+		
+		综合上述的 3), 4),释放模块的lua内存：
+		function M:unloadKLMJLuaFiels() 
+			print("unloadKLMJLuaFiels")
+
+			for path, _ in pairs(package.loaded) do 
+				local v1, v2 = string.find(path, "app.KLMJ.") 
+				if v1 and v1 == 1 then 
+					local obj = require(path)
+					if obj.destroy then --如果该对象中有销毁函数,则先调用
+						obj.destroy()
+					end 
+					print("unload lua file:", path)
+					package.loaded[path] = nil 
+				end 
+			end 
+		end 
+	

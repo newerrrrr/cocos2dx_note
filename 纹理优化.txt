@@ -1,10 +1,30 @@
 
-查看纹理占用内存信息可通过如下接口：print(cc.Director:getInstance():getTextureCache():getCachedTextureInfo())
+1)查看纹理占用内存信息可通过如下接口：print(cc.Director:getInstance():getTextureCache():getCachedTextureInfo())
 
 
-1)默认纹理格式为RGBA8888，可通过如下设置纹理格式为16位的RGB565,则占用内存小一半;
+2)默认纹理格式为RGBA8888，可通过如下设置纹理格式为16位的RGB565,则占用内存小一半;
 	cc.Texture2D:setDefaultAlphaPixelFormat(cc.TEXTURE2_D_PIXEL_FORMAT_RG_B565)
 
-2)默认RGBA8888时, 使用pvr.ccz 占用内存减少一半.
+3)默认RGBA8888时, 使用pvr.ccz 占用内存减少一半.
 
-3)
+4)在内存警告时cocos2d-x会清理缓存数据包括字体、纹理、spriteFrame等,这里封装了个接口，
+	事先检查一下spriteFrame是否存在，如果不存在，则去查找对应的plist，重新加载一遍
+
+	local function checkAndLoadTextureFrame(img, frameName, plistName)
+		if nil == cc.SpriteFrameCache:getInstance():getSpriteFrame(frameName) then 
+			release_print(" no sprite frame, reload plist: ", frameName, plistName)
+			cc.SpriteFrameCache:getInstance():addSpriteFrames(plistName)
+		end 
+		img:loadTexture(frameName, ccui.TextureResType.plistType)
+	end 
+
+5) 退出当前view时清理纹理的时候,放在下一帧延迟清理才能清干净:
+	cc.SpriteFrameCache:getInstance():removeUnusedSpriteFrames()
+	cc.Director:getInstance():getTextureCache():removeUnusedTextures()  
+
+6) 进入新的 scene时，再scene的构造函数中先清理所有纹理和帧缓存
+	cc.SpriteFrameCache:getInstance():removeSpriteFrames()
+	cc.Director:getInstance():getTextureCache():removeAllTextures()
+	
+7)加载pvr的时候纹理格式设置成 RGB565格式可以省一半内存,加载完后再恢复
+

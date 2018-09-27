@@ -1,0 +1,27 @@
+
+1. 计算时间消耗(毫秒):
+	var t1 = new Date();
+	... //do something
+	var t2 = new Date();
+	
+	var elapsed = t2.getTime() - t1.getTime();
+
+2. Date.now() 返回距离1970 年1 月1 日00:00:00 UTC 的毫秒数
+
+3. 根据传入参数, 返回当前距离1970年1月1日00:00:00 UTC 的毫秒数：
+	Date.UTC(year, month[, date[, hrs[, min[, sec[, ms]]]]]) 
+
+4. Date 提供一系列get 方法，得到实例对象某个方面的值:
+	getFullYear：返回四位的年份
+	getMonth：返回月份（0-11）
+	getDate() 每个月的几号(从1 开始)
+	getDay()  星期几， 注:星期日为0, 星期一为1
+	etHours：返回小时（0-23）。
+	getMinutes：返回分钟（0-59）。
+	getSeconds：返回秒（0-59）。
+	getMilliseconds：返回毫秒（0-999）。
+	getTimezoneOffset：返回时区差异, 以分钟为单位
+	
+5. Date()对象的 toISOString()返回ISO 8601 的日期格式, 如 "2011-10-05T14:48:00.000Z"
+
+6. Date()对象的 toJSON() 方法返回JSON 格式的日期对象。

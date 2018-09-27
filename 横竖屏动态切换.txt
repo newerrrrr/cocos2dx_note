@@ -1,0 +1,172 @@
+手机默认是竖屏，在某些界面需要横屏显示，一般的界面只需要旋转90/180度即可。
+但是当包含输入框的时候，输入法界面就无法翻转，这种情况下只能调用底层接口来切换横竖屏了。
+
+一、 IOS
+
+1. 选中 xcode 工程, 配置信息面板的 Genenral , 勾选 横屏和竖屏, 表示支持横屏和竖屏;
+
+2. RootViewController.h 添加2条属性
+	@property (nonatomic, assign)UIInterfaceOrientationMask myOrientationMask;
+	@property (nonatomic, assign)UIInterfaceOrientation myOrientation;
+
+3. RootViewController.mm 中
+	1)在 loadView函数中初始化 _myOrientation和_myOrientationMask为默认的横屏/竖屏;
+	- (void)loadView {
+		_myOrientation = UIInterfaceOrientationPortrait;
+		_myOrientationMask = UIInterfaceOrientationMaskPortrait;
+	
+	2) 函数 supportedInterfaceOrientations 返回值修改为根据我们动态设置的值：
+		#ifdef __IPHONE_6_0
+			- (NSUInteger) supportedInterfaceOrientations{
+				//return UIInterfaceOrientationMaskAllButUpsideDown;
+				return _myOrientationMask; //by hlb
+			}
+		#endif
+	
+	3) 重写如下函数
+		- (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation{
+			return YES;
+		}
+		
+		- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation{
+			NSLog(@"----prefer orien %d", _myOrientation);
+			return _myOrientation;
+		}
+
+4. AppController.h 中添加外部设置方向的接口 setOrientation
+	+(NSInteger)setOrientation:(NSDictionary *)dict;
+	
+4. AppController.mm 中实现对外接口 setOrientation
+	1)在文件头定义静态变量
+	static AppController *static_self;
+	
+	2)在 application 加载时赋值静态变量
+	- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+	{
+		static_self = self;
+	 
+	3)实现方法 setOrientation 
+	+(NSInteger)setOrientation:(NSDictionary *)dict
+	{
+		NSString* strOrien = [dict objectForKey:@"strOrien"];
+		NSString* strLanp = @"landscape";
+
+		[[UIDevice currentDevice] setValue:[NSNumber numberWithInteger:UIInterfaceOrientationUnknown] forKey:@"orientation"];
+		
+		if ([strOrien isEqualToString:strLanp]) {//landscape
+			static_self.viewController.myOrientation = UIInterfaceOrientationLandscapeRight;
+			static_self.viewController.myOrientationMask = UIInterfaceOrientationMaskLandscape;
+			[[UIDevice currentDevice] setValue:[NSNumber numberWithInteger:UIInterfaceOrientationLandscapeRight] forKey:@"orientation"];
+		}
+		else{
+			static_self.viewController.myOrientation = UIInterfaceOrientationPortrait;
+			static_self.viewController.myOrientationMask = UIInterfaceOrientationMaskPortrait;
+			[[UIDevice currentDevice] setValue:[NSNumber numberWithInteger:UIInterfaceOrientationPortrait] forKey:@"orientation"];
+		}
+		return 0;
+	}
+	
+	
+	
+二、Android 
+	1. AndroidManifest.xml 添加权限
+		<uses-permission android:name="android.permission.CHANGE_CONFIGURATION"/> 
+	
+	2. AppActivity.java 定义成员变量(非静态) 
+		import android.content.pm.ActivityInfo;
+		
+		//set phone ration 1：landscape 2：portrait
+		public int setOrientation(int orientation){
+			if ( orientation == 1 ) {
+				this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+				//setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+			}
+			else if (orientation == 2 ){
+				this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+				//setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+			}
+			return 0;
+		}
+	
+	3.ExtensionApi.java 定义对外的静态方法
+		public static int setOrientation(int orientation) {
+			return appActivity.setOrientation(orientation);
+		}		
+
+三、lua代码调用底层
+	1. extension.lua 中定义 SetOrientation 方法：
+		
+		--设置横屏竖屏
+		extension.SetOrientation = function(orientation) 
+			if orientation == 1 and CC_DESIGN_RESOLUTION.width >= CC_DESIGN_RESOLUTION.height then --已经是横屏时
+				print("============== current scene orientation is already landscape")
+				return 
+			end 
+			if orientation == 2 and CC_DESIGN_RESOLUTION.width <= CC_DESIGN_RESOLUTION.height then --已经是竖屏时
+				print("============== current scene orientation is already portrait")
+				return 
+			end 
+
+			local ok, ret 
+			if gt.isAndroidPlatform then 
+				ok, ret = extension.luaBridge.callStaticMethod(APIClass, 'setOrientation', {orientation}, '(I)I') 
+			else
+				local str = orientation == 1 and "landscape" or "portrait"
+				ok, ret = extension.luaBridge.callStaticMethod('AppController', 'setOrientation', {strOrien = str})
+			end 
+			print("--------ok, ret", ok, ret)
+			if ok and ret == 0 then 
+				local view = cc.Director:getInstance():getOpenGLView() 
+				local frameSize = view:getFrameSize() 
+				local frame_w, frame_h 
+				local preDesignSize = cc.size(CC_DESIGN_RESOLUTION.width, CC_DESIGN_RESOLUTION.height) 
+				if orientation == 1 then --横屏
+					frame_w  = math.max(frameSize.width, frameSize.height) 
+					frame_h  = math.min(frameSize.width, frameSize.height) 
+					CC_DESIGN_RESOLUTION.width = math.max(preDesignSize.width, preDesignSize.height) 
+					CC_DESIGN_RESOLUTION.height = math.min(preDesignSize.width, preDesignSize.height) 
+				else --竖屏
+					frame_w  = math.min(frameSize.width, frameSize.height) 
+					frame_h  = math.max(frameSize.width, frameSize.height) 
+					CC_DESIGN_RESOLUTION.width = math.min(preDesignSize.width, preDesignSize.height) 
+					CC_DESIGN_RESOLUTION.height = math.max(preDesignSize.width, preDesignSize.height) 
+				end 
+				-- print("=========old, new frame size", frameSize.width, frameSize.height, frame_w, frame_h)
+				view:setFrameSize(frame_w, frame_h)
+				view:setDesignResolutionSize(CC_DESIGN_RESOLUTION.width, CC_DESIGN_RESOLUTION.height, cc.ResolutionPolicy.NO_BORDER)
+
+				--重加载 display.lua 
+				package.loaded["cocos.framework.display"] = nil
+				display = require("cocos.framework.display")
+			end 
+			
+			return ok, ret 
+		end 
+		
+	2. display.lua 中做了一些修改，以适应横竖屏时的缩放因子
+
+		view:setDesignResolutionSize(CC_DESIGN_RESOLUTION.width, CC_DESIGN_RESOLUTION.height, cc.ResolutionPolicy.NO_BORDER)
+		setConstants() 
+
+		local visibleSize = director:getVisibleSize() 
+		local isPortrait = CC_DESIGN_RESOLUTION.width < CC_DESIGN_RESOLUTION.height 
+		if isPortrait then 
+			if visibleSize.width / visibleSize.height < 0.57 then --16:9 (如 720*1280)
+				display.scale  = visibleSize.width / display.width 
+			else --18:9 以上的则以高度为准
+				display.scale  = visibleSize.height / display.height
+			end 
+		else 
+			if visibleSize.width / visibleSize.height < 1.78 then --16:9 (如 1280*720)
+				display.scale  = visibleSize.width / display.width 
+			else --18:9 以上的则以高度为准
+				display.scale  = visibleSize.height / display.height
+			end 
+		end 
+		
+	3. 在场景中调用即可。一般每一个场景进入时都需要设置一下横竖屏(退出该场景时不要调用，只在进入时调用) 
+		extension.SetOrientation(2) --竖屏
+		
+		
+		
+		

@@ -105,7 +105,7 @@
 	  
 	3)常用命令
 		[1]git status 
-		[2]git add 
+		[2]git add  (或者git add -A 上传全部)
 			git add <path> 把<path>添加到索引库中，<path>可以是文件也可以是目录。
 						   git不仅能判断出<path>中，修改（不包括已删除）的文件，还能判断出新添的文件，
 						   并把它们的信息添加到索引库中。		
@@ -117,6 +117,13 @@
 		git push -u origin master
 	
 	
-
+	4)本地暂存 stash
+		git stash 将本分支修改的东西暂时缓存在本地，然后可以切换到别的分支去修改；之后再切换回来,恢复缓存;
+		
+		//git checkout other_branch 
+		//do somthing...
+		//git checkout my_branch 
+		
+		git stash pop 恢复缓存
 	
 	

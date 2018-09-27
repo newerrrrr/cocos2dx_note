@@ -1,0 +1,5 @@
+使用 AudioEngine 封装在android播放某些MP3时会导致卡顿或崩溃
+而 SimpleAudioEngine封装的接口可解决android 播放部分MP3时导致卡顿/崩溃, 但是
+SimpleAudioEngine 在ios平台会导致从后台进入前台后播放音效没有声音;
+
+所以目前解决方法为: android平台使用 SimpleAudioEngine封装的接口; ios 使用 AudioEngine封装的接口

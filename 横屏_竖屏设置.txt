@@ -1,0 +1,37 @@
+
+
+1. 工程下 config.json 
+    "init_cfg":{
+       "isLandscape": false,  --竖屏
+       "isWindowTop": false,
+       "name": "gameclient",
+       "width": 640,  --宽
+       "height": 960, --高
+	   
+2. src/config.lua 
+CC_DESIGN_RESOLUTION = {
+    width = 750, 	--设计分辨率宽
+    height = 1334,  --设计分辨率高
+    autoscale = "FIXED_HEIGHT",
+    callback = function(framesize)
+        local ratio = framesize.width / framesize.height
+        print("config: framesize, ratio=", framesize.width, framesize.height)
+        if ratio <= 1.34 then
+            -- iPad 768*1024(1536*2048) is 4:3 screen
+            return {autoscale = "FIXED_WIDTH"}
+        end
+    end
+}
+
+3. frameworks\cocos2d-x\tools\simulator\libsimulator\lib\ProjectConfig\ProjectConfig.h
+    static const int DEFAULT_WIDTH = 960; --竖屏时默认为高度
+    static const int DEFAULT_HEIGHT = 640; --竖屏时默认为宽度
+	这两个值可以互换看看效果。
+	这个修改只要是在直接执行 simulator\win32\gameclient.exe 时有效
+	
+4. 重新编译win32项目
+
+5. android修改：AndroidManifest.xml :
+	<activity android:name="org.game.AppActivity"
+			  android:label="@string/app_name"
+			  android:screenOrientation="sensorPortrait" --默认竖屏,传感器翻转后变横屏

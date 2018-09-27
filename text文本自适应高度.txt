@@ -1,0 +1,20 @@
+
+1. cocostudio里创建好Text控件，不需要设置size，使用默认属性,即不勾选自定义尺寸;
+
+2. 设置Text需要显示的内容：setString("内容"); 
+
+3. 利用Text的setTextAreaSize 设置显示区域的高度为0，宽度为你要显示的宽度；
+
+4. ignoreContentAdaptWithSize(false);
+
+举例如下：
+tipsLabel:setString(tipsText or "") 
+lbText:setUnifySizeEnabled(true) --使用归一化尺寸, 不使用自定义尺寸
+lbText:setTextAreaSize(cc.size(512, 0))	
+lbText:ignoreContentAdaptWithSize(false) --不使用自定义尺寸
+
+通过 getContentSize()即可得到真实文本内容高度
+local size = lbText:getContentSize() 
+
+
+
