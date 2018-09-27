@@ -116,6 +116,7 @@
 		git commit -m "XXX"
 		git push -u origin master
 	
+		如果此时提示输入账号密码, 可暂时使用此账号密码: hlb8055, hlb11612360
 	
 	4)本地暂存 stash
 		git stash 将本分支修改的东西暂时缓存在本地，然后可以切换到别的分支去修改；之后再切换回来,恢复缓存;
