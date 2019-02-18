@@ -13,3 +13,25 @@
 		-keystore 文件路径名
 		
 	然后根据提示输入密码等信息,要记住密码哦
+	
+	也可通过如下命令查看apk的签名，md5, sha1等详细信息:
+		keytool -list -v -keystore path_keystore
+	
+	
+	得到的输出信息如下：
+
+	别名: xxx
+	创建日期: 2018-9-10
+	条目类型: PrivateKeyEntry
+	证书链长度: 1
+	证书[1]:
+	所有者: CN=happy9, OU=happy9, O=happy9, L=shanghai, ST=shanghai, C=CN
+	发布者: CN=happy9, OU=happy9, O=happy9, L=shanghai, ST=shanghai, C=CN
+	序列号: 65525ec8
+	有效期开始日期: Mon Sep 10 14:28:26 CST 2018, 截止日期: Tue Jun 13 14:28:26 CST 2073
+	证书指纹:
+			 MD5: 35:5F:9E:94:9B:D9:52:5D:C6:8A:DB:98:F2:78:6C:03
+			 SHA1: 38:50:FD:2E:B8:9B:39:11:F2:2E:F6:EB:5D:D1:62:CA:01:E7:5A:5D
+			 SHA256: 7F:E4:47:5A:84:2E:D3:84:BA:C4:94:1E:67:30:30:D0:01:2F:14:0D:88:DC:05:02:C1:F8:98:36:FA:67:A6:EF
+			 签名算法名称: SHA256withRSA
+			 版本: 3

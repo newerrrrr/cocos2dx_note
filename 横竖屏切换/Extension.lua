@@ -483,12 +483,13 @@ extension.SetOrientation = function(orientation)
     local ok, ret 
     if gt.isAndroidPlatform then 
         ok, ret = extension.luaBridge.callStaticMethod(APIClass, 'setOrientation', {orientation}, '(I)I') 
-    else
+    elseif gt.isIOSPlatform then
         local str = orientation == 1 and "landscape" or "portrait"
         ok, ret = extension.luaBridge.callStaticMethod('AppController', 'setOrientation', {strOrien = str})
     end 
     print("--------ok, ret", ok, ret)
-    if ok and ret == 0 then 
+    -- if ok and ret == 0 then 
+    if ok then --注:ios返回值ret为 nil
         local view = cc.Director:getInstance():getOpenGLView() 
         local frameSize = view:getFrameSize() 
         local frame_w, frame_h 

@@ -1,0 +1,76 @@
+
+一.先确保谷歌支付接入之前的环境可以正常打包发布，并且可以用Android Studio编译通过，如果编译不通过，可根据 <命令行打包APK_for_creator.txt> 来操作.
+
+二. 接入之前的准备
+	1.注册一个开发者账号，按提示绑定信用卡并支付25美金, 境外可使用的VISA信用卡即可. 
+		我的gmail账号(没有绑定信用卡): 
+		hlb20190129@gmail.com
+		123qweasD
+		
+	2. 在 Google Play Developer Console 创建应用，添加受管理的商品;
+		APK必须签名, 选择Beta测试，进入“封闭式测试“，添加测试人员，设置测试无需真实付款。
+	
+	3. 搞定手机测试环境，这一步至关重要:
+		1)准备好 google play环境的手机. 
+		  去应用宝里搜索“谷歌应用安装器”，安装好后，找到里面的GooglePlay商店，点击安装，会提示安装GooglePlay商店需要安装其它几个应用，点击一并安装了，
+		  安装好后，再去应用宝把GooglePlay更新到最新，其它服务、框架什么的不要更新。		
+		
+		2)需要一个VPN，最好是网络比较好的VPN，不然经常弹出连接超时也很蛋疼
+　　　　  正确流程：如果手机登陆有谷歌帐号，进入设置->帐号管理->google帐号->登出。打开VPN->打开谷歌商店->查看首页是否是VPN所在区(这个区域一定要与谷歌
+		  后面发布区域一样).
+		
+		3)登陆GooglePlay找到一个收费应用，成功支付一次，这是测试你的Google环境是否正常，以便测试我们自己应用时增加我们不必要的误会，
+		  这三步如果搞不定就去百度，百度上很多相应资料.
+		
+	4. 代码移植:
+		1) 在AndroidManifest.xml中声明权限：
+			<uses-permission android:name="com.android.vending.BILLING" />
+		
+		2) 修改 build\jsb-default\frameworks\runtime-src\proj.android-studio\build.gradle ：
+			repositories {
+				...
+				mavenCentral() 
+			}			
+
+			allprojects {
+				repositories {
+					...
+					flatDir {
+						dirs 'libs'
+					}
+				}
+			}			
+		
+		3)修改 proj.android-studio\app\build.gradle ：
+			dependencies {
+				...
+				implementation 'com.anjlab.android.iab.v3:library:1.0.44'
+			}			
+		
+		4)将GooglePayMgr.java 放到 proj.android-studio\app\src\com\utils\目录下
+		  在 proj.android-studio\app\src\org\cocos2dx\javascript\AppActivity.java 内添加初始化代码:
+			protected void onCreate(Bundle savedInstanceState) {
+				super.onCreate(savedInstanceState);
+				...
+				GooglePayMgr.getInstance().init(this);
+			}
+		
+		5) 用 Android Studio 打开项目, 同步gradle, 下载依赖的 billing v3相关库
+		
+		6) js代码:
+			let jsonstring = JSON.stringify({
+				Pid:productid,
+				OrderId:referenceId,
+			});
+			
+			jsb.reflection.callStaticMethod('com/utils/GooglePayUtil', "purchase", "(Ljava/lang/String;)V",jsonstring);		
+		
+		7) 使用cocos creator构建、发布apk包并上传到google后台.
+			
+	
+
+
+
+
+
+	

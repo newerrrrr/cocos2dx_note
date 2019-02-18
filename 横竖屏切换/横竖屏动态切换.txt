@@ -115,7 +115,8 @@
 				ok, ret = extension.luaBridge.callStaticMethod('AppController', 'setOrientation', {strOrien = str})
 			end 
 			print("--------ok, ret", ok, ret)
-			if ok and ret == 0 then 
+			-- if ok and ret == 0 then 
+			if ok then --注:ios返回值ret为 nil 
 				local view = cc.Director:getInstance():getOpenGLView() 
 				local frameSize = view:getFrameSize() 
 				local frame_w, frame_h 

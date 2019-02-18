@@ -15,7 +15,7 @@
 	存放在 C:\Users\huanglibo\.ssh\目录下
 	
 	2)网页上进入github，点击头像上的”Setting”，左侧有个SSH Keys，点击它，进入页面。
-	点击右侧的”Add SSH key”，自己输入一个标题，然后把密钥赋值进去即可。
+	点击右侧的”Add SSH key”，自己输入一个标题，然后把密钥内容拷贝进去即可。
 
 	3)测试一下是否成功，进入Git Bash，输入 ssh -T git@github.com,第一次会提示，是否continue，yes后就会看到：
 	You’ve successfully authenticated, but GitHub does not provide shell access。这就说明成功了。
@@ -62,8 +62,7 @@
 	即可下载到本地上
 
 	
-	
-	
+
 七、IOS git使用
 	1)MAC上最好的GIT免费GUI工具是SourceTree, 下载安装 https://www.sourcetreeapp.com
 	2)注册账号与git账号相同 chenhlb8055@gmail.com
@@ -72,10 +71,15 @@
 	弹出的界面，选中账户，双击该账户，修改授权类型为 基础，协议 为 https， 用户名：hlb8055，密码与账号密码一致。
 
 	
-八、强制覆盖本地文件, 使用此命令一定要谨慎！！特别是项目的一些环境配置有可能被覆盖哦!
-	git fetch --all 
-	git reset --hard origin/master		#同步到远端origin仓库的master分支
-	git pull
+八、更新到本地
+	1)从远程获取最新版本到本地, 比如从远程的origin仓库的master分支下载代码到本地的origin master
+		git fetch origin master 
+		git pull
+		
+	2)强制覆盖本地文件, 使用此命令一定要谨慎！！特别是项目的一些环境配置有可能被覆盖哦!
+		git fetch --all 
+		git reset --hard origin/master		#同步到远端origin仓库的master分支
+		git pull
 	
 九、忽略文件/文件夹，使之被忽略提交:
 	
@@ -105,7 +109,8 @@
 	  
 	3)常用命令
 		[1]git status 
-		[2]git add  (或者git add -A 上传全部)
+		[2]git add DIR (或者git add -A 上传全部)
+		
 			git add <path> 把<path>添加到索引库中，<path>可以是文件也可以是目录。
 						   git不仅能判断出<path>中，修改（不包括已删除）的文件，还能判断出新添的文件，
 						   并把它们的信息添加到索引库中。		
@@ -127,4 +132,6 @@
 		
 		git stash pop 恢复缓存
 	
-	
+	5)如果想恢复到上次commit前的版本
+		git reset HEAD~
+		

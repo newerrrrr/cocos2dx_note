@@ -1,0 +1,52 @@
+
+
+1. jdk版本需要升级到8以上, 否则会报错 "Unsupported major.minor version 52.0"
+	安装好之后需要更新环境变量 JAVA_HOME ,指向最新的安装目录, 如 
+	C:\Program Files\Java\jdk1.8.0_144
+	在cmd上输入 java -version 可以查看当前jdk版本,如果不对, 需要确认
+	path环境变量中  %JAVA_HOME%/jre/bin/指向的jre目录是否存在
+	
+2. 添加环境变量  ANDROID_HOME ，其值为 sdk 路径，如 D:\tools\Sdk 
+
+3. 将 gradle 添加环境变量, 如 GRADLE_HOME, 其值为 D:\Program Files\Android\Android Studio\gradle
+
+4. 打开 cocos creator，导入项目工程, 
+	1)配置 sdk, ndk 路径: 点击菜单 文件->设置->原生开发环境
+	
+	2)构建项目:点击菜单 项目->构建发布..., 选择android平台, 模板选择default, 构建的时候要勾上 使用调试秘钥库；
+		构建成功后会再 build 目录下生成 jsb-default目录,里面包含 android 项目; 如果已经存在 jsb-default目录，那么重复构建不会导致数据覆盖丢失;
+	
+	3)用 Android Studio 导入刚才构建好的 android 项目, 同步 gradle , 会下载和配置依赖的编译环境; 如果有报错请根据提示修复;
+	
+	4)编译: 可以在cocos creator 构建项目界面点编译, 此时编译时需要取消勾选 使用调试秘钥库 这一项, 填写秘钥信息,使用自定义秘钥来编译;
+	  
+	  编译成功后会在 jsb-default\publish\下生成apk;
+	  
+	  也可以使用 gradlew 命令来编译; 如下步骤:
+	
+	
+5. 使用命令行编译项目：
+	cmd 下先运行 gradlew.bat , 再执行如下命令
+	
+	gradlew -p D:\hlb\hlb_sale\frameworks\runtime-src\proj.android-studio //指定项目
+	
+	gradlew clean  //此命令的主要作用是去下载一些gradle的下载包
+	
+	gradlew build //默认会生成 debug和 release版本, 
+	
+	如果只想单独生成apk,可执行命令：gradlew assembleDebug 和 gradlew assembleRelease
+	
+	单独生成apk并安装： gradlew installDebug 和 gradlew installRelease
+
+	
+	编译成功后可在项目下的 proj.android-studio\app\build\outputs\apk 生成对应的apk
+	
+	如果需要签名,请用签名工具自行签名;
+	
+6. SDK/NDK路径自动配置在 proj.android-studio/local.properties文件里：
+	ndk.dir=D\:\\tools\\Sdk\\ndk-bundle
+	sdk.dir=D\:\\tools\\Sdk
+	要是报错就该这个路径吧
+	
+	
+	
