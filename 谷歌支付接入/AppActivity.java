@@ -103,7 +103,7 @@ public class AppActivity extends Cocos2dxActivity {
                         WindowManager.LayoutParams.FLAG_FULLSCREEN));
 
 		FacebookAPI.Init();
-        GooglePayMgr.getInstance().init(this);
+        GooglePayMgr.getInstance().init(AppActivity.this);
 
        // LineAPI.Init();
         SDKWrapper.getInstance().init(this);
@@ -151,6 +151,7 @@ public class AppActivity extends Cocos2dxActivity {
 		FacebookAPI.onActivityResult(requestCode, resultCode, data);
         //LineAPI.onActivityResult(requestCode, resultCode, data);
         SDKWrapper.getInstance().onActivityResult(requestCode, resultCode, data);
+        GooglePayMgr.getInstance().onActivityResult(requestCode, resultCode, data);
     }
 
     @Override

@@ -24,6 +24,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import org.cocos2dx.javascript.AppActivity;
+import android.content.Intent;
 
 /**
  * Created by ljm on 2018/5/23.
@@ -65,20 +66,21 @@ public class GooglePayMgr {
     }
 
 
-
     //主线程处理消息
     public Handler m_Handler = new Handler() {
         @Override
-        public void handleMessage(Message msg) {
+        public void handleMessage(Message msg) { 
+            Log.d("HLB", "=== handleMessage, msg.what = " + msg.what);
+
             switch (msg.what) {
                 case PAY_CODE:
                 {
-                    // pay success
+                    // pay result
                     String strResult = msg.getData().getString("result");
-                    JSONObject   obj = new JSONObject  ();
+                    JSONObject obj = new JSONObject();
                     try{
                         //obj.put("cbName","paySdkCallback");
-                        obj.put("result",strResult);
+                        obj.put("result", strResult);
                         if(strResult.equals("1")){
                             String strMsg = msg.getData().getString("message");
                             String strSign = msg.getData().getString("signature");
@@ -110,48 +112,47 @@ public class GooglePayMgr {
 
     //初始化
     public BillingProcessor init(Context tx) {
+
         if(_bp == null){
             _tx = tx;
             //*
             _bp = new BillingProcessor(tx, IAB_LICENSE_KEY, new BillingProcessor.IBillingHandler() {
                 @Override
                 public void onProductPurchased(String productId, TransactionDetails details) {
+                    Log.d("HLB", "=== onProductPurchased, buy success ");
                     // 购买成功
-                    //evalString("cc.gv.popupMgr.showAlert('buy success');");
                     //消耗物品
-                    generTranstionMsg(productId,details);
-
+                    generTranstionMsg(productId,details); 
                 }
+
                 @Override
                 public void onBillingError(int errorCode, Throwable error) {
-
                     if (errorCode == Constants.BILLING_RESPONSE_RESULT_USER_CANCELED){
                         // 购买取消
-                        sendErrorMsg("-4","取消支付");
+                        Log.d("HLB", "=== onBillingError, buy cancel ");
+                        sendErrorMsg("-4", "取消支付");
                         return;
                     }
                     else if(errorCode == Constants.BILLING_RESPONSE_RESULT_ITEM_ALREADY_OWNED){
                         //已经购买了
+                        Log.d("HLB", "=== onBillingError, already buy");
                         checkProduct();
                     }
 
-                    //String reason = "UNKNOWN_ERROR";
-                    //if (mErrorCodeReason.containsKey(errorCode)) {
-                    //    reason = mErrorCodeReason.get(errorCode);
-                    //}
                     // 购买失败
-                    sendErrorMsg("-5","支付失败:code= " + Integer.toString(errorCode));
-                    //ProjUtil.showToast("支付失败:code= " + Integer.toString(errorCode));
-					////Toast.makeText(this, "鐠囧嘲绱戦崥顖氱秿闂婅櫕娼堥梽锟�", Toast.LENGTH_SHORT).show();
-                    //evalString("cc.gv.popupMgr.showAlert(buy fail:code=" + Integer.toString(errorCode) +");");
-                }
+                    sendErrorMsg("-5","支付失败: code= " + Integer.toString(errorCode)); 
+                } 
+
                 @Override
-                public void onBillingInitialized() {
+                public void onBillingInitialized() { 
+                    Log.d("HLB", "=== onBillingInitialized"); 
                     // 初始化成功
                     _bp.loadOwnedPurchasesFromGoogle(); //先去查询谷歌服务端的订单
                 }
+
                 @Override
                 public void onPurchaseHistoryRestored() {
+                    Log.d("HLB", "=== onPurchaseHistoryRestored"); 
                     // 恢复内购
                     _bp.loadOwnedPurchasesFromGoogle(); //先去查询谷歌服务端的订单
                 }
@@ -163,22 +164,19 @@ public class GooglePayMgr {
 
     //购买
     //data: json格式自己按需解析
-    public void purchase(String data){
-        boolean isAvailable = BillingProcessor.isIabServiceAvailable(_tx);
-        if(isAvailable){
+    public void purchase(String data){ 
+        Log.d("HLB", "=== purchase"); 
 
+        boolean isAvailable = BillingProcessor.isIabServiceAvailable(_tx);
+        if(isAvailable){ 
             JSONObject jb = null;
             try{
                 jb = new JSONObject(data);
                 //商品id
                 final String productId = jb.getString("Pid");
-                //商品id
                 String orderId = jb.getString("OrderId");
-
                 final String payload = "OrderId:"+orderId;
 
-                //Bundle extraParams = new Bundle();
-                //extraParams.putString("OrderId",orderId);
                 boolean bNeedDelay = false;
                 if(!_bp.isInitialized()){
                     _bp.release();
@@ -187,10 +185,7 @@ public class GooglePayMgr {
                     init(_tx);
                 }
 
-                //SkuDetails detailInfo = _bp.getPurchaseListingDetails(productId);
-
-                //if(detailInfo != null){
-                //是否有购买了的商品未消耗，先通知google消耗才能再次购买
+                //是否有购买了的商品未消耗, 先通知google消耗才能再次购买
                 boolean bBuy = _bp.isPurchased(productId);
                 if(bBuy){
                     checkProduct();
@@ -203,7 +198,7 @@ public class GooglePayMgr {
                             //_bp.purchase(context,productId);
                             boolean res = _bp.purchase(context,productId,payload);
                             if(!res){
-                                sendErrorMsg("-3","未能连接到google服务器");
+                                sendErrorMsg("-3", "未能连接到google服务器");
                             }
                         }
                     };
@@ -213,39 +208,31 @@ public class GooglePayMgr {
                 else{
                     boolean res = _bp.purchase(context,productId,payload);
                     if(!res){
-                        sendErrorMsg("-3","未能连接到google服务器");
+                        sendErrorMsg("-3", "未能连接到google服务器");
                     }
                 }
-
-                //}
-                //else{
-
-                //    sendErrorMsg("-2","获取商品信息失败"+productId);
-                //}
-
             }catch (JSONException e){
                 e.printStackTrace();
             }
         }
         else{
-            sendErrorMsg("-1","没有google支付环境");
-        }
-
+            sendErrorMsg("-1", "没有google支付环境");
+        } 
     }
 
     //查询是否有未消耗的产品，有的话，先消耗掉
-    public void  checkProduct(){
-           List<String> ls = _bp.listOwnedProducts();
-            for(String attribute : ls) {
-                TransactionDetails details = _bp.getPurchaseTransactionDetails(attribute);
-                generTranstionMsg(attribute,details);
-
-            }
+    public void checkProduct(){
+       List<String> ls = _bp.listOwnedProducts();
+        for(String attribute : ls) {
+            TransactionDetails details = _bp.getPurchaseTransactionDetails(attribute);
+            generTranstionMsg(attribute,details);
+        }
     }
 
-
-    //组装购买成功msg
+    //组装购买成功 msg
     private void generTranstionMsg(String productId, TransactionDetails details){
+        Log.d("HLB", "=== generTranstionMsg, start transting, productId =" + productId); 
+
         //消耗物品
         _bp.consumePurchase(productId);
 
@@ -255,10 +242,11 @@ public class GooglePayMgr {
 
         Message msg = m_Handler.obtainMessage(PAY_CODE);
         Bundle bundleMsg = new Bundle();
-        bundleMsg.putString("result","1");
-        bundleMsg.putString("message",strMsg);
-        bundleMsg.putString("signature",sign);
-        bundleMsg.putString("pid",pid);
+        bundleMsg.putString("result", "1");
+        bundleMsg.putString("message", strMsg);
+        bundleMsg.putString("signature", sign);
+        bundleMsg.putString("pid", pid);
+        Log.d("HLB", "=== message, signature, pid =" + strMsg + ' ' + sign + ' '+ pid); 
 
         msg.setData(bundleMsg);
         m_Handler.sendMessage(msg);
@@ -284,14 +272,12 @@ public class GooglePayMgr {
         });
     }
 
-    public void test(){
-//        Cocos2dxHelper.runOnGLThread(new Runnable() {
-//            @Override
-//            public void run() {
-//                Toast.makeText(_tx, "ddddddddddddddddddddd", Toast.LENGTH_LONG).show();
-//            }
-//        });
-        sendErrorMsg("-1","没有google支付环境");
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        _bp.handleActivityResult(requestCode, resultCode, data);
+    }
 
-        }
+    public void test(){
+        Log.d("HLB", "=====test");
+        evalString("cc.gv.googleplay.payCallback('kfjdkjfdkfjdk');"); 
+    }
 }
