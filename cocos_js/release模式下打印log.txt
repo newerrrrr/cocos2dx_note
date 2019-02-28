@@ -1,0 +1,22 @@
+
+1. 创建文件 proj.android-studio\app\src\com\utils\LogDebug.java ：
+	package com.utils;
+	import android.util.Log;
+
+
+	public final class LogDebug { 
+		public static void printLog(final String text) { 
+			Log.d("HLB", text);
+		} 
+	} 
+	
+2. Game\assets\script\module\Utils.js 添加代码：
+	releaseLog: function(text) {
+		if (cc.sys.os == cc.sys.OS_ANDROID) {
+			jsb.reflection.callStaticMethod('com/utils/LogDebug', "printLog", "(Ljava/lang/String;)V", text); 
+		} 
+	},
+
+3.使用的时候调用
+	cc.gv.Utils.releaseLog('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ hlb');
+	

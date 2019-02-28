@@ -1,0 +1,91 @@
+
+	资源必须放在 assets/resources 目录下
+	
+	一.加载本地assets资源:
+		使用方法cc.loader.loadRes(), 该方法只适用于应用包内的资源和热更新的本地资源；
+		
+		// 加载 Prefab
+		cc.loader.loadRes("test_assets/prefab", function (err, prefab) {
+			var newNode = cc.instantiate(prefab);
+			cc.director.getScene().addChild(newNode);
+		});
+	
+		// 加载 AnimationClip
+		var self = this;
+		cc.loader.loadRes("test_assets/anim", function (err, clip) {
+			self.node.getComponent(cc.Animation).addClip(clip, "anim");
+		});
+		
+		// 加载 SpriteFrame
+		var self = this;
+		cc.loader.loadRes("test_assets/image", cc.SpriteFrame, function (err, spriteFrame) {
+			self.node.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+		});		
+		
+
+		// 加载图集 SpriteAtlas ，并且获取其中的一个 SpriteFrame
+		// 注意 atlas 资源文件（plist）通常会和一个同名的图片文件（png）放在一个目录下, 所以需要在第二个参数指定资源类型
+		cc.loader.loadRes("test_assets/sheep", cc.SpriteAtlas, function (err, atlas) {
+			var frame = atlas.getSpriteFrame('sheep_down_0');
+			sprite.spriteFrame = frame;
+		});		
+	
+		释放由 cc.loader.loadRes()加载的资源
+		cc.loader.releaseRes("test assets/image", cc.SpriteFrame);
+		cc.loader.releaseRes("test assets/anim");
+		
+		也可以释放实例对象
+		cc.loader.releaseAsset(spriteFrame);
+	
+	
+	二、批量加载
+		// 加载 test assets 目录下所有资源
+		cc.loader.loadResDir("test_assets", function (err, assets) {
+			// ...
+		});
+
+		// 加载 test assets 目录下所有 SpriteFrame，并且获取它们的路径
+		cc.loader.loadResDir("test_assets", cc.SpriteFrame, function (err, assets, urls) {
+			// ...
+		});
+
+	三、加载远程资源或者下载到本地缓存的资源
+		必须用 cc.loader.load()方法来加载; 
+
+		// 远程 url 带图片后缀名
+		var remoteUrl = "http://unknown.org/someres.png";
+		cc.loader.load(remoteUrl, function (err, texture) {
+			// Use texture to create sprite frame
+		});
+
+		// 远程 url 不带图片后缀名，此时必须指定远程图片文件的类型
+		remoteUrl = "http://unknown.org/emoji?id=124982374";
+		cc.loader.load({url: remoteUrl, type: 'png'}, function () {
+			// Use texture to create sprite frame
+		});
+
+		// 用绝对路径加载设备存储内的资源，比如相册
+		var absolutePath = "/dara/data/some/path/to/image.png"
+		cc.loader.load(absolutePath, function () {
+			// Use texture to create sprite frame
+		});
+		
+		
+		
+	四、释放资源
+		// 直接释放某个贴图
+		cc.loader.release(texture);
+		// 释放一个 prefab 以及所有它依赖的资源
+		var deps = cc.loader.getDependsRecursively('prefabs/sample');
+		cc.loader.release(deps);
+		// 如果在这个 prefab 中有一些和场景其他部分共享的资源，你不希望它们被释放，可以将这个资源从依赖列表中删除
+		var deps = cc.loader.getDependsRecursively('prefabs/sample');
+		var index = deps.indexOf(texture2d._uuid);
+		if (index !== -1)
+			deps.splice(index, 1);
+		cc.loader.release(deps);
+
+
+	
+	
+	

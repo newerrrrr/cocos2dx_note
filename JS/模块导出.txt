@@ -1,0 +1,49 @@
+
+1.如果定义的类继承自cocos组件, 那么系统会自动导出该类, 在其他js文件中可直接require()引用即可使用。
+	// Rotate.js
+	cc.Class({
+	   extends: cc.Component,
+	   // ...
+	});
+	
+	// SinRotate.js
+	var Rotate = require("Rotate");	
+	...
+	
+	
+2.定义普通 JavaScript 模块, 就需要使用 module.exports 来导出才可被 require()成功;
+	// config.js 
+
+	var cfg = {
+		moveSpeed: 10,
+		version: "0.15",
+		showTutorial: true,
+		
+		load: function () {
+			// ...
+		}
+	};
+	cfg.load();
+
+	module.exports = cfg;
+	
+
+3. module.exports 默认是一个空对象（{}），可以直接往里面增加新的字段。
+	// foobar.js:
+	module.exports.foo = function () {
+		cc.log("foo");
+	};
+	module.exports.bar = function () {
+		cc.log("bar");
+	};
+	
+
+	// test.js:
+	var foobar = require("foobar");
+	foobar.foo();    // "foo"
+	foobar.bar();    // "bar"
+	
+	
+	
+
+	

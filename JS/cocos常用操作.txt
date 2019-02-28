@@ -1,0 +1,76 @@
+
+1. 通过设置节点的 active 属性来显示和隐藏该节点及其所有子节点; 
+	this.node.active = false; //隐藏节点
+
+2. 判断节点当前是否激活: 
+	使用节点的只读属性 activeInHierarchy 来判断;
+	这个属性会收到父节点的 active 影响，如果父节点的 active 为 false，则子节点的 activeInHierarchy 为false, 
+	而子节点的 active 属性值不受影响, 仍可能为true.
+
+3. 更改节点的父节点
+	假设父节点为 parentNode，子节点为 this.node
+	以下两种方式等价
+	1)  this.node.parent = parentNode;
+	2)  this.node.removeFromParent(false);
+		parentNode.addChild(this.node);
+	
+4. 获取子节点数组和个数
+	this.node.children --子节点数组
+	this.node.children.length --数组长度
+	
+5. 更改节点尺寸,如下方式等价:
+	1)this.node.setContentSize(100, 100);
+	2)this.node.setContentSize(cc.size(100, 100));
+	3)this.node.width = 100;
+	  this.node.height = 100;
+	
+6. this.enabled：是否每帧执行该组件的 update 方法，同时也用来控制渲染组件是否显示;
+	
+7. 克隆节点
+	var node = cc.instantiate(this.target);
+	node.parent = cc.director.getScene();
+    node.setPosition(0, 0);
+
+8. 判断节点是否有效
+	1)if (cc.isValid(this.target)){
+		...
+	}
+	
+	通过 node.destroy() 函数，可以销毁节点。销毁节点并不会立刻被移除，而是在当前帧逻辑更新结束后，统一执行。
+	当一个节点销毁后，该节点就处于无效状态，可以通过 cc.isValid 判断当前节点是否已经被销毁。
+
+	2)使用 cc.sys.isObjectValid 来判断 CPP 对象是否被释放了。
+	
+9. 销毁节点方法: destroy 和 removeFromParent 的区别
+	调用一个节点的 removeFromParent 后，它不一定就能完全从内存中释放，因为有可能由于一些逻辑上的问题，导致程序中仍然引用到了这个对象。
+	因此如果一个节点不再使用了，请直接调用它的 destroy() 而不是 removeFromParent()。
+	destroy 不但会激活组件上的 onDestroy，还会降低内存泄露的几率，同时减轻内存泄露时的后果。
+	总之，如果一个节点不再使用，destroy 就对了，不需要 removeFromParent 也不需要设置 parent 为 null 哈。
+	
+	this.target.destroy();
+
+
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

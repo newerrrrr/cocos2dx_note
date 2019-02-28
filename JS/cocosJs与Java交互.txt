@@ -1,0 +1,70 @@
+
+1. js调用java
+	var o = jsb.reflection.callStaticMethod(className, methodName, methodSignature, parameters...) 
+	注意 methodName 必须为静态方法
+
+	举例:
+	package org.cocos2dx.javascript;
+
+	public class Test {
+
+		public static void hello(String msg){
+			System.out.println(msg);
+		}
+
+		public static int sum(int a, int b){
+			return a + b;
+		}
+	}	
+	jsb.reflection.callStaticMethod("org/cocos2dx/javascript/Test", "hello", "(Ljava/lang/String;)V", "this is a message from js");
+	
+	注意, 在 Android 应用中，cocos 引擎的渲染和 JS 的逻辑是在 GL 线程中进行的，而 Android 本身的 UI 更新是在 App 的 UI 线程进行的，
+	所以如果我们在 JS 中调用的 Java 方法有任何刷新 UI 的操作，都需要在 UI 线程进行; 在java 中调用 JS 需要在GL线程进行.
+
+	// 给我们熟悉的 AppActivity 类稍微加点东西
+	public class AppActivity extends Cocos2dxActivity {
+
+		private static AppActivity app = null;
+		@Override
+		public void onCreate(Bundle savedInstanceState) {
+			super.onCreate(savedInstanceState);
+			app = this;
+		}
+
+		public static void showAlertDialog(final String title,final String message) {
+			// 这里一定要使用 runOnUiThread
+			app.runOnUiThread(new Runnable() {
+				@Override
+				public void run() {
+					AlertDialog alertDialog = new AlertDialog.Builder(app).create();
+					alertDialog.setTitle(title);
+					alertDialog.setMessage(message);
+					alertDialog.setIcon(R.drawable.icon);
+					alertDialog.show();
+				}
+			});
+		}
+	}
+	
+	然后我们在 JS 中调用
+	jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "showAlertDialog", "(Ljava/lang/String;Ljava/lang/String;)V", "title", "hahahahha");
+	
+	
+2. JAVA中调用JS, 执行 JS 代码必须在 GL 线程中进行。
+	Cocos2dxJavascriptJavaBridge，这个类有一个 evalString 方法可以执行 JS 代码
+	
+	比如在java中调用js 
+	alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+		public void onClick(DialogInterface dialog, int which) {
+			// 一定要在 GL 线程中执行
+			app.runOnGLThread(new Runnable() {
+				@Override
+				public void run() {
+					Cocos2dxJavascriptJavaBridge.evalString("cc.log(\"Javascript Java bridge!\")");
+				}
+			});
+		}
+	});	
+	
+
+	
