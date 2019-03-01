@@ -44,6 +44,51 @@
 	foobar.bar();    // "bar"
 	
 	
+4. exports 和 module.exports  区别.
+	为了方便，NodeJS 为每个模块提供一个 exports 变量，指向module.exports。这等同在每个模块头部，有一行这样的命令。
+	var exports = module.exports;
+	于是我们可以直接在 exports 对象上添加方法，表示对外输出的接口，如同在module.exports上添加一样。
+	注意，不能直接将exports变量指向一个值，因为这样等于切断了exports与module.exports的联系。
+
+	最终返回给调用的是 module.exports 而不是exports ;
+	1)当仅使用exports 时, exports 会赋值给Module.exports. 
+	2)当同时使用 exports 和 module.exports 时, 以 module.exports 为准, exports 收集来的信息将被忽略; 
+	
+5. module.exports 导出(构造)函数时, 在外部访问时, 需要 new 一个对象才可访问:
+
+	Test.js:
+		//导出(构造)函数
+		module.exports = function(){ 
+			this.getArr = function() {
+				return [1, 2, 3];
+			}
+		};
+
+	//其他文件调用导出文件函数的成员函数，需要 new 一个对象才可以访问
+	Test2.js:
+		var Test = require('./Test');
+		var obj = new Test(); 
+		obj.getArr(); 
+
+
+6.module.exports 导出实例时, 在外部可以直接访问:
+	Test.js:
+		//导出(构造)函数
+		var func1 = function(){ 
+			this.name = 'my class';
+			this.getArr = function() {
+				return [1, 2, 3];
+			}
+		};	
+		
+		module.exports = new func1();
+	
+
+	Test2.js:
+		var Test = require('./Test');
+		Test.getArr();
+		
+	
 	
 
 	
