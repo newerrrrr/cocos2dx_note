@@ -5,7 +5,11 @@ var a = [1, 2, 3, 4, 5, 6];
 
 1. 判断是否为数组:  Array.isArray(tbl);
 
-2. 在数组尾部添加/删除一个元素: push() / pop() , 并返回数组的长度;
+2. 在数组尾部添加/删除一个元素: 
+	push() / pop() , 并返回数组的长度;
+	
+	如果在前面添加或删除一个元素，则：
+	unshift( )和shift( ) 
 
 3. 截取数组: slice(startIdx, beginIdx) 参数为下标的起始值, 默认从0开始
 	a.slice(0);
@@ -29,4 +33,16 @@ var a = [1, 2, 3, 4, 5, 6];
 	}
 	a.sort(f);
 
-6. 
+6. 两个数组合并
+	var arr = new Array(3)
+	arr[0] = "George"
+	arr[1] = "John"
+	arr[2] = "Thomas"
+
+	var arr2 = new Array(3)
+	arr2[0] = "James"
+	arr2[1] = "Adrew"
+	arr2[2] = "Martin"
+
+	var result = arr.concat(arr2)
+	

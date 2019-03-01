@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>table_blue.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{1330,750}</string>
+                <key>spriteSourceSize</key>
+                <string>{1330,750}</string>
+                <key>textureRect</key>
+                <string>{{1,1},{1330,750}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>3</integer>
+            <key>premultiplyAlpha</key>
+            <false/>
+            <key>realTextureFileName</key>
+            <string>table_blue.pvr</string>
+            <key>size</key>
+            <string>{2048,1024}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:13d93015759058773544cede6f6f72b4:4760191f487b66810f5e6e25023bc496:205868bde5e72c319150c417793bf212$</string>
+            <key>textureFileName</key>
+            <string>table_blue.pvr</string>
+        </dict>
+    </dict>
+</plist>
