@@ -21,41 +21,105 @@
 
 
 
-local LogToFile = {}
-setmetatable(LogToFile,{__index = _G})
-setfenv(1, LogToFile)
+local M = {}
+setmetatable(M,{__index = _G})
+setfenv(1, M)
 
-local logFile
-local logBuf = ""
-local count = 0 
+local logFile 
+local total     = 0 
+local totalMax  = 100000 
+local fileIndex = 0 
 
 function print(...)
-  local arr = {}
-  for i, a in ipairs({...}) do
-    arr[#arr + 1] = tostring(a)
-  end
+    release_print(...)
 
+    if nil == logFile then 
+        fileIndex = fileIndex + 1 
+        if fileIndex > 2 then fileIndex = 1 end 
+        logFile = io.open(cc.FileUtils:getInstance():getWritablePath().."log.bin" .. fileIndex, "w+")
+        total = 0 
+    end 
 
-  if nil == logFile then 
-    logFile = io.open(cc.FileUtils:getInstance():getWritablePath().."ResUpdate/hlb_log.tt", "w+")
-  end 
+    if logFile then 
+        local s = os.date("[%H:%M:%S]", os.time())
+        for i, a in ipairs({...}) do
+            s = s.. "\t" .. tostring(a)
+        end
+        logFile:write(s .. "\n")
+        logFile:flush() 
 
-  logBuf = logBuf .. table.concat(arr, "\t").."\n"
-  count = count + 1 
-  if logFile and count > 0 then 
-      logFile:write(logBuf)
-      logFile:flush()
-      -- logFile:close()
-      logBuf = ""
-      count = 0 
-  end 
+        total = total + 1 
+        if total > totalMax then 
+            io.close(logFile) 
+            logFile = nil 
+        end   
+    end 
 end 
+
+function dump(value, description, nesting)
+    if type(nesting) ~= "number" then nesting = 3 end
+
+    local lookupTable = {}
+    local result = {}
+
+    local traceback = string.split(debug.traceback("", 2), "\n")
+    print("dump from: " .. string.trim(traceback[3]))
+
+    local function dump_(value, description, indent, nest, keylen)
+        description = description or "<var>"
+        local spc = ""
+        if type(keylen) == "number" then
+            spc = string.rep(" ", keylen - string.len(dump_value_(description)))
+        end
+        if type(value) ~= "table" then
+            result[#result +1 ] = string.format("%s%s%s = %s", indent, dump_value_(description), spc, dump_value_(value))
+        elseif lookupTable[tostring(value)] then
+            result[#result +1 ] = string.format("%s%s%s = *REF*", indent, dump_value_(description), spc)
+        else
+            lookupTable[tostring(value)] = true
+            if nest > nesting then
+                result[#result +1 ] = string.format("%s%s = *MAX NESTING*", indent, dump_value_(description))
+            else
+                result[#result +1 ] = string.format("%s%s = {", indent, dump_value_(description))
+                local indent2 = indent.."    "
+                local keys = {}
+                local keylen = 0
+                local values = {}
+                for k, v in pairs(value) do
+                    keys[#keys + 1] = k
+                    local vk = dump_value_(k)
+                    local vkl = string.len(vk)
+                    if vkl > keylen then keylen = vkl end
+                    values[k] = v
+                end
+                table.sort(keys, function(a, b)
+                    if type(a) == "number" and type(b) == "number" then
+                        return a < b
+                    else
+                        return tostring(a) < tostring(b)
+                    end
+                end)
+                for i, k in ipairs(keys) do
+                    dump_(values[k], k, indent2, nest + 1, keylen)
+                end
+                result[#result +1] = string.format("%s}", indent)
+            end
+        end
+    end
+    dump_(value, description, "- ", 1)
+
+    for i, line in ipairs(result) do
+        print(line)
+    end
+end
+
+
 
 function closeFile()
-  if logFile then 
-    io.close(logFile)
-    logFile = nil 
-  end 
+    if logFile then 
+        io.close(logFile)
+        logFile = nil 
+    end 
 end 
 
-return LogToFile 
+return M 
