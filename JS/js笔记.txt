@@ -1,0 +1,36 @@
+
+1.遍历对象
+	1)使用for..in..遍历
+		var obj = {'0':'a','1':'b','2':'c'};
+		for(var i in obj) {
+			 console.log(i,":",obj[i]);
+		}
+	2)使用Object.getOwnPropertyNames(obj)遍历
+		var obj = {'0':'a','1':'b','2':'c'};
+		Object.getOwnPropertyNames(obj).forEach(function(key){
+			console.log(key, ":", obj[key]);
+		});	
+	
+	
+2.遍历数组
+	1)使用forEach遍历
+		var arr=[1,2,3,4];
+		arr.forEach(function(val, index) {
+		console.log(val, index);
+		});
+	
+	2)使用for..in..遍历
+		var arr=["张三","李四","王五","赵六"];
+		for (var i in arr){
+			console.log(i,":",arr[i]);
+		}
+		
+	3)使用for-of遍历: 不仅支持数组，还支持大多数类数组对象; 也支持字符串遍历 
+		var arr=["张三","李四","王五","赵六"];
+		for (var value of arr){
+			console.log(value);
+		}
+		
+3.想测试对象是否存在
+	正确的方式是我们需要先使用 typeof 来检测对象是否已定义
+	if (typeof myObj !== "undefined" && myObj !== null) 

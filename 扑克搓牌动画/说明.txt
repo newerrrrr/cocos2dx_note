@@ -1,0 +1,10 @@
+
+搓牌动画: 支持左右上下4个方向的翻牌, 翻牌过程中先显示无字的正面(如果有的话), 结束后再显示有字牌面. 
+
+	local path_back = "res/image/poker/rubcard/card/rub_card_back.png"
+	local path_front_blank = "res/image/poker/rubcard/card_blank/rub_card_blank_210.png" 
+	local path_front = "res/image/poker/rubcard/card/rub_card_210.png" 
+	local view = require("app.poker.niuniu.RubCardLayer"):create(path_back, path_front_blank, path_front, 600, 300, true, function() 
+		print("=================dff  finish")
+	end)
+	self:addChild(view) 

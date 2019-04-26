@@ -1,0 +1,11 @@
+
+
+
+local screenshot = cc.RenderTexture:create(w, h)
+self.backSprite:setPosition(cc.p(w/2, h/2))
+screenshot:begin()
+self.backSprite:visit() --此处将需要渲染的内容再次 visit 即可
+screenshot:endToLua()
+screenshot:saveToFile("hlbtest.png", cc.IMAGE_FORMAT_PNG, true)
+
+print("=================sp", screenshot:getSprite())
