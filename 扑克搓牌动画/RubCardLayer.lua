@@ -621,7 +621,7 @@ function RubCardLayer:__registerTouchEvent()
         end 
     end
 
-    local function touchBegin(touch, event) 
+    local function onTouchBegan(touch, event) 
         self.startPos  = touch:getLocation() 
         self.moveDir   = nil 
         self.isReverse = false 
@@ -629,7 +629,7 @@ function RubCardLayer:__registerTouchEvent()
         return true
     end
 
-    local function touchMove(touch, event) 
+    local function onTouchMoved(touch, event) 
         local movePos = touch:getLocation()
 
         checkDirection(self.startPos, movePos) 
@@ -653,7 +653,7 @@ function RubCardLayer:__registerTouchEvent()
         return true
     end
 
-    local function touchEnd(touch, event)
+    local function onTouchEnded(touch, event)
         if self.ratioVal >= 0.65 then
             self.state = RubCardLayer_State_Smooth 
         else 
@@ -662,13 +662,14 @@ function RubCardLayer:__registerTouchEvent()
         return true
     end
 
+    local layer = cc.Layer:create() 
+    self:addChild(layer)
     local listener = cc.EventListenerTouchOneByOne:create()
-    listener:setSwallowTouches(true) --吞噬下面触摸点击事件
-    listener:registerScriptHandler(touchBegin, cc.Handler.EVENT_TOUCH_BEGAN )
-    listener:registerScriptHandler(touchMove, cc.Handler.EVENT_TOUCH_MOVED )
-    listener:registerScriptHandler(touchEnd, cc.Handler.EVENT_TOUCH_ENDED )
-    local eventDispatcher = self:getEventDispatcher()
-    eventDispatcher:addEventListenerWithSceneGraphPriority(listener, self)
+    listener:setSwallowTouches(true)
+    listener:registerScriptHandler(onTouchBegan, cc.Handler.EVENT_TOUCH_BEGAN)
+    listener:registerScriptHandler(onTouchMoved, cc.Handler.EVENT_TOUCH_MOVED)
+    listener:registerScriptHandler(onTouchEnded, cc.Handler.EVENT_TOUCH_ENDED)  
+    self:getEventDispatcher():addEventListenerWithSceneGraphPriority(listener, layer)
 end
 
 function RubCardLayer:__getRange(sprite)
