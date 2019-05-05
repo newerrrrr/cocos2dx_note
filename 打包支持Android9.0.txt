@@ -1,0 +1,10 @@
+
+apk要支持android9.0以上，则必须保证
+	AndroidManifest.xml 
+    <uses-sdk android:minSdkVersion="9"
+			  android:targetSdkVersion="20"/>
+
+			其中 android:targetSdkVersion 必须 17 以上， 可选择 20 ，
+
+如果sdk目录下的支持平台没有 sdk\platforms\android-20 ，那么就打开sdk来下载吧。
+
