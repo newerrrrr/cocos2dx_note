@@ -301,6 +301,8 @@ local strFragSource =
 "}\n"
 
 
+local RubCardLayer = class("RubCardLayer", require("app.views.base.BaseLayer"))
+
 local RubCardLayer_Pai           = 3.141592
 local RubCardLayer_State_Move    = 1
 local RubCardLayer_State_Smooth  = 2
@@ -308,8 +310,6 @@ local RubCardLayer_RotationFrame = 10
 local RubCardLayer_RotationAnger = RubCardLayer_Pai/3
 local RubCardLayer_SmoothFrame   = 10
 local RubCardLayer_SmoothAnger   = RubCardLayer_Pai/6
-
-local RubCardLayer = {}
 
 --滑动方向
 local Direction = {
@@ -319,27 +319,39 @@ local Direction = {
     ToLeft  = "ToLeft",
 }
 
-local function EJExtendUserData(luaCls, cObj)
-    local t = tolua.getpeer(cObj)
-    if not t then
-        t = {}
-        tolua.setpeer(cObj, t)
-    end
-    setmetatable(t, luaCls)
-    return cObj 
-end
+local PLIST_UNIT = "image/poker/card/poker_card.plist" 
 
---szBack:牌背图片路径 
---szFontBlank, szFont：牌面无字/有字牌路径, 在搓牌过程中显示无字牌, 翻牌后显示有字牌; 参数 szFontBlank可不传
---posX, posY:显示位置 
---rubCallBack:翻牌结束后回调 
---isRotaion90:是否将扑克翻转90角(竖版变成横版)
-function RubCardLayer:create(szBack, szFontBlank, szFont, posX, posY, isRotaion90, rubCallBack)
-    local layer = EJExtendUserData(RubCardLayer, cc.Layer:create())
-    self.__index = self
-    layer:__init(szBack, szFontBlank, szFont, posX, posY, rubCallBack)
-    return layer
-end
+local gt = cc.exports.gt 
+function RubCardLayer:ctor(cards, rubCallBack) 
+    RubCardLayer.super.ctor(self) 
+
+    local csbNode = cc.CSLoader:createNode("csd/poker/niuniu/RubCardLayer.csb") 
+    csbNode:setAnchorPoint(0.5, 0.5)
+    csbNode:setPosition(display.center) 
+    csbNode:setScale(display.scale) 
+    self:addChild(csbNode) 
+
+    self.isDisableToDown = true --禁止从上往下搓牌 
+
+    local root = csbNode:getChildByName("Node_root") 
+    local btnClose = root:getChildByName("Btn_close") 
+    btnClose:addClickEventListener(handler(self, self.close)) 
+
+    --显示4张手牌
+    local nodeCards = root:getChildByName("Node_cards") 
+    for i = 1, 4 do 
+        local imgCard = nodeCards:getChildByName("imgCard" .. i) 
+        local path = string.format("image/poker/card/card_%d.png", cards[i]) 
+        gt.checkAndLoadTextureFrame(imgCard, path, PLIST_UNIT) 
+    end 
+
+    --搓牌资源
+    local szBack = "res/image/poker/rubcard/card/rub_card_back.png" 
+    local szFontBlank = string.format("res/image/poker/rubcard/card_blank/rub_card_blank_%d.png", cards[5]) 
+    local szFont = string.format("res/image/poker/rubcard/card/rub_card_%d.png", cards[5]) 
+    local pos = root:convertToWorldSpace(cc.p(root:getChildByName("Node_card5"):getPosition()))
+    self:__init(szBack, szFontBlank, szFont, pos.x, pos.y, true, rubCallBack) 
+end 
 
 function RubCardLayer:__init(szBack, szFontBlank, szFont, posX, posY, isRotaion90, rubCallBack)
     self.posX        = posX
@@ -454,13 +466,13 @@ function RubCardLayer:__init(szBack, szFontBlank, szFont, posX, posY, isRotaion9
             
             else
                 if self.rubCallBack then
-                    self.rubCallBack(true)
+                    self.rubCallBack(true) 
                     self.rubCallBack = nil
                 end
                 self:__drawByEndProgram() 
 
                 --1秒后删除
-                self:remove(1.0) 
+                self:remove(0.5) 
             end
             self.smoothFrame = self.smoothFrame + 1
         end
@@ -596,9 +608,8 @@ function RubCardLayer:__registerTouchEvent()
             self.frontSprite:release() 
             --外部回调 
             if self.rubCallBack then 
-                self.rubCallBack(false) 
-                self.rubCallBack = nil  
-            end             
+                self.rubCallBack(false)  
+            end 
         end
     end
     self:registerScriptHandler(onNodeEvent)
@@ -645,8 +656,11 @@ function RubCardLayer:__registerTouchEvent()
             self.ratioVal = (movePos.y - self.offy)/self.pokerHeight 
 
         elseif self.moveDir == Direction.ToDown then 
-            self.ratioVal = 1.0 - (movePos.y - self.offy)/self.pokerHeight
-
+            if self.isDisableToDown then --禁止该方向搓牌时
+                self.ratioVal = 0 
+            else             
+                self.ratioVal = 1.0 - (movePos.y - self.offy)/self.pokerHeight
+            end 
         elseif self.moveDir == Direction.ToLeft then
             self.ratioVal = 1.0 - (movePos.x - self.offx)/self.pokerWidth 
 
@@ -660,8 +674,9 @@ function RubCardLayer:__registerTouchEvent()
         if self.ratioVal >= 0.98 then 
             self.state = RubCardLayer_State_Smooth 
         end 
-        return true
-    end
+
+        return true 
+    end 
 
     local function onTouchEnded(touch, event)
         if self.ratioVal >= 0.85 then --到达预定位置翻牌 
@@ -675,7 +690,7 @@ function RubCardLayer:__registerTouchEvent()
     local layer = cc.Layer:create() 
     self:addChild(layer)
     local listener = cc.EventListenerTouchOneByOne:create()
-    listener:setSwallowTouches(true)
+    -- listener:setSwallowTouches(true)
     listener:registerScriptHandler(onTouchBegan, cc.Handler.EVENT_TOUCH_BEGAN)
     listener:registerScriptHandler(onTouchMoved, cc.Handler.EVENT_TOUCH_MOVED)
     listener:registerScriptHandler(onTouchEnded, cc.Handler.EVENT_TOUCH_ENDED)  
