@@ -308,7 +308,7 @@ local RubCardLayer_State_Move    = 1
 local RubCardLayer_State_Smooth  = 2
 local RubCardLayer_RotationFrame = 10
 local RubCardLayer_RotationAnger = RubCardLayer_Pai/3
-local RubCardLayer_SmoothFrame   = 10
+local RubCardLayer_SmoothFrame   = 3 --无字牌翻牌后到显示有字牌之前的过渡帧数 
 local RubCardLayer_SmoothAnger   = RubCardLayer_Pai/6
 
 --滑动方向
