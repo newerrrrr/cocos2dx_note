@@ -164,24 +164,35 @@ concat()函数可以有多个参数，传递多个字符串，拼接多个字符
 有三种可以从字符串中抽取和切割的方法：
 
 第一种，slice()函数：
-
-var mystr="hello world!";
-var sliceStr1=mystr.slice(-3);    //ld!
-var sliceStr2=mystr.slice(-3,-1);    //ld
-var sliceStr3=mystr.slice(3);    //lo world!
-var sliceStr4=mystr.slice(3,7);    //lo w
+	str.slice(beginIndex[, endIndex])
+	返回一个索引和另一个索引之间的字符串
+	
+	var mystr="hello world!";
+	var sliceStr1=mystr.slice(-3);    //ld!
+	var sliceStr2=mystr.slice(-3,-1);    //ld
+	var sliceStr3=mystr.slice(3);    //lo world!
+	var sliceStr4=mystr.slice(3,7);    //lo w
 
 第二种：substring()函数：
-
-var mystr="hello world!";
-var sliceStr1=mystr.substring(3);    //lo world!
-var sliceStr2=mystr.substring(3,7);    //lo w
+	str.substring(indexStart, [indexEnd])
+	1)substring()从提取的字符indexStart可达但不包括 indexEnd
+	2)如果indexStart 等于indexEnd，substring()返回一个空字符串。
+	3)如果indexEnd省略，则将substring()字符提取到字符串的末尾。
+	4)如果任一参数小于0或是NaN，它被视为为0。
+	5)如果indexStart大于indexEnd，那么效果substring()就好像这两个论点被交换了一样； 例如，str.substring(1, 0) == str.substring(0, 1)
+	
+	var mystr="hello world!";
+	var sliceStr1 = mystr.substring(3);    //lo world!
+	var sliceStr2 = mystr.substring(3,7);    //lo w
+	var sliceStr3 = mystr.substring(-3);    //hello world!
 
 第三种：substr()函数：
-
-var mystr="hello world!";
-var sliceStr1=mystr.substr(3);    //lo world!
-var sliceStr2=mystr.substr(3,7);    //lo wo
+	str.substr(start, [length])
+	返回从指定位置开始的字符串中指定字符数的字符
+	
+	var mystr = "hello world!";
+	var sliceStr1 = mystr.substr(3);    //lo world!
+	var sliceStr2 = mystr.substr(3,5);    //lo wo
 
 注：1.slice() 可以为负数，如果起始位置为负数，则从字符串最后一位向前找对应位数并且向后取结束位置，如果为正整数则从前往后取起始位置到结束位置。
 　　2.substring()只能非负整数，截取起始结束位置同slice()函数一致。
