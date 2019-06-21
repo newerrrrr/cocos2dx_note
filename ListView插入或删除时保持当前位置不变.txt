@@ -1,0 +1,12 @@
+
+--当ListView插入和删除时, 会自动跳转到第1项,因此需要调整位置, 使之保持相对位置不变
+--deltaH:插入/删除项的高度, 可正可负, 插入时为正, 删除时为负
+function HistoryRecordInfo:adjustListPosition(deltaH) 
+    local viewSize = self.listView:getContentSize()
+    local inerSize1 = self.listView:getInnerContainerSize() 
+    local minY1 = viewSize.height - inerSize1.height 
+    local inerPos1 = self.listView:getInnerContainerPosition() 
+    --根据公式 percent = 100 * (1 - innerpos.y/miny) 可推算出高度变化后的百分比(当列表拉到最底端时 percen = 100)
+    local percent = 100 * (1.0 - (inerPos1.y - deltaH)/(minY1 - deltaH))
+    self.listView:jumpToPercentVertical(percent)
+end 
