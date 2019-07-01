@@ -1,0 +1,10 @@
+
+1. this.node:getChildByName('nodeName');
+
+2. 如果子节点的层次较深，你还可以使用 cc.find
+
+	1) 局部查找
+		var node = cc.find("Cannon 01/Barrel/SFX", this.node); //从该节点开始根据路径逐级查找
+	
+	2)全局查找
+		var node = cc.find("Canvas/Menu/Back"); //从场景根节点开始逐级查找

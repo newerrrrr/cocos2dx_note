@@ -34,15 +34,16 @@ var arr2=mystr.split("",8); //["q","i","n","g","c","h","e","n"];
  
 
 3、字符串替换
+	函数 replace(rgExp, replaceText)
+	reExp可以是正则表达式对象(RegExp)也可以是字符串(string), replaceText是替代查找到的字符串。
+	返回替换后的新字符, 但是原字符串并没有改变.
+	举例:
+		var mystr = "wozaijinxingzifuchuantihuancaozuo,zifuchuantihuano";
+		var newStr = mystr.replace("zifuchuan", " ");    //wozaijinxing tihuancaozuo,zifuchuantihuano //正则表达式是字符串, 非全局替换
+		var newStr = mystr.replace(/zifuchuan/, " ");    //wozaijinxing tihuancaozuo,zifuchuantihuano //正则表达式, 非全局替换
+		var newStr = mystr.replace(/zifuchuan/g, " ");    //wozaijinxing tihuancaozuo, tihuano 		  //正则表达式, 全局替换
 
-仅仅查找到字符串并不会是题目的停止，一般题目还经常会要求你去进行替换操作，那就继续看以下代码:
-
-var mystr="wozaijinxingzifuchuantihuancaozuo,zifuchuantihuano";
-var replaceStr=mystr.replace("zifuchuan"," ");    //wozaijinxing tihuancaozuo,zifuchuantihuano
-var replaceStr=mystr.replace(/zifuchuan/," ");    //wozaijinxing tihuancaozuo,zifuchuantihuano
-var replaceStr=mystr.replace(/zifuchuan/g," ");    //wozaijinxing tihuancaozuo, tihuano
-
-默认只进行第一次匹配操作的替换，想要全局替换，需要置上正则全局标识g
+		默认只进行第一次匹配操作的替换，想要全局替换，需要置上正则全局标识g
 
  
 

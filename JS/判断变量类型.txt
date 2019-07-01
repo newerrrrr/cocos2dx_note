@@ -1,0 +1,14 @@
+
+
+
+1.数组 
+	if (Array.isArray(a)) 
+
+2.数字
+	if (typeof(a) == 'number') 
+
+3.字符串 
+	if (typeof(a) == 'string') 
+
+4.函数
+	if (typeof(a) == 'function') 

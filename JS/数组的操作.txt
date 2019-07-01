@@ -15,12 +15,14 @@ var a = [1, 2, 3, 4, 5, 6];
 	a.slice(0);
 	a.slice(3, 5);
 
-4. splice(startIdx, beginIdx, ...)
+4. splice(startIdx, howmany, item1,.....,itemX)
+	参数说明: startIdx:起始下标; howmany:要删除的数量, 如果为 0 则表示不删除；item1...表示要插入的元素
+
 	1) 删除数组部分内容:  并返回被裁切的内容.
 	2) 在特定位置插入内容
-	前面两个参数是起始下标,如果后面还有参数,则表示要被插入数组的新元素.
-	a.splice(0, 1);
-	a.splice(0, 1, 8, 9);
+	
+	a.splice(0, 1); //删除第一个元素
+	a.splice(0, 1, 8, 9); 
 	
 	如果是单纯地插入元素，splice 方法的第二个参数可以设为0。
 	a.splice(1, 0, 8, 9);

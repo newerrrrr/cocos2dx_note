@@ -1,0 +1,24 @@
+
+举例：删除数组中所有为2的元素：
+
+var arr = [1,2,2,3,4,5];
+
+方法1：从后往前遍历:
+
+	 var len = arr.length-1;
+	 for(var i=len; i>=0; i--){
+		 if(arr[i]==2){
+			arr.splice(i,1);
+		 }
+	 }
+	 console.log(arr);
+ 
+ 
+方法2：
+
+	var i = arr.length;
+	while(i--){
+		if(arr[i]==2){
+			arr.splice(i,1);
+		}
+	}

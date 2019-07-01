@@ -1,0 +1,5 @@
+
+
+var baseObject = {name:'base obj'};
+
+var newObj = Object.create(baseObject);
