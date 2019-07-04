@@ -1,0 +1,40 @@
+
+1. 目前只比较 for 和 for in 两种遍历方式。
+
+	for in 适用数组和对象的遍历；而 for 只使用于数组。 for的效率 高于 for in 
+
+  
+2. 如果遍历数量较多时，建议将for循环放在匿名函数包裹。举例：
+	1)
+		var array = [];
+		array.length = 10000000;//(一千万)
+		for(var i=0,length=array.length;i<length;i++){
+		 array[i] = 'hi';
+		}
+		var t1 = +new Date();
+		for(var i=0,length=array.length;i<length;i++){
+		}
+		var t2 = +new Date();
+		console.log(t2-t1);
+		//以下是连续5次的运行时间
+		//168+158+170+159+165 = 820(ms)
+		
+	2)
+		var t1 = +new Date();
+		(function(){//闭包
+		 for(var i=0,length=array.length;i<length;i++){
+		 }
+		})();
+		var t2 = +new Date();
+		console.log(t2-t1);
+		//以下是连续5次的运行时间:
+		//8+6+8+7+6 = 35(ms)
+		
+	分析总结：增加匿名函数后, for循环内部的变量处于匿名函数的局部作用域下, 此时访问 length 属性, 或者访问 i 属性, 都只需要在匿名
+			  函数作用域内查找即可, 因此查询效率大大提升(测试数据发现提升有两百多倍).
+
+			  使用匿名函数后, 不止是作用域查询更快, 作用域内的变量还与外部隔离, 避免了像 i , length 这样的变量对后续代码产生影响.
+		
+		
+		
+		

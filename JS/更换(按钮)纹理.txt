@@ -3,9 +3,10 @@
 
 比如:
 	
-	var imgOkPath = 'resources/texture/common/btn_blue.png';
+	var imgOkPath = 'texture/common/btn_blue'; //相对于 resources的路径，不带扩展名
 	
-	var sp = btnOk.getComponent(cc.Sprite);
-	
-	sp.spriteFrame = new cc.SpriteFrame(cc.url.raw(imgOkPath));
+	let sp = btnObj.getComponent(cc.Sprite);
+	cc.loader.loadRes(imgOkPath, cc.SpriteFrame, function(err, spriteFrame) {
+		sp.spriteFrame = spriteFrame;
+	});
 	
