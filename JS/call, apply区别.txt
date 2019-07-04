@@ -1,0 +1,29 @@
+
+在 javascript 中，call 和 apply 都是为了改变某个函数运行时的上下文（context）而存在的，换句话说，就是为了改变函数体内部 this 的指向。
+
+当一个 object 没有某个方法，但是其他对象的有，我们可以借助call或apply用其它对象的方法来操作。
+
+对于 apply、call 二者而言，作用完全一样，只是接受参数的方式不太一样
+
+func.call(this, arg1, arg2);
+func.apply(this, [arg1, arg2]);
+
+
+
+举例:
+
+1.数组之间追加 
+var array1 = [12 , "foo" , {name:"Joe"} , -2458]; 
+var array2 = ["Doe" , 555 , 100]; 
+Array.prototype.push.apply(array1, array2);   // array1 值为  [12 , "foo" , {name:"Joe"} , -2458 , "Doe" , 555 , 100] 
+
+
+2.获取数组中的最大值和最小值 
+var numbers = [5, 458 , 120 , -215 ]; 
+var maxInNumbers = Math.max.apply(Math, numbers),   //458
+    maxInNumbers = Math.max.call(Math, 5, 458 , 120 , -215); //458
+	
+
+
+
+

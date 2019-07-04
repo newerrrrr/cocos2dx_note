@@ -1,0 +1,11 @@
+
+注：动态加载的资源必须放到resources目录下面，不然找不到。
+
+比如:
+	
+	var imgOkPath = 'resources/texture/common/btn_blue.png';
+	
+	var sp = btnOk.getComponent(cc.Sprite);
+	
+	sp.spriteFrame = new cc.SpriteFrame(cc.url.raw(imgOkPath));
+	

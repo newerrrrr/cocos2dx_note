@@ -5,17 +5,27 @@ var a = [1, 2, 3, 4, 5, 6];
 
 1. 判断是否为数组:  Array.isArray(tbl);
 
+
 2. 在数组尾部添加/删除一个元素: 
 	push() / pop() , 并返回数组的长度;
 	
-	如果在前面添加或删除一个元素，则：
-	unshift( )和shift( ) 
-
+	如果在前面添加或删除一个元素，则：unshift() 和 shift( ) 
+	
+	unshift(): 向数组的开头添加一个或更多元素，并返回新的长度。
+	arrayObject.unshift(newelement1, newelement2 ,...., newelementX)
+	注释：unshift() 方法无法在 Internet Explorer 中正确地工作！
+	
+	
+	
 3. 截取数组: slice(startIdx, beginIdx) 参数为下标的起始值, 默认从0开始
 	a.slice(0);
 	a.slice(3, 5);
 
-4. splice(startIdx, howmany, item1,.....,itemX)
+	
+4. 删除元素
+
+	splice(startIdx, howmany, item1,.....,itemX)
+	
 	参数说明: startIdx:起始下标; howmany:要删除的数量, 如果为 0 则表示不删除；item1...表示要插入的元素
 
 	1) 删除数组部分内容:  并返回被裁切的内容.
@@ -27,6 +37,7 @@ var a = [1, 2, 3, 4, 5, 6];
 	如果是单纯地插入元素，splice 方法的第二个参数可以设为0。
 	a.splice(1, 0, 8, 9);
 	
+	
 5. 数组排序: sort()
    默认是从小到大;
    如果sort可带函数参数,用于自定义比较:
@@ -35,6 +46,7 @@ var a = [1, 2, 3, 4, 5, 6];
 	}
 	a.sort(f);
 
+	
 6. 两个数组合并
 	var arr = new Array(3)
 	arr[0] = "George"
@@ -48,3 +60,24 @@ var a = [1, 2, 3, 4, 5, 6];
 
 	var result = arr.concat(arr2)
 	
+	
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
