@@ -1,4 +1,10 @@
 
+0.普通定时器 
+	var timeId = setTimeout(callback, 6000);
+	
+	clearTimeout(timeId);
+	
+
 1. 组件直接调用 schedule()方法:
 	
 	var interval = 5;// 以秒为单位的时间间隔
