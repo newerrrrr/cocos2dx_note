@@ -1,35 +1,35 @@
 1、字符串转换
 
-字符串转换是最基础的要求和工作，你可以将任何类型的数据都转换为字符串，你可以用下面三种方法的任何一种：
+	字符串转换是最基础的要求和工作，你可以将任何类型的数据都转换为字符串，你可以用下面三种方法的任何一种：
 
-var num=24;
-var mystr=num.toString();    //"24"
+	var num=24;
+	var mystr=num.toString();    //"24"
 
-你同样可以这么做：
+	你同样可以这么做：
 
-var num=24;
-var mystr=String(num);    //"24"
+	var num=24;
+	var mystr=String(num);    //"24"
 
-或者，在简单点儿：
+	或者，在简单点儿：
 
-var num=24;
-var mystr="" + num;    //"24"
+	var num=24;
+	var mystr="" + num;    //"24"
 
  
 
 2、字符串分割
 
-将字符串进行拆分返回一个新的数组，JavaScript就给我们提供了一个非常方便的函数：
+	将字符串进行拆分返回一个新的数组，JavaScript就给我们提供了一个非常方便的函数：
 
-var mystr="qingchenghuwoguoxiansheng,woaishenghuo,woaiziji";
-var arr1=mystr.split(",");    //["qingchenghuwoguoxiansheng","woaishenghuo","woaiziji"];
-var arr2=mystr.split("");        //["q","i","n","g","c","h","e","n","g","h","u","w","o","g","u","o","x","i","a","n","s","h","e","n","g",",","w","o","a","i","s","h","e","n","g","h","u","o",",","w","o","a","i","z","i","j","i"];
+	var mystr="qingchenghuwoguoxiansheng,woaishenghuo,woaiziji";
+	var arr1=mystr.split(",");    //["qingchenghuwoguoxiansheng","woaishenghuo","woaiziji"];
+	var arr2=mystr.split("");        //["q","i","n","g","c","h","e","n","g","h","u","w","o","g","u","o","x","i","a","n","s","h","e","n","g",",","w","o","a","i","s","h","e","n","g","h","u","o",",","w","o","a","i","z","i","j","i"];
 
-split()的第二个参数，表示返回的字符串数组的最大长度
+	split()的第二个参数，表示返回的字符串数组的最大长度
 
-var mystr="qingchenghuwoguoxiansheng,woaishenghuo,woaiziji";
-var arr1=mystr.split(",",2); //["qingchenghuwoguoxiansheng","woaishenghuo"];
-var arr2=mystr.split("",8); //["q","i","n","g","c","h","e","n"];
+	var mystr="qingchenghuwoguoxiansheng,woaishenghuo,woaiziji";
+	var arr1=mystr.split(",",2); //["qingchenghuwoguoxiansheng","woaishenghuo"];
+	var arr2=mystr.split("",8); //["q","i","n","g","c","h","e","n"];
 
  
 
@@ -49,175 +49,175 @@ var arr2=mystr.split("",8); //["q","i","n","g","c","h","e","n"];
 
 4、获取字符串长度
 
-获取字符串的长度经常会用到，方法很简单：
+	获取字符串的长度经常会用到，方法很简单：
 
-var mystr="qingchenghuwoguoxiansheng,woaishenghuo,woaiziji";
-var arrLength=mystr.length;    //47
+	var mystr="qingchenghuwoguoxiansheng,woaishenghuo,woaiziji";
+	var arrLength=mystr.length;    //47
 
  
 
 5、查询子字符串
 
-判断字符串内是否包含子串，不少开发者会使用for循环来判断，而忘记了JavaScript提供子串函数：
+	判断字符串内是否包含子串，不少开发者会使用for循环来判断，而忘记了JavaScript提供子串函数：
 
     indexOf()，该Of() 方法对大小写敏感。返回字符串中一个子串第一处出现的索引（从左到右搜索）。如果没有匹配项，返回 -1 。
 
-var mystr="Hello world!";
-var index=mystr.indexOf("llo");    //2
-var index1=mystr.indexOf("l");    //2
-var index2=mystr.indexOf("l",3);    //3
+	var mystr="Hello world!";
+	var index=mystr.indexOf("llo");    //2
+	var index1=mystr.indexOf("l");    //2
+	var index2=mystr.indexOf("l",3);    //3
 
     lastIndexOf()，该方法对大小写敏感。返回字符串中一个子串最后一处出现的索引（从右到左搜索），如果没有匹配项，返回 -1 。
 
-var mystr="Hello world!";
-var index=mystr.lastIndexOf("llo");    //2
-var index1=mystr.lastIndexOf("l");    //9
-var index2=mystr.lastIndexOf("l",4);    //3
+	var mystr="Hello world!";
+	var index=mystr.lastIndexOf("llo");    //2
+	var index1=mystr.lastIndexOf("l");    //9
+	var index2=mystr.lastIndexOf("l",4);    //3
 
  
 
 6、返回指定位置的字符或其字符编码值
 
-查找给定位置的字符，可以使用如下函数：
+	查找给定位置的字符，可以使用如下函数：
 
-var mystr="Hello World!";
-var index=mystr.charAt(7);    //o
+	var mystr="Hello World!";
+	var index=mystr.charAt(7);    //o
 
-同样，它的一个兄弟函数就是查找对应位置的字符编码值，如：
+	同样，它的一个兄弟函数就是查找对应位置的字符编码值，如：
 
-var mystr="Hello World!";
-var charCode=mystr. charCodeAt(7);    //111
+	var mystr="Hello World!";
+	var charCode=mystr. charCodeAt(7);    //111
 
  
 
 7、 字符串匹配
 
-可以直接通过字符串进行匹配，也可以通过正则进行匹配，可能需要你对正则表达式有一定的了解，先来看看match()函数：
-复制代码
+	可以直接通过字符串进行匹配，也可以通过正则进行匹配，可能需要你对正则表达式有一定的了解，先来看看match()函数：
 
-var mystr="hi,mynameisguoxiansheng6,33iswho?";
-var matchStr=mystr.match("guo");    //guo
-var matchStr1=mystr.match("Guo");    //null
-var regexp1=/\d+/g;
-var regexp2=/guo/g;
-var regexp3=/guo/;
-var matchStr2=mystr.match(regexp1);    //["6","33"]
-var matchStr3=mystr.match(regexp2);    //["guo"]
-var matchStr3=mystr.match(regexp3);    //["guo",index:11,input:"hi,mynameisguoxiansheng6,33iswho?"]
-matchStr3.index    //11
-matchStr3.input    //hi,mynameisguoxiansheng6,33iswho?
 
-复制代码
+	var mystr="hi,mynameisguoxiansheng6,33iswho?";
+	var matchStr=mystr.match("guo");    //guo
+	var matchStr1=mystr.match("Guo");    //null
+	var regexp1=/\d+/g;
+	var regexp2=/guo/g;
+	var regexp3=/guo/;
+	var matchStr2=mystr.match(regexp1);    //["6","33"]
+	var matchStr3=mystr.match(regexp2);    //["guo"]
+	var matchStr3=mystr.match(regexp3);    //["guo",index:11,input:"hi,mynameisguoxiansheng6,33iswho?"]
+	matchStr3.index    //11
+	matchStr3.input    //hi,mynameisguoxiansheng6,33iswho?
 
-注意：1.此处使用字符串直接进行匹配，被匹配的字符串内包含要匹配的字符串时，返回所要匹配的字符串。
 
-　　　2.如果使用正则匹配字符串时，如果正则表达式没有 g (全局标识)标志，返回与正则匹配相同的结果。而且返回的数组拥有一个额外的 input 属性，该属性包含原始字符串。另外，还拥有一个 index 属性，该属性表示匹配结果在被字符串中的索引（以0开始）。如果正则表达式包含 g 标志，则该方法返回匹配字符串的数组。
 
-再来看看使用exec()函数： 
-复制代码
+	注意：1.此处使用字符串直接进行匹配，被匹配的字符串内包含要匹配的字符串时，返回所要匹配的字符串。
 
-var mystr="hi,mynameisguoxiansheng6,33iswho?";
-var regexp1=/guo/g;
-var matchStr=regexp1.exec(mystr);  //["guo"]
-var regexp2=/guo/;
-var matchStr1=regexp2.exec(mystr);    //["guo",index:11,input:"hi,mynameisguoxiansheng6,33iswho?"]
-matchStr1.index    //11
-matchStr1.input    //hi,mynameisguoxiansheng6,33iswho?
+	　　　2.如果使用正则匹配字符串时，如果正则表达式没有 g (全局标识)标志，返回与正则匹配相同的结果。而且返回的数组拥有一个额外的 input 属性，该属性包含原始字符串。另外，还拥有一个 index 属性，该属性表示匹配结果在被字符串中的索引（以0开始）。如果正则表达式包含 g 标志，则该方法返回匹配字符串的数组。
 
-复制代码
+	再来看看使用exec()函数： 
 
-简单吧，仅仅是把正则和字符串换了个位置，即exec()函数是在正则上调用，传递字符串的参数。对于上面两个方法，匹配的结果都是返回第一个匹配成功的字符串，如果匹配失败则返回null。
 
-再来看一个类似的函数search()：
+	var mystr="hi,mynameisguoxiansheng6,33iswho?";
+	var regexp1=/guo/g;
+	var matchStr=regexp1.exec(mystr);  //["guo"]
+	var regexp2=/guo/;
+	var matchStr1=regexp2.exec(mystr);    //["guo",index:11,input:"hi,mynameisguoxiansheng6,33iswho?"]
+	matchStr1.index    //11
+	matchStr1.input    //hi,mynameisguoxiansheng6,33iswho?
 
-var mystr = "hi,mynameisguoxiansheng6,33iswho?";
-var regexp1 = /guo/;
-var matchStr = mystr.search(regexp1);    //11
 
-进行正则匹配查找。如果查找成功，返回字符串中匹配的索引值。否则返回 -1
+
+	简单吧，仅仅是把正则和字符串换了个位置，即exec()函数是在正则上调用，传递字符串的参数。对于上面两个方法，匹配的结果都是返回第一个匹配成功的字符串，如果匹配失败则返回null。
+
+	再来看一个类似的函数search()：
+
+	var mystr = "hi,mynameisguoxiansheng6,33iswho?";
+	var regexp1 = /guo/;
+	var matchStr = mystr.search(regexp1);    //11
+
+	进行正则匹配查找。如果查找成功，返回字符串中匹配的索引值。否则返回 -1
 
  
 
 8、字符串连接
 
-可以将两个或多个字符串进行加法操作，同时可以使用JavaScript提供的concat函数：
+	可以将两个或多个字符串进行加法操作，同时可以使用JavaScript提供的concat函数：
 
-先看加法操作进行字符串连接：
+	先看加法操作进行字符串连接：
 
-var mystr1="Hello";
-var mystr2="world!";
-var newStr=mystr1+" "+mystr2;    //Hello world!
+	var mystr1="Hello";
+	var mystr2="world!";
+	var newStr=mystr1+" "+mystr2;    //Hello world!
 
-是不是很简单呀，那继续看看concat函数吧：
+	是不是很简单呀，那继续看看concat函数吧：
 
-var mystr1="Hello";
-var mystr2=" world,";
-var mystr3="Hello";
-var mystr4="guoxiansheng";
-var newStr=mystr1.concat(mystr2+mystr3+" "+mystr4);    //Hello world,Hello guoxiansheng
+	var mystr1="Hello";
+	var mystr2=" world,";
+	var mystr3="Hello";
+	var mystr4="guoxiansheng";
+	var newStr=mystr1.concat(mystr2+mystr3+" "+mystr4);    //Hello world,Hello guoxiansheng
 
-concat()函数可以有多个参数，传递多个字符串，拼接多个字符串。
+	concat()函数可以有多个参数，传递多个字符串，拼接多个字符串。
 
  
 
 9、字符串切割和提取
 
-有三种可以从字符串中抽取和切割的方法：
+	有三种可以从字符串中抽取和切割的方法：
 
-第一种，slice()函数：
-	str.slice(beginIndex[, endIndex])
-	返回一个索引和另一个索引之间的字符串
-	
-	var mystr="hello world!";
-	var sliceStr1=mystr.slice(-3);    //ld!
-	var sliceStr2=mystr.slice(-3,-1);    //ld
-	var sliceStr3=mystr.slice(3);    //lo world!
-	var sliceStr4=mystr.slice(3,7);    //lo w
+	第一种，slice()函数：
+		str.slice(beginIndex[, endIndex])
+		
+		返回一个索引和另一个索引之间的字符串
+		
+		var mystr = "hello world!";
+		var sliceStr1 = mystr.slice(-3);    //ld!
+		var sliceStr2 = mystr.slice(-3,-1);    //ld
+		var sliceStr3 = mystr.slice(3);    //lo world!
+		var sliceStr4 = mystr.slice(3,7);    //lo w
 
-第二种：substring()函数：
-	str.substring(indexStart, [indexEnd])
-	1)substring()从提取的字符indexStart可达但不包括 indexEnd
-	2)如果indexStart 等于indexEnd，substring()返回一个空字符串。
-	3)如果indexEnd省略，则将substring()字符提取到字符串的末尾。
-	4)如果任一参数小于0或是NaN，它被视为为0。
-	5)如果indexStart大于indexEnd，那么效果substring()就好像这两个论点被交换了一样； 例如，str.substring(1, 0) == str.substring(0, 1)
-	
-	var mystr="hello world!";
-	var sliceStr1 = mystr.substring(3);    //lo world!
-	var sliceStr2 = mystr.substring(3,7);    //lo w
-	var sliceStr3 = mystr.substring(-3);    //hello world!
+	第二种：substring()函数：
+		str.substring(indexStart, [indexEnd])
+		
+		1)substring()从提取的字符indexStart可达但不包括 indexEnd
+		2)如果indexStart 等于indexEnd，substring()返回一个空字符串。
+		3)如果indexEnd省略，则将substring()字符提取到字符串的末尾。
+		4)如果任一参数小于0或是NaN，它被视为为0。
+		5)如果indexStart大于indexEnd，那么效果substring()就好像这两个论点被交换了一样； 例如，str.substring(1, 0) == str.substring(0, 1)
+		
+		var mystr = "hello world!";
+		var sliceStr1 = mystr.substring(3);    //lo world!
+		var sliceStr2 = mystr.substring(3,7);    //lo w
+		var sliceStr3 = mystr.substring(-3);    //hello world!
 
-第三种：substr()函数：
-	str.substr(start, [length])
-	返回从指定位置开始的字符串中指定字符数的字符
-	
-	var mystr = "hello world!";
-	var sliceStr1 = mystr.substr(3);    //lo world!
-	var sliceStr2 = mystr.substr(3,5);    //lo wo
+	第三种：substr()函数：
+		str.substr(start, [length])
+		返回从指定位置开始的字符串中指定字符数的字符
+		
+		var mystr = "hello world!";
+		var sliceStr1 = mystr.substr(3);    //lo world!
+		var sliceStr2 = mystr.substr(3,5);    //lo wo
 
-注：1.slice() 可以为负数，如果起始位置为负数，则从字符串最后一位向前找对应位数并且向后取结束位置，如果为正整数则从前往后取起始位置到结束位置。
-　　2.substring()只能非负整数，截取起始结束位置同slice()函数一致。
+	注：1.slice() 可以为负数，如果起始位置为负数，则从字符串最后一位向前找对应位数并且向后取结束位置，如果为正整数则从前往后取起始位置到结束位置。
+	　　2.substring()只能非负整数，截取起始结束位置同slice()函数一致。
 
-　　3.substr()与第一、第二种函数不同，从起始位置开始截取，结束位置为第二个参数截取的字符串最大长度。
+	　　3.substr()与第一、第二种函数不同，从起始位置开始截取，结束位置为第二个参数截取的字符串最大长度。
 
-以上三种函数未填第二参数时，自动截取起始位置到字符串末尾。
+	以上三种函数未填第二参数时，自动截取起始位置到字符串末尾。
 
  
 
 10、字符串大小写转换
-
-var mystr="Hello World!";
-var lowCaseStr=mystr.toLowerCase();    //hello world!
-var upCaseStr=mystr. toUpperCase();    //HELLO WORLD!
+	var mystr="Hello World!";
+	var lowCaseStr=mystr.toLowerCase();    //hello world!
+	var upCaseStr=mystr. toUpperCase();    //HELLO WORLD!
 
  
 
   11、字符串去空格
+	trim方法用来删除字符串前后的空格 
 
-trim方法用来删除字符串前后的空格 
-
-var mystr="     hello world      ";  
-var trimStr=mystr.trim();    //hello world
+	var mystr="     hello world      ";  
+	var trimStr=mystr.trim();    //hello world
 
  
 

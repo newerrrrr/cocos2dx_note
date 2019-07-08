@@ -14,7 +14,7 @@ var arr = [1,2,2,3,4,5];
 	 console.log(arr);
  
  
-方法2：
+方法2:(推荐)
 
 	var i = arr.length;
 	while(i--){
