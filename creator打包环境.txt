@@ -1,0 +1,29 @@
+
+
+主要环境:
+	1)NDK R16 (android-ndk-r16-windows-x86_64)
+	
+	2)sdk: platform支持API-16, 23, 25, 26, 28 
+	
+	3) cocos creator 2.0.10
+		打开 cocos creator，导入项目工程, 注：工程必须放在硬盘根目录下或者一级目录下，否则会导致路径名超过255个字符而编译报错！！！
+
+		菜单：配置 sdk, ndk 路径: 点击菜单 文件->设置->原生开发环境里配置 NDK、SDK 路径
+	
+	4)Android Studio 3.1.2, 
+		文件 build.gradle, 可以看到如下内容：
+			dependencies {
+				classpath 'com.android.tools.build:gradle:3.1.2' 
+		
+		文件 gradle-wrapper.properties 配置
+			distributionUrl=https\://services.gradle.org/distributions/gradle-4.5-all.zip
+			
+			如果不知道配置哪个，可打开网址 
+				http://services.gradle.org/distributions/ 
+			里面包含所有 gradle , 对应不同时间, 根据当前 AS版本发布时间大概选择一个.
+	
+		菜单 File->Project Structure 配置 SDK, NDK路径 
+		
+		导入cocos creator项目, 后同步 gradle 
+	
+	5)在 creator 中编译项目
