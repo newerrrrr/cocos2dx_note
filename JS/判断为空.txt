@@ -1,0 +1,8 @@
+
+1.判断字符串不为空
+	var str;
+	
+	if (str && typeof str === 'string' && str.length > 0) {
+		//非空
+	}
+	

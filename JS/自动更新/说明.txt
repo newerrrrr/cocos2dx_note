@@ -1,0 +1,80 @@
+
+先出热更包, 将生成的 project.manifest 和 version.manifest 拷贝到 项目的 assets 目录下. 因为热更算法组件 
+
+HotUpdate.js 绑定该位置的资源文件.
+
+
+
+
+1. 第一次构建Android后, 在项目中与 目录build并列, 新建一个目录 build-templates，里面可放入自定义的模板 main.js , 
+   在main.js文件头部插入了热更搜素路径的代码：
+	
+  这样每次构建打包出来的main.js都包含该段代码, 用来优先使用热更目录的资源。目前只处理了 jsb-default, 
+  
+    //by hlb for hotupdate, start-----
+    if (jsb) {
+        var searchPaths = localStorage.getItem('HotUpdateSearchPaths') 
+        if (searchPaths) {
+            jsb.fileUtils.setSearchPaths(JSON.parse(searchPaths)); 
+        } 
+    } 
+    //by hlb for hotupdate, end-----
+
+
+2.模拟器由于不需要构建, 使用的模板在引擎目录 CocosCreator_2.0.10\resources\static\simulator\main.js ,
+
+	每次启动模拟器时都会自动将该模板拷贝到目录 CocosCreator_2.0.10\resources\cocos2d-x\simulator\win32\ 执行.
+	
+
+	
+    //by hlb for hotupdate, start-----
+    if (jsb) {
+        var searchPaths = localStorage.getItem('HotUpdateSearchPaths') 
+        if (searchPaths) {
+            jsb.fileUtils.setSearchPaths(JSON.parse(searchPaths)); 
+        } 
+    } 
+    //by hlb for hotupdate, end-----
+
+    require('src/simulator-config.js');
+    require('src/settings.js');
+    require('src/modular.js');
+    require('src/cocos2d-jsb.js');
+    require('jsb-adapter/jsb-engine.js');
+    require('src/asset-record-pipe.js');
+
+    boot();
+	
+	但是，模拟器的 require('src/settings.js'); 跟 android的有差别, 启动流程与真机不一致,因此，模拟器只能用来调试热更算法和下载过程
+	
+	不能用于重启！！！！！fuck !!!
+	
+	
+3.在热更模块代码 HotUpdate.js中 
+
+	var hotSearchPath = [ //热更搜索路径
+		storageDir,
+		storageDir + "res/",
+		storageDir + "src/",
+	];
+
+
+	//去除重复路径后保存,然后在 main.js中读取
+	var searchPaths = jsb.fileUtils.getSearchPaths(); 
+	var tmpSearchPath = [].concat(hotSearchPath); 
+	for (let i = 0, len = searchPaths.length; i < len; i++) { 
+		let v = searchPaths[i];
+		if (tmpSearchPath.indexOf(v) == -1) {
+			tmpSearchPath.push(v);
+		} 
+	} 
+	cc.sys.localStorage.setItem('HotUpdateSearchPaths', JSON.stringify(tmpSearchPath));
+	cc.sys.localStorage.setItem('RestartAfterHotUpdate', 'true');
+	jsb.fileUtils.setSearchPaths(tmpSearchPath);
+
+	//重启 
+	cc.audioEngine.stopAll();
+	cc.game.restart();	
+	
+	
+

@@ -1,0 +1,7 @@
+
+var md5 = require('md5');
+var data = jsb.fileUtils.getDataFromFile(filepath);
+if (data) {
+	var tt = md5.create().update(data).hex();
+	cc.log('-------------md5:', tt)
+}

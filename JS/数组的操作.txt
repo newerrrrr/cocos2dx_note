@@ -62,7 +62,24 @@ var a = [1, 2, 3, 4, 5, 6];
 	
 	
 
+二、常用技巧 
+
+1. 移除相同元素
+	for (let i = arr.length-1; i >= 0; i--) { 
+		if (arr.indexOf(arr[i]) != i) {
+			arr.splice(i, 1);
+		} 
+	} 
 	
+2.删除指定的所有元素
+	var i = arr.length;
+	while(i--){
+		if(arr[i]==2){
+			arr.splice(i,1);
+		}
+	}
+	
+
 
 
 

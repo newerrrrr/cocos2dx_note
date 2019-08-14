@@ -1,0 +1,4 @@
+
+require(filename) 
+
+filename: 不带路径，直接写文件名(不带扩展名); 或者带相对路径名, 如 './config/GameConfig' 

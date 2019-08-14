@@ -1,0 +1,70 @@
+
+用于点击分享的链接url进入游戏。
+
+1.修改 AndroidManifest.xml
+
+<activity
+    android:name=".view.activity.UserLoginActivity"
+    android:configChanges="keyboardHidden|orientation"
+    android:screenOrientation="portrait"
+    android:windowSoftInputMode="stateHidden|adjustPan">
+    <intent-filter>
+       <action android:name="android.intent.action.MAIN" />
+       <category android:name="android.intent.category.LAUNCHER" />
+    </intent-filter>
+	
+    <intent-filter> 
+        <action android:name="android.intent.action.VIEW"></action>
+        <category android:name="android.intent.category.DEFAULT"></category>
+        <category android:name="android.intent.category.BROWSABLE"></category>
+        <data
+             android:host="mytest.com"
+             android:pathPrefix="/app"
+             android:scheme="http">
+        </data>
+    </intent-filter>
+	
+</activity>
+
+通过以上的设置,在包含“http://mytest.com/app”内容的短信或者网页中都可以打开我们的app。
+
+就这么简单！传入参数也很简单,如：“http://mytest.com/app?id = 100” 便可向app传递参数.
+
+
+2.在 activity 中添加以下代码用于接收参数。
+
+    public boolean parseUrlParam(Intent intent) {
+        if (intent == null) return false;
+
+        String action = intent.getAction();
+        if(Intent.ACTION_VIEW.equals(action)) {
+            Log.d("HLB", "xxxxxxxxxxxxx parseUrlParam");
+            Uri deeplink = intent.getData();
+            if (deeplink != null) {
+                AppActivity.roomId = deeplink.getQueryParameter("roomid");
+                AppActivity.shareCode = deeplink.getQueryParameter("share_code");
+                Log.d("HLB", "====== parse url:" + AppActivity.shareCode);
+                return true;
+            }
+        }
+        return false;
+    }
+		
+	
+	//在以下2个地方添加：
+    @Override  
+	protected void onCreate(Bundle savedInstanceState) {
+		parseUrlParam(getIntent());
+	}
+	
+    @Override
+	protected void onNewIntent(Intent intent) {
+		// TODO Auto-generated method stub
+		super.onNewIntent(intent);
+		
+		parseUrlParam(intent);
+	}
+	
+	
+
+	

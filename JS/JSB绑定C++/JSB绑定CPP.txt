@@ -1,0 +1,77 @@
+
+参考官方文档 ‘引擎定制工作流程’ 章节内容,
+
+本人以添加 解压缩 功能接口为例，绑定 c++到JS端使用。新增2个文件
+GameTools.cpp、 GameTools.h
+具体代码编写参考 GameTools.cpp、 GameTools.h
+
+以下为导出到 JS端的步骤：
+
+
+一、模拟器 (修改引擎安装目录内容)
+	
+	1.安装编译依赖
+		1) 在命令行中进入引擎路径
+			cd D:\CocosCreator_2.0.10\resources\engine
+		
+		2) 安装 gulp 构建工具
+			npm install -g gulp
+		
+		3) 安装依赖的模块
+			npm install
+			
+	2.将 GameTools.cpp、 GameTools.h 两个文件放到原生引擎目录中
+		
+		D:\CocosCreator_2.0.10\resources\cocos2d-x\tools\simulator\frameworks\runtime-src\Classes
+		
+		修改 D:\CocosCreator_2.0.10\resources\cocos2d-x\cocos\scripting\js-bindings\manual\jsb_module_register.cpp
+		在里面加入注册代码 
+		
+		#include "GameTools.h" //by hlb20190731
+		。。。
+		
+		//by hlb 20190731
+		se->addRegisterCallback(js_register_GameTools);
+	
+	3. 打开模拟器VS工程 
+		D:\CocosCreator_2.0.10\resources\cocos2d-x\tools\simulator\frameworks\runtime-src\proj.win32\simulator.sln 
+		
+		在资源管理器的 simulator节点下导入 GameTools.cpp和GameTools.h, 
+		
+		编译, 发现很多错误，都是 GameTools.cpp相关的。
+		修改 D:\CocosCreator_2.0.10\resources\cocos2d-x\external\win32\include\zlib\zconf.h, 将 FAR 反定义
+			//#ifndef FAR
+			#define FAR
+			//#endif
+			
+		即可编译通过.
+		
+	4.编译模拟器 (当前目录：D:\CocosCreator_2.0.10\resources\cocos2d-x)
+		如果当前是用 VS2017，需要修改 D:\CocosCreator_2.0.10\resources\cocos2d-x\gulpfile.js
+		将文中的 2015换成2017： args = ['gen-simulator', '-m', 'debug', '-p', 'win32', '--vs', '2015', '--ol', 'en']; 
+		否则执行下面步骤会失败.
+		
+		gulp gen-simulator
+		
+		gulp update-simulator-config
+		
+		成功后即可模拟器使用C++的接口了。
+		
+	
+二、Android (修改项目中构建好的内容)
+	1. 打开目录：
+		D:\HLB\work\HLBJS\build\jsb-default\frameworks\runtime-src\Classes
+		将2个c++文件放到该项目中，同时修改该目录下的文件 jsb_module_register.cpp 
+		在里面加入注册代码 
+		
+		#include "GameTools.h" //by hlb20190731
+		。。。
+		
+		//by hlb 20190731
+		se->addRegisterCallback(js_register_GameTools);
+	
+	2.在 Android.mk中的LOCAL_SRC_FILES加入该CPP文件
+	
+	3.编译成后即可在JS使用CPP接口 
+	
+	
