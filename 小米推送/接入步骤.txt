@@ -1,0 +1,86 @@
+
+针对 eclipse 版本接入。 studio 接入类似，可参考 PushDemo4Studio
+
+1. 登录小米开发者网站，创建App并获取AppId，AppKey和AppSecret。
+	在使用小米推送服务前，开发者需要先登录小米开发者网站（https://dev.mi.com/console/ ）创建App，
+	在更多服务中查看AppId，AppKey和AppSecret
+	
+	
+2. AndroidManifest.xml , (假设app包名为 com.happy9.kuaizhuan)
+	1)添加权限，已有的权限可不用加.
+		<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />​
+		<uses-permission android:name="android.permission.INTERNET" /> 
+		<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+		<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> 
+		<uses-permission android:name="android.permission.READ_PHONE_STATE" /> 
+		<uses-permission android:name="android.permission.GET_TASKS" /> 
+		<uses-permission android:name="android.permission.VIBRATE"/> 
+
+		<permission android:name="com.xiaomi.mipushdemo.permission.MIPUSH_RECEIVE"
+		android:protectionLevel="signature" /> <!--这里com.xiaomi.mipushdemo改成app的包名,如 com.happy9.kuaizhuan -->
+		<uses-permission android:name="com.xiaomi.mipushdemo.permission.MIPUSH_RECEIVE" /><!--这里com.xiaomi.mipushdemo改成app的包名-->	
+	
+	2)推送服务需要配置的service和receiver：
+		在 application 节点下添加，不要新创建一个 application ,否则无法启动该 application:
+
+		<!-- 小米推送service和receiver -->
+		<service android:enabled="true" android:process=":pushservice" android:name="com.xiaomi.push.service.XMPushService"/> 
+		<service android:name="com.xiaomi.push.service.XMJobService" android:enabled="true" android:exported="false" android:permission="android.permission.BIND_JOB_SERVICE" android:process=":pushservice" /> <!--注：此service必须在3.0.1版本以后（包括3.0.1版本）加入--> 
+		<service android:enabled="true" android:exported="true" android:name="com.xiaomi.mipush.sdk.PushMessageHandler" /> 
+		<service android:enabled="true" android:name="com.xiaomi.mipush.sdk.MessageHandleService" /> <!--注：此service必须在2.2.5版本以后（包括2.2.5版本）加入--> 
+		
+		<receiver android:exported="true" android:name="com.xiaomi.push.service.receivers.NetworkStatusReceiver" > 
+			<intent-filter> 
+				<action android:name="android.net.conn.CONNECTIVITY_CHANGE" /> 
+				<category android:name="android.intent.category.DEFAULT" /> 
+			</intent-filter> 
+		</receiver> 
+		
+		<receiver android:exported="false" android:process=":pushservice" android:name="com.xiaomi.push.service.receivers.PingReceiver" > 
+			<intent-filter> 
+				<action android:name="com.xiaomi.push.PING_TIMER" /> 
+			</intent-filter> 
+		</receiver>			
+
+		<receiver
+			android:exported="true"
+			android:name="com.happy9.kuaizhuan.xiaomi.MessageReceiver"> 
+			<!--这里com.xiaomi.mipushdemo.DemoMessageRreceiver改成app中定义的完整类名, 我在包名下新建立目录 xiaomi，用于存放源码文件 -->
+			
+			<intent-filter>
+				<action android:name="com.xiaomi.mipush.RECEIVE_MESSAGE" />
+			</intent-filter>
+			<intent-filter>
+				<action android:name="com.xiaomi.mipush.MESSAGE_ARRIVED" />
+			</intent-filter>
+			<intent-filter>
+				<action android:name="com.xiaomi.mipush.ERROR" />
+			</intent-filter>
+		</receiver>		
+		
+	
+3. 在 proj.android\src\com\happy9\kuaizhuan\xiaomi 下放置源码
+	1) 自定义一个BroadcastReceiver类 
+		MessageReceiver.java 
+
+		实现其中的onReceivePassThroughMessage，onNotificationMessageClicked，onNotificationMessageArrived，onCommandResult和onReceiveRegisterResult方法，
+		
+		里面的方法运行在非UI线程！！
+		
+		然后把该receiver注册到AndroidManifest.xml文件中。
+		
+		
+	
+	2) 新建个静态类管理器，用于初始化并注册推送
+		MiPushMgr.java 
+		MiPushMgr.init()用于初始化并注册推送, 
+		另外提供2个静态方法 setPushUserId(), setPushTopic()供外部调用，来给用户打标签，用于精准推送。
+		
+		在 AppActivity.java onCreate()方法中调用 MiPushMgr.init()方法来注册。
+		
+		
+		
+4. 将 SDK的 jar库放在 libs
+
+5.打包安装后，启动一下应用再退出。在小米开放平台网页上即可给该应用创建推送来发送。 
+	

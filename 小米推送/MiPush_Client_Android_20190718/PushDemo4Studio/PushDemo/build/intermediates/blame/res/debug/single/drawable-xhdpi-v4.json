@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "/home/mi/下载/MiPush_Client_Android_20180604/PushDemo4Studio/PushDemo/build/intermediates/res/merged/debug/drawable-xhdpi-v4/all_button_only_bg.9.png",
+        "source": "/home/mi/下载/MiPush_Client_Android_20180604/PushDemo4Studio/PushDemo/res/drawable-xhdpi/all_button_only_bg.9.png"
+    },
+    {
+        "merged": "/home/mi/下载/MiPush_Client_Android_20180604/PushDemo4Studio/PushDemo/build/intermediates/res/merged/debug/drawable-xhdpi-v4/all_button_only_bg_2.9.png",
+        "source": "/home/mi/下载/MiPush_Client_Android_20180604/PushDemo4Studio/PushDemo/res/drawable-xhdpi/all_button_only_bg_2.9.png"
+    },
+    {
+        "merged": "/usr/local/src/project/push/PushDemo/build/intermediates/res/merged/debug/drawable-xhdpi-v4/all_button_only_bg_2.9.png",
+        "source": "/usr/local/src/project/push/PushDemo/res/drawable-xhdpi/all_button_only_bg_2.9.png"
+    },
+    {
+        "merged": "/usr/local/src/project/push/PushDemo/build/intermediates/res/merged/debug/drawable-xhdpi-v4/all_button_only_bg.9.png",
+        "source": "/usr/local/src/project/push/PushDemo/res/drawable-xhdpi/all_button_only_bg.9.png"
+    },
+    {
+        "merged": "/usr/local/src/project/push/PushDemo/build/intermediates/res/merged/debug/drawable-xhdpi-v4/mipush_logo.png",
+        "source": "/usr/local/src/project/push/PushDemo/res/drawable-xhdpi/mipush_logo.png"
+    },
+    {
+        "merged": "/home/mi/下载/MiPush_Client_Android_20180604/PushDemo4Studio/PushDemo/build/intermediates/res/merged/debug/drawable-xhdpi-v4/mipush_logo.png",
+        "source": "/home/mi/下载/MiPush_Client_Android_20180604/PushDemo4Studio/PushDemo/res/drawable-xhdpi/mipush_logo.png"
+    }
+]

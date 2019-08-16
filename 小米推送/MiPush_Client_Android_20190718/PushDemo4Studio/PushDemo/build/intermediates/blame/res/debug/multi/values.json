@@ -1,0 +1,1523 @@
+[
+    {
+        "outputFile": "/home/mi/下载/MiPush_Client_Android_20180604/PushDemo4Studio/PushDemo/build/intermediates/res/merged/debug/values/values.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 44,
+                    "endOffset": 95
+                },
+                "from": {
+                    "file": "/home/mi/下载/MiPush_Client_Android_20180604/PushDemo4Studio/PushDemo/res/values/dimens.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 217,
+                        "endColumn": 44,
+                        "endOffset": 257
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 100,
+                    "endColumn": 41,
+                    "endOffset": 137
+                },
+                "from": {
+                    "file": "/home/mi/下载/MiPush_Client_Android_20180604/PushDemo4Studio/PushDemo/res/values/dimens.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 89,
+                        "endColumn": 41,
+                        "endOffset": 126
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 142,
+                    "endColumn": 44,
+                    "endOffset": 182
+                },
+                "from": {
+                    "file": "/home/mi/下载/MiPush_Client_Android_20180604/PushDemo4Studio/PushDemo/res/values/dimens.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 131,
+                        "endColumn": 44,
+                        "endOffset": 171
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 5,
+                    "startColumn": 4,
+                    "startOffset": 187,
+                    "endColumn": 40,
+                    "endOffset": 223
+                },
+                "from": {
+                    "file": "/home/mi/下载/MiPush_Client_Android_20180604/PushDemo4Studio/PushDemo/res/values/dimens.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 176,
+                        "endColumn": 40,
+                        "endOffset": 212
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 6,
+                    "startColumn": 4,
+                    "startOffset": 228,
+                    "endColumn": 45,
+                    "endOffset": 269
+                },
+                "from": {
+                    "file": "/home/mi/下载/MiPush_Client_Android_20180604/PushDemo4Studio/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 56,
+                        "endColumn": 45,
+                        "endOffset": 97
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 7,
+                    "startColumn": 4,
+                    "startOffset": 274,
+                    "endColumn": 108,
+                    "endOffset": 378
+                },
+                "from": {
+                    "file": "/home/mi/下载/MiPush_Client_Android_20180604/PushDemo4Studio/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 21,
+                        "startColumn": 4,
+                        "startOffset": 1021,
+                        "endColumn": 108,
+                        "endOffset": 1125
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 8,
+                    "startColumn": 4,
+                    "startOffset": 383,
+                    "endColumn": 37,
+                    "endOffset": 416
+                },
+                "from": {
+                    "file": "/home/mi/下载/MiPush_Client_Android_20180604/PushDemo4Studio/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 136,
+                        "endColumn": 37,
+                        "endOffset": 169
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 9,
+                    "startColumn": 4,
+                    "startOffset": 421,
+                    "endColumn": 107,
+                    "endOffset": 524
+                },
+                "from": {
+                    "file": "/home/mi/下载/MiPush_Client_Android_20180604/PushDemo4Studio/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 20,
+                        "startColumn": 4,
+                        "startOffset": 913,
+                        "endColumn": 107,
+                        "endOffset": 1016
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 10,
+                    "startColumn": 4,
+                    "startOffset": 529,
+                    "endColumn": 41,
+                    "endOffset": 566
+                },
+                "from": {
+                    "file": "/home/mi/下载/MiPush_Client_Android_20180604/PushDemo4Studio/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 16,
+                        "startColumn": 4,
+                        "startOffset": 636,
+                        "endColumn": 41,
+                        "endOffset": 673
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 11,
+                    "startColumn": 4,
+                    "startOffset": 571,
+                    "endColumn": 33,
+                    "endOffset": 600
+                },
+                "from": {
+                    "file": "/home/mi/下载/MiPush_Client_Android_20180604/PushDemo4Studio/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 102,
+                        "endColumn": 33,
+                        "endOffset": 131
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 12,
+                    "startColumn": 4,
+                    "startOffset": 605,
+                    "endColumn": 43,
+                    "endOffset": 644
+                },
+                "from": {
+                    "file": "/home/mi/下载/MiPush_Client_Android_20180604/PushDemo4Studio/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 13,
+                        "startColumn": 4,
+                        "startOffset": 503,
+                        "endColumn": 43,
+                        "endOffset": 542
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 13,
+                    "startColumn": 4,
+                    "startOffset": 649,
+                    "endColumn": 104,
+                    "endOffset": 749
+                },
+                "from": {
+                    "file": "/home/mi/下载/MiPush_Client_Android_20180604/PushDemo4Studio/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 19,
+                        "startColumn": 4,
+                        "startOffset": 808,
+                        "endColumn": 104,
+                        "endOffset": 908
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 14,
+                    "startColumn": 4,
+                    "startOffset": 754,
+                    "endColumn": 61,
+                    "endOffset": 811
+                },
+                "from": {
+                    "file": "/home/mi/下载/MiPush_Client_Android_20180604/PushDemo4Studio/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 18,
+                        "startColumn": 4,
+                        "startOffset": 746,
+                        "endColumn": 61,
+                        "endOffset": 803
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 15,
+                    "startColumn": 4,
+                    "startOffset": 816,
+                    "endColumn": 67,
+                    "endOffset": 879
+                },
+                "from": {
+                    "file": "/home/mi/下载/MiPush_Client_Android_20180604/PushDemo4Studio/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 17,
+                        "startColumn": 4,
+                        "startOffset": 678,
+                        "endColumn": 67,
+                        "endOffset": 741
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 16,
+                    "startColumn": 4,
+                    "startOffset": 884,
+                    "endColumn": 44,
+                    "endOffset": 924
+                },
+                "from": {
+                    "file": "/home/mi/下载/MiPush_Client_Android_20180604/PushDemo4Studio/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 14,
+                        "startColumn": 4,
+                        "startOffset": 547,
+                        "endColumn": 44,
+                        "endOffset": 587
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 17,
+                    "startColumn": 4,
+                    "startOffset": 929,
+                    "endColumn": 48,
+                    "endOffset": 973
+                },
+                "from": {
+                    "file": "/home/mi/下载/MiPush_Client_Android_20180604/PushDemo4Studio/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 12,
+                        "startColumn": 4,
+                        "startOffset": 454,
+                        "endColumn": 48,
+                        "endOffset": 498
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 18,
+                    "startColumn": 4,
+                    "startOffset": 978,
+                    "endColumn": 80,
+                    "endOffset": 1054
+                },
+                "from": {
+                    "file": "/home/mi/下载/MiPush_Client_Android_20180604/PushDemo4Studio/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 35,
+                        "startColumn": 4,
+                        "startOffset": 2172,
+                        "endColumn": 80,
+                        "endOffset": 2248
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 19,
+                    "startColumn": 4,
+                    "startOffset": 1059,
+                    "endColumn": 89,
+                    "endOffset": 1144
+                },
+                "from": {
+                    "file": "/home/mi/下载/MiPush_Client_Android_20180604/PushDemo4Studio/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 34,
+                        "startColumn": 4,
+                        "startOffset": 2082,
+                        "endColumn": 89,
+                        "endOffset": 2167
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 20,
+                    "startColumn": 4,
+                    "startOffset": 1149,
+                    "endColumn": 44,
+                    "endOffset": 1189
+                },
+                "from": {
+                    "file": "/home/mi/下载/MiPush_Client_Android_20180604/PushDemo4Studio/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 8,
+                        "startColumn": 4,
+                        "startOffset": 262,
+                        "endColumn": 44,
+                        "endOffset": 302
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 21,
+                    "startColumn": 4,
+                    "startOffset": 1194,
+                    "endColumn": 72,
+                    "endOffset": 1262
+                },
+                "from": {
+                    "file": "/home/mi/下载/MiPush_Client_Android_20180604/PushDemo4Studio/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 27,
+                        "startColumn": 4,
+                        "startOffset": 1505,
+                        "endColumn": 72,
+                        "endOffset": 1573
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 22,
+                    "startColumn": 4,
+                    "startOffset": 1267,
+                    "endColumn": 78,
+                    "endOffset": 1341
+                },
+                "from": {
+                    "file": "/home/mi/下载/MiPush_Client_Android_20180604/PushDemo4Studio/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 26,
+                        "startColumn": 4,
+                        "startOffset": 1426,
+                        "endColumn": 78,
+                        "endOffset": 1500
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 23,
+                    "startColumn": 4,
+                    "startOffset": 1346,
+                    "endColumn": 42,
+                    "endOffset": 1384
+                },
+                "from": {
+                    "file": "/home/mi/下载/MiPush_Client_Android_20180604/PushDemo4Studio/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 174,
+                        "endColumn": 42,
+                        "endOffset": 212
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 24,
+                    "startColumn": 4,
+                    "startOffset": 1389,
+                    "endColumn": 68,
+                    "endOffset": 1453
+                },
+                "from": {
+                    "file": "/home/mi/下载/MiPush_Client_Android_20180604/PushDemo4Studio/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 23,
+                        "startColumn": 4,
+                        "startOffset": 1205,
+                        "endColumn": 68,
+                        "endOffset": 1269
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 25,
+                    "startColumn": 4,
+                    "startOffset": 1458,
+                    "endColumn": 74,
+                    "endOffset": 1528
+                },
+                "from": {
+                    "file": "/home/mi/下载/MiPush_Client_Android_20180604/PushDemo4Studio/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 22,
+                        "startColumn": 4,
+                        "startOffset": 1130,
+                        "endColumn": 74,
+                        "endOffset": 1200
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 26,
+                    "startColumn": 4,
+                    "startOffset": 1533,
+                    "endColumn": 43,
+                    "endOffset": 1572
+                },
+                "from": {
+                    "file": "/home/mi/下载/MiPush_Client_Android_20180604/PushDemo4Studio/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 15,
+                        "startColumn": 4,
+                        "startOffset": 592,
+                        "endColumn": 43,
+                        "endOffset": 631
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 27,
+                    "startColumn": 4,
+                    "startOffset": 1577,
+                    "endColumn": 48,
+                    "endOffset": 1621
+                },
+                "from": {
+                    "file": "/home/mi/下载/MiPush_Client_Android_20180604/PushDemo4Studio/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 10,
+                        "startColumn": 4,
+                        "startOffset": 354,
+                        "endColumn": 48,
+                        "endOffset": 398
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 28,
+                    "startColumn": 4,
+                    "startOffset": 1626,
+                    "endColumn": 80,
+                    "endOffset": 1702
+                },
+                "from": {
+                    "file": "/home/mi/下载/MiPush_Client_Android_20180604/PushDemo4Studio/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 31,
+                        "startColumn": 4,
+                        "startOffset": 1825,
+                        "endColumn": 80,
+                        "endOffset": 1901
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 29,
+                    "startColumn": 4,
+                    "startOffset": 1707,
+                    "endColumn": 86,
+                    "endOffset": 1789
+                },
+                "from": {
+                    "file": "/home/mi/下载/MiPush_Client_Android_20180604/PushDemo4Studio/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 30,
+                        "startColumn": 4,
+                        "startOffset": 1738,
+                        "endColumn": 86,
+                        "endOffset": 1820
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 30,
+                    "startColumn": 4,
+                    "startOffset": 1794,
+                    "endColumn": 46,
+                    "endOffset": 1836
+                },
+                "from": {
+                    "file": "/home/mi/下载/MiPush_Client_Android_20180604/PushDemo4Studio/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 9,
+                        "startColumn": 4,
+                        "startOffset": 307,
+                        "endColumn": 46,
+                        "endOffset": 349
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 31,
+                    "startColumn": 4,
+                    "startOffset": 1841,
+                    "endColumn": 76,
+                    "endOffset": 1913
+                },
+                "from": {
+                    "file": "/home/mi/下载/MiPush_Client_Android_20180604/PushDemo4Studio/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 29,
+                        "startColumn": 4,
+                        "startOffset": 1661,
+                        "endColumn": 76,
+                        "endOffset": 1733
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 32,
+                    "startColumn": 4,
+                    "startOffset": 1918,
+                    "endColumn": 82,
+                    "endOffset": 1996
+                },
+                "from": {
+                    "file": "/home/mi/下载/MiPush_Client_Android_20180604/PushDemo4Studio/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 28,
+                        "startColumn": 4,
+                        "startOffset": 1578,
+                        "endColumn": 82,
+                        "endOffset": 1656
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 33,
+                    "startColumn": 4,
+                    "startOffset": 2001,
+                    "endColumn": 44,
+                    "endOffset": 2041
+                },
+                "from": {
+                    "file": "/home/mi/下载/MiPush_Client_Android_20180604/PushDemo4Studio/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 4,
+                        "startOffset": 217,
+                        "endColumn": 44,
+                        "endOffset": 257
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 34,
+                    "startColumn": 4,
+                    "startOffset": 2046,
+                    "endColumn": 72,
+                    "endOffset": 2114
+                },
+                "from": {
+                    "file": "/home/mi/下载/MiPush_Client_Android_20180604/PushDemo4Studio/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 25,
+                        "startColumn": 4,
+                        "startOffset": 1353,
+                        "endColumn": 72,
+                        "endOffset": 1421
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 35,
+                    "startColumn": 4,
+                    "startOffset": 2119,
+                    "endColumn": 78,
+                    "endOffset": 2193
+                },
+                "from": {
+                    "file": "/home/mi/下载/MiPush_Client_Android_20180604/PushDemo4Studio/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 24,
+                        "startColumn": 4,
+                        "startOffset": 1274,
+                        "endColumn": 78,
+                        "endOffset": 1348
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 36,
+                    "startColumn": 4,
+                    "startOffset": 2198,
+                    "endColumn": 50,
+                    "endOffset": 2244
+                },
+                "from": {
+                    "file": "/home/mi/下载/MiPush_Client_Android_20180604/PushDemo4Studio/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 11,
+                        "startColumn": 4,
+                        "startOffset": 403,
+                        "endColumn": 50,
+                        "endOffset": 449
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 37,
+                    "startColumn": 4,
+                    "startOffset": 2249,
+                    "endColumn": 84,
+                    "endOffset": 2329
+                },
+                "from": {
+                    "file": "/home/mi/下载/MiPush_Client_Android_20180604/PushDemo4Studio/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 33,
+                        "startColumn": 4,
+                        "startOffset": 1997,
+                        "endColumn": 84,
+                        "endOffset": 2077
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 38,
+                    "startColumn": 4,
+                    "startOffset": 2334,
+                    "endColumn": 90,
+                    "endOffset": 2420
+                },
+                "from": {
+                    "file": "/home/mi/下载/MiPush_Client_Android_20180604/PushDemo4Studio/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 32,
+                        "startColumn": 4,
+                        "startOffset": 1906,
+                        "endColumn": 90,
+                        "endOffset": 1992
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 39,
+                    "startColumn": 4,
+                    "startOffset": 2425,
+                    "endLine": 45,
+                    "endColumn": 12,
+                    "endOffset": 2711
+                },
+                "from": {
+                    "file": "/home/mi/下载/MiPush_Client_Android_20180604/PushDemo4Studio/PushDemo/res/values/styles.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 186,
+                        "endLine": 12,
+                        "endColumn": 12,
+                        "endOffset": 472
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 46,
+                    "startColumn": 4,
+                    "startOffset": 2716,
+                    "endLine": 48,
+                    "endColumn": 12,
+                    "endOffset": 2871
+                },
+                "from": {
+                    "file": "/home/mi/下载/MiPush_Client_Android_20180604/PushDemo4Studio/PushDemo/res/values/styles.xml",
+                    "position": {
+                        "startLine": 15,
+                        "startColumn": 4,
+                        "startOffset": 510,
+                        "endLine": 17,
+                        "endColumn": 12,
+                        "endOffset": 665
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 49,
+                    "startColumn": 4,
+                    "startOffset": 2876,
+                    "endLine": 58,
+                    "endColumn": 12,
+                    "endOffset": 3431
+                },
+                "from": {
+                    "file": "/home/mi/下载/MiPush_Client_Android_20180604/PushDemo4Studio/PushDemo/res/values/styles.xml",
+                    "position": {
+                        "startLine": 19,
+                        "startColumn": 4,
+                        "startOffset": 671,
+                        "endLine": 28,
+                        "endColumn": 12,
+                        "endOffset": 1226
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "outputFile": "/usr/local/src/project/push/PushDemo/build/intermediates/res/merged/debug/values/values.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 44,
+                    "endOffset": 95
+                },
+                "from": {
+                    "file": "/usr/local/src/project/push/PushDemo/res/values/dimens.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 217,
+                        "endColumn": 44,
+                        "endOffset": 257
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 100,
+                    "endColumn": 41,
+                    "endOffset": 137
+                },
+                "from": {
+                    "file": "/usr/local/src/project/push/PushDemo/res/values/dimens.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 89,
+                        "endColumn": 41,
+                        "endOffset": 126
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 142,
+                    "endColumn": 44,
+                    "endOffset": 182
+                },
+                "from": {
+                    "file": "/usr/local/src/project/push/PushDemo/res/values/dimens.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 131,
+                        "endColumn": 44,
+                        "endOffset": 171
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 5,
+                    "startColumn": 4,
+                    "startOffset": 187,
+                    "endColumn": 40,
+                    "endOffset": 223
+                },
+                "from": {
+                    "file": "/usr/local/src/project/push/PushDemo/res/values/dimens.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 176,
+                        "endColumn": 40,
+                        "endOffset": 212
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 6,
+                    "startColumn": 4,
+                    "startOffset": 228,
+                    "endColumn": 45,
+                    "endOffset": 269
+                },
+                "from": {
+                    "file": "/usr/local/src/project/push/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 56,
+                        "endColumn": 45,
+                        "endOffset": 97
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 7,
+                    "startColumn": 4,
+                    "startOffset": 274,
+                    "endColumn": 108,
+                    "endOffset": 378
+                },
+                "from": {
+                    "file": "/usr/local/src/project/push/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 21,
+                        "startColumn": 4,
+                        "startOffset": 1021,
+                        "endColumn": 108,
+                        "endOffset": 1125
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 8,
+                    "startColumn": 4,
+                    "startOffset": 383,
+                    "endColumn": 37,
+                    "endOffset": 416
+                },
+                "from": {
+                    "file": "/usr/local/src/project/push/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 136,
+                        "endColumn": 37,
+                        "endOffset": 169
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 9,
+                    "startColumn": 4,
+                    "startOffset": 421,
+                    "endColumn": 107,
+                    "endOffset": 524
+                },
+                "from": {
+                    "file": "/usr/local/src/project/push/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 20,
+                        "startColumn": 4,
+                        "startOffset": 913,
+                        "endColumn": 107,
+                        "endOffset": 1016
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 10,
+                    "startColumn": 4,
+                    "startOffset": 529,
+                    "endColumn": 41,
+                    "endOffset": 566
+                },
+                "from": {
+                    "file": "/usr/local/src/project/push/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 16,
+                        "startColumn": 4,
+                        "startOffset": 636,
+                        "endColumn": 41,
+                        "endOffset": 673
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 11,
+                    "startColumn": 4,
+                    "startOffset": 571,
+                    "endColumn": 33,
+                    "endOffset": 600
+                },
+                "from": {
+                    "file": "/usr/local/src/project/push/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 102,
+                        "endColumn": 33,
+                        "endOffset": 131
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 12,
+                    "startColumn": 4,
+                    "startOffset": 605,
+                    "endColumn": 43,
+                    "endOffset": 644
+                },
+                "from": {
+                    "file": "/usr/local/src/project/push/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 13,
+                        "startColumn": 4,
+                        "startOffset": 503,
+                        "endColumn": 43,
+                        "endOffset": 542
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 13,
+                    "startColumn": 4,
+                    "startOffset": 649,
+                    "endColumn": 104,
+                    "endOffset": 749
+                },
+                "from": {
+                    "file": "/usr/local/src/project/push/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 19,
+                        "startColumn": 4,
+                        "startOffset": 808,
+                        "endColumn": 104,
+                        "endOffset": 908
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 14,
+                    "startColumn": 4,
+                    "startOffset": 754,
+                    "endColumn": 61,
+                    "endOffset": 811
+                },
+                "from": {
+                    "file": "/usr/local/src/project/push/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 18,
+                        "startColumn": 4,
+                        "startOffset": 746,
+                        "endColumn": 61,
+                        "endOffset": 803
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 15,
+                    "startColumn": 4,
+                    "startOffset": 816,
+                    "endColumn": 67,
+                    "endOffset": 879
+                },
+                "from": {
+                    "file": "/usr/local/src/project/push/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 17,
+                        "startColumn": 4,
+                        "startOffset": 678,
+                        "endColumn": 67,
+                        "endOffset": 741
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 16,
+                    "startColumn": 4,
+                    "startOffset": 884,
+                    "endColumn": 44,
+                    "endOffset": 924
+                },
+                "from": {
+                    "file": "/usr/local/src/project/push/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 14,
+                        "startColumn": 4,
+                        "startOffset": 547,
+                        "endColumn": 44,
+                        "endOffset": 587
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 17,
+                    "startColumn": 4,
+                    "startOffset": 929,
+                    "endColumn": 48,
+                    "endOffset": 973
+                },
+                "from": {
+                    "file": "/usr/local/src/project/push/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 12,
+                        "startColumn": 4,
+                        "startOffset": 454,
+                        "endColumn": 48,
+                        "endOffset": 498
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 18,
+                    "startColumn": 4,
+                    "startOffset": 978,
+                    "endColumn": 80,
+                    "endOffset": 1054
+                },
+                "from": {
+                    "file": "/usr/local/src/project/push/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 35,
+                        "startColumn": 4,
+                        "startOffset": 2172,
+                        "endColumn": 80,
+                        "endOffset": 2248
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 19,
+                    "startColumn": 4,
+                    "startOffset": 1059,
+                    "endColumn": 89,
+                    "endOffset": 1144
+                },
+                "from": {
+                    "file": "/usr/local/src/project/push/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 34,
+                        "startColumn": 4,
+                        "startOffset": 2082,
+                        "endColumn": 89,
+                        "endOffset": 2167
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 20,
+                    "startColumn": 4,
+                    "startOffset": 1149,
+                    "endColumn": 44,
+                    "endOffset": 1189
+                },
+                "from": {
+                    "file": "/usr/local/src/project/push/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 8,
+                        "startColumn": 4,
+                        "startOffset": 262,
+                        "endColumn": 44,
+                        "endOffset": 302
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 21,
+                    "startColumn": 4,
+                    "startOffset": 1194,
+                    "endColumn": 72,
+                    "endOffset": 1262
+                },
+                "from": {
+                    "file": "/usr/local/src/project/push/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 27,
+                        "startColumn": 4,
+                        "startOffset": 1505,
+                        "endColumn": 72,
+                        "endOffset": 1573
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 22,
+                    "startColumn": 4,
+                    "startOffset": 1267,
+                    "endColumn": 78,
+                    "endOffset": 1341
+                },
+                "from": {
+                    "file": "/usr/local/src/project/push/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 26,
+                        "startColumn": 4,
+                        "startOffset": 1426,
+                        "endColumn": 78,
+                        "endOffset": 1500
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 23,
+                    "startColumn": 4,
+                    "startOffset": 1346,
+                    "endColumn": 42,
+                    "endOffset": 1384
+                },
+                "from": {
+                    "file": "/usr/local/src/project/push/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 174,
+                        "endColumn": 42,
+                        "endOffset": 212
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 24,
+                    "startColumn": 4,
+                    "startOffset": 1389,
+                    "endColumn": 68,
+                    "endOffset": 1453
+                },
+                "from": {
+                    "file": "/usr/local/src/project/push/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 23,
+                        "startColumn": 4,
+                        "startOffset": 1205,
+                        "endColumn": 68,
+                        "endOffset": 1269
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 25,
+                    "startColumn": 4,
+                    "startOffset": 1458,
+                    "endColumn": 74,
+                    "endOffset": 1528
+                },
+                "from": {
+                    "file": "/usr/local/src/project/push/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 22,
+                        "startColumn": 4,
+                        "startOffset": 1130,
+                        "endColumn": 74,
+                        "endOffset": 1200
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 26,
+                    "startColumn": 4,
+                    "startOffset": 1533,
+                    "endColumn": 43,
+                    "endOffset": 1572
+                },
+                "from": {
+                    "file": "/usr/local/src/project/push/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 15,
+                        "startColumn": 4,
+                        "startOffset": 592,
+                        "endColumn": 43,
+                        "endOffset": 631
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 27,
+                    "startColumn": 4,
+                    "startOffset": 1577,
+                    "endColumn": 48,
+                    "endOffset": 1621
+                },
+                "from": {
+                    "file": "/usr/local/src/project/push/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 10,
+                        "startColumn": 4,
+                        "startOffset": 354,
+                        "endColumn": 48,
+                        "endOffset": 398
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 28,
+                    "startColumn": 4,
+                    "startOffset": 1626,
+                    "endColumn": 80,
+                    "endOffset": 1702
+                },
+                "from": {
+                    "file": "/usr/local/src/project/push/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 31,
+                        "startColumn": 4,
+                        "startOffset": 1825,
+                        "endColumn": 80,
+                        "endOffset": 1901
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 29,
+                    "startColumn": 4,
+                    "startOffset": 1707,
+                    "endColumn": 86,
+                    "endOffset": 1789
+                },
+                "from": {
+                    "file": "/usr/local/src/project/push/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 30,
+                        "startColumn": 4,
+                        "startOffset": 1738,
+                        "endColumn": 86,
+                        "endOffset": 1820
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 30,
+                    "startColumn": 4,
+                    "startOffset": 1794,
+                    "endColumn": 46,
+                    "endOffset": 1836
+                },
+                "from": {
+                    "file": "/usr/local/src/project/push/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 9,
+                        "startColumn": 4,
+                        "startOffset": 307,
+                        "endColumn": 46,
+                        "endOffset": 349
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 31,
+                    "startColumn": 4,
+                    "startOffset": 1841,
+                    "endColumn": 76,
+                    "endOffset": 1913
+                },
+                "from": {
+                    "file": "/usr/local/src/project/push/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 29,
+                        "startColumn": 4,
+                        "startOffset": 1661,
+                        "endColumn": 76,
+                        "endOffset": 1733
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 32,
+                    "startColumn": 4,
+                    "startOffset": 1918,
+                    "endColumn": 82,
+                    "endOffset": 1996
+                },
+                "from": {
+                    "file": "/usr/local/src/project/push/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 28,
+                        "startColumn": 4,
+                        "startOffset": 1578,
+                        "endColumn": 82,
+                        "endOffset": 1656
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 33,
+                    "startColumn": 4,
+                    "startOffset": 2001,
+                    "endColumn": 44,
+                    "endOffset": 2041
+                },
+                "from": {
+                    "file": "/usr/local/src/project/push/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 4,
+                        "startOffset": 217,
+                        "endColumn": 44,
+                        "endOffset": 257
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 34,
+                    "startColumn": 4,
+                    "startOffset": 2046,
+                    "endColumn": 72,
+                    "endOffset": 2114
+                },
+                "from": {
+                    "file": "/usr/local/src/project/push/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 25,
+                        "startColumn": 4,
+                        "startOffset": 1353,
+                        "endColumn": 72,
+                        "endOffset": 1421
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 35,
+                    "startColumn": 4,
+                    "startOffset": 2119,
+                    "endColumn": 78,
+                    "endOffset": 2193
+                },
+                "from": {
+                    "file": "/usr/local/src/project/push/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 24,
+                        "startColumn": 4,
+                        "startOffset": 1274,
+                        "endColumn": 78,
+                        "endOffset": 1348
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 36,
+                    "startColumn": 4,
+                    "startOffset": 2198,
+                    "endColumn": 50,
+                    "endOffset": 2244
+                },
+                "from": {
+                    "file": "/usr/local/src/project/push/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 11,
+                        "startColumn": 4,
+                        "startOffset": 403,
+                        "endColumn": 50,
+                        "endOffset": 449
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 37,
+                    "startColumn": 4,
+                    "startOffset": 2249,
+                    "endColumn": 84,
+                    "endOffset": 2329
+                },
+                "from": {
+                    "file": "/usr/local/src/project/push/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 33,
+                        "startColumn": 4,
+                        "startOffset": 1997,
+                        "endColumn": 84,
+                        "endOffset": 2077
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 38,
+                    "startColumn": 4,
+                    "startOffset": 2334,
+                    "endColumn": 90,
+                    "endOffset": 2420
+                },
+                "from": {
+                    "file": "/usr/local/src/project/push/PushDemo/res/values/strings.xml",
+                    "position": {
+                        "startLine": 32,
+                        "startColumn": 4,
+                        "startOffset": 1906,
+                        "endColumn": 90,
+                        "endOffset": 1992
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 39,
+                    "startColumn": 4,
+                    "startOffset": 2425,
+                    "endLine": 45,
+                    "endColumn": 12,
+                    "endOffset": 2711
+                },
+                "from": {
+                    "file": "/usr/local/src/project/push/PushDemo/res/values/styles.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 186,
+                        "endLine": 12,
+                        "endColumn": 12,
+                        "endOffset": 472
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 46,
+                    "startColumn": 4,
+                    "startOffset": 2716,
+                    "endLine": 48,
+                    "endColumn": 12,
+                    "endOffset": 2871
+                },
+                "from": {
+                    "file": "/usr/local/src/project/push/PushDemo/res/values/styles.xml",
+                    "position": {
+                        "startLine": 15,
+                        "startColumn": 4,
+                        "startOffset": 510,
+                        "endLine": 17,
+                        "endColumn": 12,
+                        "endOffset": 665
+                    }
+                }
+            }
+        ]
+    }
+]

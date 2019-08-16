@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/usr/local/src/project/push/PushDemo/build/intermediates/res/merged/debug/drawable-hdpi-v4/mipush_logo.png",
+        "source": "/usr/local/src/project/push/PushDemo/res/drawable-hdpi/mipush_logo.png"
+    },
+    {
+        "merged": "/home/mi/下载/MiPush_Client_Android_20180604/PushDemo4Studio/PushDemo/build/intermediates/res/merged/debug/drawable-hdpi-v4/mipush_logo.png",
+        "source": "/home/mi/下载/MiPush_Client_Android_20180604/PushDemo4Studio/PushDemo/res/drawable-hdpi/mipush_logo.png"
+    }
+]
