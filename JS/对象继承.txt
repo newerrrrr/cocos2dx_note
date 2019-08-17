@@ -1,5 +1,25 @@
 
+1.Object.create：(ES5提供的)
 
-var baseObject = {name:'base obj'};
+	var baseObject = {name:'base obj'};
 
-var newObj = Object.create(baseObject);
+	var newObj = Object.create(baseObject);
+	
+2. 原型链继承：子类的原型为父类的实例对象.
+	//基类
+	function BaseClass() {
+		this.color = 'red';
+	}
+	
+	//子类
+	function SubClass() {
+	
+	}
+	SubClass.prototype = new BaseClass(); 
+	
+	//使用
+	var sub = new SubClass();
+	console.log('---- color:' + this.color);
+	
+	
+	
