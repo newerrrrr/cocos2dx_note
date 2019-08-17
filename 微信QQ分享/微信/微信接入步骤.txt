@@ -8,7 +8,14 @@
 
 	AppID：wx708e74f728e0e612
 	AppSecret：20cd63bf9dc2068c7023c9e35ce96067
+	
+	或者使用上线棋牌游戏的包名和签名:
+		别名： pyqps.keystore
+		口令： 9happypyqps2018
+		安卓包名：com.happy9.pyqps
+		签名：355f9e949bd9525dc68adb98f2786c03	
 
+	
 2. 打开微信开放平台官网， 查看一下注册你的应用程序。如果没有则需要创建应用,
    在官网 管理中心 中 ，点 创建移动应用, 按步骤来填写提交。
    
@@ -16,27 +23,80 @@
    下看到签名生成工具, 也可参考自己的笔记 <生成签名.txt>
    
 3. 菜单 资源中心/移动应用/接入指南/android接入指南 配置好环境,
+	1)proj.android-studio/app/build.gradle中添加：
+	
+		dependencies {
+			implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+		}
+		
+		.... 
+		
+		signingConfigs {
+		    release {
+				if (project.hasProperty("RELEASE_STORE_FILE")) {
+					storeFile file(RELEASE_STORE_FILE)
+					storePassword RELEASE_STORE_PASSWORD
+					keyAlias RELEASE_KEY_ALIAS
+					keyPassword RELEASE_KEY_PASSWORD
+				}
+		    }
 
-4. 分享是免费的,而登录功能是收费的，需要开发者进行资质认证后才能登录，支付, 每年300元
+			debug { //确保debug版本也打上签名，否则无法调试信息.
+				if (project.hasProperty("RELEASE_STORE_FILE")) {
+					storeFile file(RELEASE_STORE_FILE)
+					storePassword RELEASE_STORE_PASSWORD
+					keyAlias RELEASE_KEY_ALIAS
+					keyPassword RELEASE_KEY_PASSWORD
+				}
+			}		
+		}
+		
+	2)当前包名为 com.happy9.pyqps 那么在 com.happy9.pyqps.wxapi 目录下新建文件 WXEntryActivity.java，
+		
+		此文件用于启动 微信响应后 通知 JS 。
+		
+		在 onCreate() 获取实例，注册到微信；
+		
+		public void onResp(BaseResp baseResp) 处理响应;
+		
+		需要在 AndroidManifest.xml中加上exported属性，设置为true导出, 该Activity才能自动被调用
+        <activity
+            android:name="com.happy9.pyqps.wxapi.WXEntryActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:exported="true"
+            android:taskAffinity="com.happy9.pyqps.wxapi"
+            android:launchMode="singleTask">
+        </activity>		
+		
+
+4. 获取授权时 java代码如下：
+        mContext.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    SendAuth.Req req = new SendAuth.Req();
+                    req.scope = "snsapi_userinfo";
+                    req.state = "klqpdn";
+                    api.sendReq(req);
+                }
+                catch (Exception e) {
+                    Log.e(Constant.LOG_TAG, e.toString(), e);
+                }
+            }
+        });	
+		
+		结果在 WXEntryActivity.java 中的 onResp() 返回错误码 ErrCode ERR_BAN = -6，经分析，是签名没成功打上。
+		
+		校验：将生成的APK解压出 META-INF 文件夹, cmd 到该目录下，执行命令
+			keytool -printcert -file CERT.RSA
+		就能看到 apk 对应的签名md5是否正确。
+		
+		
+5. 分享是免费的,而登录功能是收费的，需要开发者进行资质认证后才能登录，支付, 每年300元
 	参考 账号中心/开发者资质认证
 	
-5. 使用gradle编译时需要带上对应的签名, 修改 build.gradle, 以debug为例：
 
-    signingConfigs {
-		debug {
-			keyAlias 'android.keystore'  
-			keyPassword '11612380'  
-			storeFile file('d:/android.keystore')  
-			storePassword '11612380'  
-		}
-	}
-
-    buildTypes {
-        debug {
-			signingConfig signingConfigs.debug
-		}
-	}
-	
 6. AppActivity.java中微信分享函数如下：
 	//title:标题 ; text:分享的文本内容; imgPath:分享的图片路径; url:分享成功后点击链接将直接前往改网站; bTimeLine:是否分享到朋友圈,默认分享给朋友
     public static void onWXShare(String title, String text, String imgPath, String url, boolean bTimeLine) {
