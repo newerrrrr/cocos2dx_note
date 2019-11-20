@@ -1,0 +1,96 @@
+
+AES, csb 128位, iv为16字节的\0字符, 密钥:hdkjfhxcbvuiuri3289492hdskjfhadr
+
+注:AES源码中 aes_setkey_enc(&aes_ctx, key, 256); 却是用256，实际php用到的却是128！
+
+
+php 6.x版本 加解密如果使用 mcrypt_decrypt 这个对应的库;
+
+php 7.x使用 openssl_encrypt ,但内容必须32字节对齐,具体代码见 "AesCrypt.php";
+
+
+
+如下为 基本逻辑:
+
+
+/**
+ * 加密给前端
+ *
+ * @param $content
+ *
+ * @return string
+ *
+ */
+function aesEncode($content){
+    $length    = strlen($content);
+    $key       = pack('A*', 'hdkjfhxcbvuiuri3289492hdskjfhadr');//key定义为：char aes_key_buf[32] = "ijshanckdwiiuedhsiqo0955;[jsmc4";
+    $iv        = pack("c16", 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);//iv定义为 16字节的\0字符
+    $encrypted = mcrypt_encrypt(MCRYPT_RIJNDAEL_128, $key, $content, MCRYPT_MODE_CBC, $iv);
+    $re        = pack('N1', $length).$encrypted;
+    return $re;
+}
+/**
+ * 解密前端数据
+ * ```php
+ * 数据最前面的4个字节为一个int的二进制（注意是大端），这个int表示了加密之前的数据总长度
+ * 现在只需要读出加密的数据，然后偏移4个字节传入cbc获取解密之后的数据，这个解密之后的数据比原始数据要大，其中有效的数据长度就是那个int表示的长度。
+ * ```
+ * @param $binaryData
+ *
+ * @return string
+ */
+function aesDecode($binaryData){
+    $data      = unpack("N1length", $binaryData);
+    $content   = substr($binaryData, 4, strlen($binaryData) - 4);
+    $length    = $data['length'];
+    $key       = pack('A*', 'hdkjfhxcbvuiuri3289492hdskjfhadr');//key定义为：char aes_key_buf[32] = "ijshanckdwiiuedhsiqo0955;[jsmc4";
+    $iv        = pack("c16", 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);//iv定义为 16字节的\0字符
+    $decrypted = mcrypt_decrypt(MCRYPT_RIJNDAEL_128, $key, $content, MCRYPT_MODE_CBC, $iv);
+    $re        = substr($decrypted, 0, $length);
+    return $re;
+}
+
+
+
+/**
+ * decode post 数据
+ * @param  string $postData 
+ * @return string
+ */
+function decodePostData($postData){
+    $key = 'json';
+    $postData = strtr($postData, ['%2B'=>'+','%2F'=>'/','%3D'=>'=']);
+    $postData = base64_decode($postData);
+    $postData = aesDecode($postData);
+    $postData = zlib_decode($postData);
+
+    $originStr = $postData;
+    $pos       = strrpos($originStr, '@');
+    $len       = strlen($originStr);
+    $hashStr   = substr($originStr, $pos + 1, $len - $pos);
+    $postData  = $originStr = substr($originStr, 0, $pos);
+
+    if(!validateStr($originStr, $hashStr)) {
+        exit("\n[ERROR]illegal validate\n");
+    }
+
+    $postData = substr($postData, strlen($key.'='), strlen($postData)-strlen($key.'='));
+    $postData = json_decode($postData, true);
+    return $postData;
+}
+/**
+ * 加密数据
+ * @param  string $postData 
+ * @return string           
+ */
+function encodeResponseData($postData){
+    if(ENCODE_FLAG) {
+        $data = zlib_encode($postData, ZLIB_ENCODING_DEFLATE);
+        $data = aesEncode($data);
+        $data = base64_encode($data);
+        // $data = strtr($data, ['+'=>'%2B','/'=>'%2F','='=>'%3D']);
+        return $data;
+    } else {
+        return $postData;
+    }
+}

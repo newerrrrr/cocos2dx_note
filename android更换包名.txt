@@ -1,0 +1,8 @@
+
+1. manifest中修改 package， 以及声明到的 activity 等元素涉及到 包名路径的元素
+
+2.java文件头的 package路径
+
+3.java文件中 import 到的资源R路径
+
+4.android studio 的 build.gradle中的 applicationId 字段
